@@ -1,0 +1,5 @@
+{
+  "outDir": "./src/pont",
+  "originUrl": "http://localhost:8887/v2/api-docs",
+  "templatePath": "./pontTemplate"
+}

@@ -1,0 +1,34 @@
+.editorContainer {
+  .editorWrapper {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    .editorContent {
+      flex-grow: 1;
+      min-width: 300px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .editorPreview {
+      flex-grow: 1;
+      width: 50%;
+      min-width: 300px;
+      box-sizing: border-box;
+      padding: 20px;
+      .editorPreviewContent {
+        padding: 20px;
+        height: 100%;
+        border-left: 1px solid #efefef;
+        border-right: 1px solid #efefef;
+      }
+    }
+  }
+  .editorTools {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+}
