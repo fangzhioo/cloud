@@ -25,3 +25,17 @@
 └── package.json
 
 ```
+
+## 关于发布
+
+### ssh连接远程服务器
+```shell script
+ssh root@49.234.214.14 -p 22
+```
+fz123456-
+
+### 用ssh连接的方式上传jar包
+```shell script
+scp E:\00-Code\05-Blob\yue\blog-portal\target root@49.234.214.14:/blog
+```
+

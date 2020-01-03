@@ -2,7 +2,7 @@
   {
     "mods": [
       {
-        "description": "Article Controller",
+        "description": "文章前端接口",
         "interfaces": [
           {
             "consumes": [
@@ -152,7 +152,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogArticleBo",
+                  "typeName": "BlogArticleBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -185,7 +185,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogArticleBo",
+                  "typeName": "BlogArticleBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -198,7 +198,7 @@
         "name": "article"
       },
       {
-        "description": "Auth Controller",
+        "description": "登陆系统",
         "interfaces": [
           {
             "consumes": [
@@ -257,7 +257,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogUserLoginBo",
+                  "typeName": "BlogUserLoginBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -359,7 +359,178 @@
         "name": "auth"
       },
       {
-        "description": "Comment Controller",
+        "description": "类别标签管理",
+        "interfaces": [
+          {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "添加分类节点",
+            "name": "create",
+            "method": "post",
+            "path": "/server/cate/create",
+            "response": {
+              "typeArgs": [],
+              "typeName": "BaseResult",
+              "isDefsType": true,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "parameters": [
+              {
+                "in": "body",
+                "description": "categoryBo",
+                "name": "categoryBo",
+                "required": true,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "BlogCategoryBO",
+                  "isDefsType": true,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": []
+                }
+              }
+            ]
+          },
+          {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "删除分类节点",
+            "name": "remove",
+            "method": "get",
+            "path": "/server/cate/delete",
+            "response": {
+              "typeArgs": [],
+              "typeName": "BaseResult",
+              "isDefsType": true,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "parameters": [
+              {
+                "in": "query",
+                "description": "cateId",
+                "name": "cateId",
+                "required": true,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": []
+                }
+              }
+            ]
+          },
+          {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "根据节点id获取子类",
+            "name": "list",
+            "method": "get",
+            "path": "/server/cate/get",
+            "response": {
+              "typeArgs": [],
+              "typeName": "BaseResult",
+              "isDefsType": true,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "parameters": [
+              {
+                "in": "query",
+                "description": "parentId",
+                "name": "parentId",
+                "required": false,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": []
+                }
+              }
+            ]
+          },
+          {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "获取节点详情",
+            "name": "get",
+            "method": "get",
+            "path": "/server/cate/getCateById",
+            "response": {
+              "typeArgs": [],
+              "typeName": "BaseResult",
+              "isDefsType": true,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "parameters": [
+              {
+                "in": "query",
+                "description": "cateId",
+                "name": "cateId",
+                "required": true,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": []
+                }
+              }
+            ]
+          },
+          {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "update cate",
+            "name": "update",
+            "method": "post",
+            "path": "/server/cate/update",
+            "response": {
+              "typeArgs": [],
+              "typeName": "BaseResult",
+              "isDefsType": true,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "parameters": [
+              {
+                "in": "body",
+                "description": "categoryBo",
+                "name": "categoryBo",
+                "required": true,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "BlogCategoryBO",
+                  "isDefsType": true,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": []
+                }
+              }
+            ]
+          }
+        ],
+        "name": "category"
+      },
+      {
+        "description": "评论前端接口",
         "interfaces": [
           {
             "consumes": [
@@ -502,7 +673,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogCommentBo",
+                  "typeName": "BlogCommentBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -515,7 +686,7 @@
         "name": "comment"
       },
       {
-        "description": "File Controller",
+        "description": "文件管理",
         "interfaces": [
           {
             "consumes": [
@@ -541,7 +712,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogFileBo",
+                  "typeName": "BlogFileBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -733,7 +904,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogConfigBo",
+                  "typeName": "BlogConfigBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -857,7 +1028,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogConfigBo",
+                  "typeName": "BlogConfigBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -870,7 +1041,7 @@
         "name": "sysConf"
       },
       {
-        "description": "User Controller",
+        "description": "用户前端接口",
         "interfaces": [
           {
             "consumes": [
@@ -932,7 +1103,7 @@
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogUserBo",
+                  "typeName": "BlogUserBO",
                   "isDefsType": true,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -1043,7 +1214,7 @@
         "templateArgs": []
       },
       {
-        "name": "BlogArticleBo",
+        "name": "BlogArticleBO",
         "properties": [
           {
             "dataType": {
@@ -1079,6 +1250,18 @@
               "enum": []
             },
             "name": "allowPing",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "string",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "authorAvatar",
             "required": false
           },
           {
@@ -1265,7 +1448,85 @@
         "templateArgs": []
       },
       {
-        "name": "BlogCommentBo",
+        "name": "BlogCategoryBO",
+        "properties": [
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "number",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "cateId",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "string",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "desc",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "string",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "name",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "number",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "parentId",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "number",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "sort",
+            "required": false
+          },
+          {
+            "dataType": {
+              "typeArgs": [],
+              "typeName": "string",
+              "isDefsType": false,
+              "templateIndex": -1,
+              "compileTemplateKeyword": "#/definitions/",
+              "enum": []
+            },
+            "name": "type",
+            "required": false
+          }
+        ],
+        "templateArgs": []
+      },
+      {
+        "name": "BlogCommentBO",
         "properties": [
           {
             "dataType": {
@@ -1427,7 +1688,7 @@
         "templateArgs": []
       },
       {
-        "name": "BlogConfigBo",
+        "name": "BlogConfigBO",
         "properties": [
           {
             "dataType": {
@@ -1493,7 +1754,7 @@
         "templateArgs": []
       },
       {
-        "name": "BlogFileBo",
+        "name": "BlogFileBO",
         "properties": [
           {
             "dataType": {
@@ -1547,7 +1808,7 @@
         "templateArgs": []
       },
       {
-        "name": "BlogUserBo",
+        "name": "BlogUserBO",
         "properties": [
           {
             "dataType": {
@@ -1661,7 +1922,7 @@
         "templateArgs": []
       },
       {
-        "name": "BlogUserLoginBo",
+        "name": "BlogUserLoginBO",
         "properties": [
           {
             "dataType": {

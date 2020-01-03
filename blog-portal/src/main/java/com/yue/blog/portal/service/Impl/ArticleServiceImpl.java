@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.google.common.base.Preconditions;
 import com.yue.blog.common.enums.ErrorCodeEnum;
 import com.yue.blog.dao.mapper.BlogArticleDOMapper;
+import com.yue.blog.dao.mapper.BlogUserDOMapper;
 import com.yue.blog.dao.model.BlogArticleDO;
 import com.yue.blog.dao.model.BlogArticleDOExample;
+import com.yue.blog.dao.model.BlogUserDO;
 import com.yue.blog.portal.convertor.DOBOConvertor;
 import com.yue.blog.portal.pojo.bo.BlogArticleBO;
 import com.yue.blog.portal.pojo.dto.BlogArticleSearch;
@@ -22,6 +24,8 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private BlogArticleDOMapper blogArticleDOMapper;
+    @Autowired
+    private BlogUserDOMapper userDOMapper;
     @Autowired
     private HttpServletRequest request;
 
@@ -47,7 +51,11 @@ public class ArticleServiceImpl implements ArticleService {
         List<BlogArticleDO> blogArticleDOS = blogArticleDOMapper.selectByExample(example);
         ArrayList<BlogArticleBO> blogArticleBOS = new ArrayList<>();
         for(BlogArticleDO blogArticleDO : blogArticleDOS){
-            blogArticleBOS.add(DOBOConvertor.doToBO(blogArticleDO));
+            BlogArticleBO articleBO = DOBOConvertor.doToBO(blogArticleDO);
+            BlogUserDO blogUserDO = userDOMapper.selectByPrimaryKey(blogArticleDO.getAuthorId());
+            articleBO.setAuthorName(blogUserDO.getNickname());
+            articleBO.setAuthorAvatar(blogUserDO.getAvatar());
+            blogArticleBOS.add(articleBO);
         }
         return blogArticleBOS;
     }
@@ -57,7 +65,11 @@ public class ArticleServiceImpl implements ArticleService {
         Preconditions.checkNotNull(id,ErrorCodeEnum.ERROR_99998);
         BlogArticleDO blogArticleDO = blogArticleDOMapper.selectByPrimaryKey(id);
         Preconditions.checkNotNull(blogArticleDO,ErrorCodeEnum.ERROR_20004);
-        return DOBOConvertor.doToBO(blogArticleDO);
+        BlogArticleBO articleBO = DOBOConvertor.doToBO(blogArticleDO);
+        BlogUserDO blogUserDO = userDOMapper.selectByPrimaryKey(blogArticleDO.getAuthorId());
+        articleBO.setAuthorName(blogUserDO.getNickname());
+        articleBO.setAuthorAvatar(blogUserDO.getAvatar());
+        return articleBO;
     }
 
     @Override

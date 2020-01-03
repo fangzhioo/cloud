@@ -51,7 +51,7 @@ const ArticleModel: ArticleModelType = {
   effects: {
     *fetchMyArticleList({ payload }, { call, put }) {
       const response = yield call(API.article.list.request, payload);
-      if(response === undefined){
+      if(!response){
         return ;
       }
       const {
@@ -70,7 +70,7 @@ const ArticleModel: ArticleModelType = {
     },
     *postArticle({ payload,callback }, { call }){
       const response = yield call(API.article.publish.request,payload);
-      if(response === undefined){
+      if(!response){
         return ;
       }
       if(callback){
@@ -79,7 +79,7 @@ const ArticleModel: ArticleModelType = {
     },
     *fetchArticleById({ payload }, { call, put }){
       const response = yield call(API.article.getById.request,payload);
-      if(response === undefined){
+      if(!response){
         return ;
       }
       yield put({
@@ -91,7 +91,7 @@ const ArticleModel: ArticleModelType = {
     },
     *fetchArticleCommentList({payload},{call,put}){
       const response = yield call(API.comment.list.request,payload);
-      if(response === undefined){
+      if(!response){
         return ;
       }
       const {

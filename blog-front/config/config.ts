@@ -57,6 +57,15 @@ const plugins: IPlugin[] = [
       autoAddMenu: true,
     },
   ],
+  [
+    'umi-plugin-nprogress',
+    {
+      configuration: {
+        speed: 400,
+        trickleSpeed: 100,
+      },
+    }
+  ],
 ];
 
 if (isAntDesignProPreview) {

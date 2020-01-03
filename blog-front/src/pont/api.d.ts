@@ -28,7 +28,7 @@ declare namespace defs {
     message?: string;
   }
 
-  export class BlogArticleBo {
+  export class BlogArticleBO {
     /** allowComment */
     allowComment?: boolean;
 
@@ -37,6 +37,9 @@ declare namespace defs {
 
     /** allowPing */
     allowPing?: boolean;
+
+    /** authorAvatar */
+    authorAvatar?: string;
 
     /** authorId */
     authorId?: number;
@@ -84,7 +87,27 @@ declare namespace defs {
     updateTime?: string;
   }
 
-  export class BlogCommentBo {
+  export class BlogCategoryBO {
+    /** cateId */
+    cateId?: number;
+
+    /** desc */
+    desc?: string;
+
+    /** name */
+    name?: string;
+
+    /** parentId */
+    parentId?: number;
+
+    /** sort */
+    sort?: number;
+
+    /** type */
+    type?: string;
+  }
+
+  export class BlogCommentBO {
     /** agree */
     agree?: number;
 
@@ -125,7 +148,7 @@ declare namespace defs {
     status?: string;
   }
 
-  export class BlogConfigBo {
+  export class BlogConfigBO {
     /** createdEmp */
     createdEmp?: string;
 
@@ -142,7 +165,7 @@ declare namespace defs {
     value?: string;
   }
 
-  export class BlogFileBo {
+  export class BlogFileBO {
     /** fileName */
     fileName?: string;
 
@@ -156,7 +179,7 @@ declare namespace defs {
     url?: string;
   }
 
-  export class BlogUserBo {
+  export class BlogUserBO {
     /** activated */
     activated?: number;
 
@@ -185,7 +208,7 @@ declare namespace defs {
     username?: string;
   }
 
-  export class BlogUserLoginBo {
+  export class BlogUserLoginBO {
     /** password */
     password?: string;
 
@@ -238,7 +261,7 @@ declare namespace defs {
 
 declare namespace API {
   /**
-   * Article Controller
+   * 文章前端接口
    */
   export namespace article {
     /**
@@ -301,7 +324,7 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogArticleBo,
+        bodyParams: defs.BlogArticleBO,
       ): Promise<defs.BaseResult>;
     }
 
@@ -316,13 +339,13 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogArticleBo,
+        bodyParams: defs.BlogArticleBO,
       ): Promise<defs.BaseResult>;
     }
   }
 
   /**
-   * Auth Controller
+   * 登陆系统
    */
   export namespace auth {
     /**
@@ -351,7 +374,7 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogUserLoginBo,
+        bodyParams: defs.BlogUserLoginBO,
       ): Promise<defs.BaseResult>;
     }
 
@@ -390,7 +413,87 @@ declare namespace API {
   }
 
   /**
-   * Comment Controller
+   * 类别标签管理
+   */
+  export namespace category {
+    /**
+     * 添加分类节点
+     * /server/cate/create
+     */
+    export namespace create {
+      export class Params {}
+
+      export type Response = defs.BaseResult;
+      export const init: Response;
+      export function request(
+        params: Params,
+        bodyParams: defs.BlogCategoryBO,
+      ): Promise<defs.BaseResult>;
+    }
+
+    /**
+     * 删除分类节点
+     * /server/cate/delete
+     */
+    export namespace remove {
+      export class Params {
+        /** cateId */
+        cateId: number;
+      }
+
+      export type Response = defs.BaseResult;
+      export const init: Response;
+      export function request(params: Params): Promise<defs.BaseResult>;
+    }
+
+    /**
+     * 根据节点id获取子类
+     * /server/cate/get
+     */
+    export namespace list {
+      export class Params {
+        /** parentId */
+        parentId?: number;
+      }
+
+      export type Response = defs.BaseResult;
+      export const init: Response;
+      export function request(params: Params): Promise<defs.BaseResult>;
+    }
+
+    /**
+     * 获取节点详情
+     * /server/cate/getCateById
+     */
+    export namespace get {
+      export class Params {
+        /** cateId */
+        cateId: number;
+      }
+
+      export type Response = defs.BaseResult;
+      export const init: Response;
+      export function request(params: Params): Promise<defs.BaseResult>;
+    }
+
+    /**
+     * update cate
+     * /server/cate/update
+     */
+    export namespace update {
+      export class Params {}
+
+      export type Response = defs.BaseResult;
+      export const init: Response;
+      export function request(
+        params: Params,
+        bodyParams: defs.BlogCategoryBO,
+      ): Promise<defs.BaseResult>;
+    }
+  }
+
+  /**
+   * 评论前端接口
    */
   export namespace comment {
     /**
@@ -442,13 +545,13 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogCommentBo,
+        bodyParams: defs.BlogCommentBO,
       ): Promise<defs.BaseResult>;
     }
   }
 
   /**
-   * File Controller
+   * 文件管理
    */
   export namespace file {
     /**
@@ -462,7 +565,7 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogFileBo,
+        bodyParams: defs.BlogFileBO,
       ): Promise<defs.BaseResult>;
     }
 
@@ -558,7 +661,7 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogConfigBo,
+        bodyParams: defs.BlogConfigBO,
       ): Promise<defs.BaseResult>;
     }
 
@@ -607,13 +710,13 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogConfigBo,
+        bodyParams: defs.BlogConfigBO,
       ): Promise<defs.BaseResult>;
     }
   }
 
   /**
-   * User Controller
+   * 用户前端接口
    */
   export namespace user {
     /**
@@ -651,7 +754,7 @@ declare namespace API {
       export const init: Response;
       export function request(
         params: Params,
-        bodyParams: defs.BlogUserBo,
+        bodyParams: defs.BlogUserBO,
       ): Promise<defs.BaseResult>;
     }
   }

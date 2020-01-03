@@ -67,6 +67,7 @@ request.interceptors.response.use(async response => {
       message: `业务代码 - ${data.code} 错误`,
       description: data.message || '服务器繁忙！',
     });
+    throw Error("请求异常");
   }
   notification.error({
     message: '请求异常！',

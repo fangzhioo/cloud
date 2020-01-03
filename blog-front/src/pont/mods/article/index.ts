@@ -1,5 +1,5 @@
 /**
- * @description Article Controller
+ * @description 文章前端接口
  */
 import * as remove from './remove';
 import * as getById from './getById';

@@ -9,6 +9,7 @@ public class BlogArticleBO {
     private String subTitle;
     private Integer authorId;
     private String authorName;
+    private String authorAvatar;
     private String type;
     private String content;
     private String htmlContent;

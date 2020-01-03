@@ -1,5 +1,5 @@
 /**
- * @description File Controller
+ * @description 文件管理
  */
 import * as asyncFile from './asyncFile';
 import * as deleteFile from './deleteFile';

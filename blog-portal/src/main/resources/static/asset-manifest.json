@@ -8,6 +8,7 @@
   "/layouts__UserLayout.js": "/layouts__UserLayout.async.js",
   "/p__404.js": "/p__404.async.js",
   "/p__article__ArticleDetail.js": "/p__article__ArticleDetail.async.js",
+  "/p__article__ArticleList.css": "/p__article__ArticleList.chunk.css",
   "/p__article__ArticleList.js": "/p__article__ArticleList.async.js",
   "/p__article__ArticlePublish.css": "/p__article__ArticlePublish.chunk.css",
   "/p__article__ArticlePublish.js": "/p__article__ArticlePublish.async.js",

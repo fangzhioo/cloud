@@ -66,7 +66,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 const defaultFooterDom = (
   <div style={{ padding: 40, backgroundColor: '#FFF' }}>
     <Typography.Title level={2} style={{ textAlign: 'center' }}>
-      <Icon type="smile" theme="twoTone" /> Ant Design Pro{' '}
+      <Icon type="smile" theme="twoTone" /> Kirito {' '}
       <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" /> You
     </Typography.Title>
   </div>

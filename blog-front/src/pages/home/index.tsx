@@ -1,12 +1,13 @@
 import React from 'react';
-import {Button, Card} from 'antd';
-import {Link} from "umi";
+import { Card} from 'antd';
 
 export default (): React.ReactNode => (
   <Card>
-    <div style={{ height: 5000 }}>
-      <Link to={`/article/publish`}><Button type="primary">发布文章</Button></Link>
-      <Link to={`/article`}><Button type="primary">文章列表</Button></Link>
+    <div style={{ minHeight: 600,display:'flex',justifyContent:'center' }}>
+      <iframe
+  style={{width: '100%'}}
+  src="//player.bilibili.com/player.html?aid=64669135&cid=112269092&page=1" scrolling="no" border="0"
+  frameBorder="no" framespacing="0" allowFullScreen="true"/>
     </div>
   </Card>
 );

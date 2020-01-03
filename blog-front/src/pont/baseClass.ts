@@ -23,7 +23,7 @@ export class BaseResult {
   message = '';
 }
 
-export class BlogArticleBo {
+export class BlogArticleBO {
   /** allowComment */
   allowComment = false;
 
@@ -32,6 +32,9 @@ export class BlogArticleBo {
 
   /** allowPing */
   allowPing = false;
+
+  /** authorAvatar */
+  authorAvatar = '';
 
   /** authorId */
   authorId = undefined;
@@ -79,7 +82,27 @@ export class BlogArticleBo {
   updateTime = '';
 }
 
-export class BlogCommentBo {
+export class BlogCategoryBO {
+  /** cateId */
+  cateId = undefined;
+
+  /** desc */
+  desc = '';
+
+  /** name */
+  name = '';
+
+  /** parentId */
+  parentId = undefined;
+
+  /** sort */
+  sort = undefined;
+
+  /** type */
+  type = '';
+}
+
+export class BlogCommentBO {
   /** agree */
   agree = undefined;
 
@@ -120,7 +143,7 @@ export class BlogCommentBo {
   status = '';
 }
 
-export class BlogConfigBo {
+export class BlogConfigBO {
   /** createdEmp */
   createdEmp = '';
 
@@ -137,7 +160,7 @@ export class BlogConfigBo {
   value = '';
 }
 
-export class BlogFileBo {
+export class BlogFileBO {
   /** fileName */
   fileName = '';
 
@@ -151,7 +174,7 @@ export class BlogFileBo {
   url = '';
 }
 
-export class BlogUserBo {
+export class BlogUserBO {
   /** activated */
   activated = undefined;
 
@@ -180,7 +203,7 @@ export class BlogUserBo {
   username = '';
 }
 
-export class BlogUserLoginBo {
+export class BlogUserLoginBO {
   /** password */
   password = '';
 

@@ -1,5 +1,5 @@
 /**
- * @description User Controller
+ * @description 用户前端接口
  */
 import * as currentUser from './currentUser';
 import * as notices from './notices';
