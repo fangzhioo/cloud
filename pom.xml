@@ -30,7 +30,6 @@
         <hutool.version>4.5.7</hutool.version>
         <pagehelper.version>5.1.8</pagehelper.version>
         <jjwt.version>0.9.0</jjwt.version>
-        <other.module.version>0.0.1-SNAPSHOT</other.module.version>
     </properties>
     <dependencies>
         <dependency>
@@ -49,14 +48,14 @@
             <!--  dao-->
             <dependency>
                 <groupId>com.yue.blog</groupId>
-                <artifactId>dao</artifactId>
-                <version>${other.module.version}</version>
+                <artifactId>blog-dao</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <!--  common-->
             <dependency>
                 <groupId>com.yue.blog</groupId>
-                <artifactId>common</artifactId>
-                <version>${other.module.version}</version>
+                <artifactId>blog-common</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <!--JWT(Json Web Token)登录支持-->
             <dependency>
