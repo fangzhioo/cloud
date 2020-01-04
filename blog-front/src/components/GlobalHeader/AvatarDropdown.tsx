@@ -87,7 +87,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
           <Avatar
             size="small"
             className={styles.avatar}
-            src="'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'"
+            src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
             alt="avatar"
           />
           <span className={styles.name}>Guest</span>

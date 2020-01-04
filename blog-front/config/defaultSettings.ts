@@ -48,14 +48,14 @@ export default {
   primaryColor: 'daybreak',
   layout: 'topmenu',
   contentWidth: 'Fixed',
-  fixedHeader: true,
+  fixedHeader: false,
   autoHideHeader: true,
   fixSiderbar: false,
   colorWeak: false,
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'Yue',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

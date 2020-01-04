@@ -16,11 +16,11 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>blog-dao</module>
+        <module>blog-common</module>
+        <module>blog-sso</module>
         <module>blog-admin</module>
         <module>blog-portal</module>
-        <module>blog-common</module>
-        <module>blog-dao</module>
-        <module>blog-sso</module>
     </modules>
 
     <properties>
