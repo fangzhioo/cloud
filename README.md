@@ -39,3 +39,38 @@ fz123456-
 scp E:\00-Code\05-Blob\yue\blog-portal\target root@49.234.214.14:/blog
 ```
 
+### 部署
+```shell script
+# nohup 后台启动进程
+nohup java -jar xxx.jar &
+# 关闭进程
+
+```
+
+### nginx
+```shell script
+# 依赖
+yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+# 下载安装包
+wget http://nginx.org/download/nginx-1.17.0.tar.gz
+# 解压
+tar -xvf nginx-1.17.0.tar.g
+# 进入目录
+cd nginx-1.17.0
+# 安装
+./configure
+# make
+make
+# make install
+make install
+# 配置nginx.conf 反向代理端口
+vi /usr/local/nginx/conf/nginx.conf
+# 启动
+/usr/local/nginx/sbin/nginx -s reload
+# 查看进程
+ps -ef | grep nginx
+```
+
+## 关于docker
+
+暂时没有测试

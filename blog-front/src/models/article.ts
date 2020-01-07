@@ -1,12 +1,13 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
 import { PaginationProps } from 'antd/lib/pagination';
+import { BlogCommentBO, BlogArticleBO } from '@/pont/baseClass'
 
-export interface Article extends defs.BlogArticleBo{
+export class Article extends BlogArticleBO {
 
 }
 
-export interface Comment extends defs.BlogCommentBo{
+export class Comment extends BlogCommentBO {
 
 }
 
@@ -41,7 +42,7 @@ const ArticleModel: ArticleModelType = {
     articleListPagination: {
       current: 1,
     },
-    articleDetail:{},
+    articleDetail: new Article(),
     articleCommentList: [],
     articleCommentListPagination: {
       current: 1,
@@ -51,8 +52,8 @@ const ArticleModel: ArticleModelType = {
   effects: {
     *fetchMyArticleList({ payload }, { call, put }) {
       const response = yield call(API.article.list.request, payload);
-      if(!response){
-        return ;
+      if (!response) {
+        return;
       }
       const {
         page: { total = 0 },
@@ -68,38 +69,38 @@ const ArticleModel: ArticleModelType = {
         payload: { total },
       });
     },
-    *postArticle({ payload,callback }, { call }){
-      const response = yield call(API.article.publish.request,payload);
-      if(!response){
-        return ;
+    *postArticle({ payload, callback }, { call }) {
+      const response = yield call(API.article.publish.request, payload);
+      if (!response) {
+        return;
       }
-      if(callback){
+      if (callback) {
         callback(response);
       }
     },
-    *fetchArticleById({ payload }, { call, put }){
-      const response = yield call(API.article.getById.request,payload);
-      if(!response){
-        return ;
+    *fetchArticleById({ payload }, { call, put }) {
+      const response = yield call(API.article.getById.request, payload);
+      if (!response) {
+        return;
       }
       yield put({
-        type:'SAVE',
-        payload:{
+        type: 'SAVE',
+        payload: {
           articleDetail: response.data || {}
         }
       })
     },
-    *fetchArticleCommentList({payload},{call,put}){
-      const response = yield call(API.comment.list.request,payload);
-      if(!response){
-        return ;
+    *fetchArticleCommentList({ payload }, { call, put }) {
+      const response = yield call(API.comment.list.request, payload);
+      if (!response) {
+        return;
       }
       const {
         page: { total = 0 },
       } = response;
       yield put({
-        type:'SAVE',
-        payload:{
+        type: 'SAVE',
+        payload: {
           articleCommentList: response.data || []
         }
       })

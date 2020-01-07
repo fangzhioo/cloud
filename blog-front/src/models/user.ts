@@ -1,10 +1,18 @@
+/*
+ * @Author: fz
+ * @Date: 2019-12-28 20:20:32
+ * @LastEditTime: 2020-01-07 21:08:37
+ * @LastEditors: fz
+ * @Description: description
+ */
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
+import { BlogUserBO } from '@/pont/baseClass'
 
-export interface CurrentUser extends defs.BlogUserBo{
+export class CurrentUser extends BlogUserBo {
   notifyCount?: number;
-  unreadCount?:number;
-  avatar?:string;
+  unreadCount?: number;
+  avatar?: string;
 }
 
 export interface UserModelState {

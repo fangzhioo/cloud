@@ -4,6 +4,7 @@ import { stringify } from 'querystring';
 import router from 'umi/router';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { BlogUserLoginBO } from '@/pont/baseClass'
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -11,7 +12,7 @@ export interface StateType {
   currentAuthority?: 'user' | 'guest' | 'admin';
 }
 
-export interface LoginParamsType extends defs.BlogUserLoginBo{
+export interface LoginParamsType extends BlogUserLoginBO {
   mobile?: string;
 }
 
@@ -67,7 +68,7 @@ const Model: LoginModelType = {
       yield call(API.auth.getCode.request, payload);
     },
 
-    *logout({}, { call }) {
+    *logout({ }, { call }) {
       const { redirect } = getPageQuery();
       const response = yield call(API.auth.logout.request);
       // Note: There may be security issues, please note
