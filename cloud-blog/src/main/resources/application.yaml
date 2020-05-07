@@ -1,0 +1,26 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: nacos-cloud-blog
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.214.14:8848/
+  freemarker:
+    request-context-attribute: request
+
+# 需要用到的服务提供者配置
+service-url:
+  nacos-cloud-sso-service: http://nacos-cloud-sso
+
+
+cloud-sso:
+  server: http://localhost:8088
+  logout:
+    path: /logout
+  excluded:
+    paths:
+  redis:
+    address: redis://127.0.0.1:6379

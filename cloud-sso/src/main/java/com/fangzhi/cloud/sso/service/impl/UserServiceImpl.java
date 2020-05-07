@@ -1,0 +1,46 @@
+package com.fangzhi.cloud.sso.service.impl;
+
+import com.fangzhi.cloud.sso.dao.mapper.CloudUserMapper;
+import com.fangzhi.cloud.sso.dao.model.CloudUser;
+import com.fangzhi.cloud.sso.pojo.bo.SSOLoginUser;
+import com.fangzhi.cloud.sso.core.entity.SSOResult;
+import com.fangzhi.cloud.sso.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Resource
+    CloudUserMapper cloudUserMapper;
+
+    @Override
+    public SSOResult<CloudUser> login(SSOLoginUser ssoLoginUser) {
+        if(ssoLoginUser.getPassword().isEmpty()){
+            return SSOResult.failed("pwd is null");
+        }
+        if(ssoLoginUser.getUsername().isEmpty()){
+            return SSOResult.failed("username id null");
+        }
+        CloudUser cloudUser = new CloudUser();
+        cloudUser.setUsername(ssoLoginUser.getUsername());
+        cloudUser.setPassword(ssoLoginUser.getPassword());
+        CloudUser user = cloudUserMapper.loginByUsernameAndPassword(cloudUser);
+        if(user==null){
+            return SSOResult.failed("login failed, username and password is not right!");
+        }
+        return SSOResult.success(user);
+    }
+
+    @Override
+    public SSOResult<CloudUser> getUserById(Integer id) {
+        if(id == null){
+            return  SSOResult.failed("id is not allow null");
+        }
+        CloudUser cloudUser = cloudUserMapper.selectByPrimaryKey(id);
+        return SSOResult.success(cloudUser);
+    }
+
+}
