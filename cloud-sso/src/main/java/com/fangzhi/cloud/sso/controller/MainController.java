@@ -81,10 +81,10 @@ public class MainController {
         SSOUser xxlUser = new SSOUser();
         xxlUser.setUserId(String.valueOf(result.getData().getId()));
         xxlUser.setUserName(result.getData().getUsername());
+        xxlUser.setNickName(result.getData().getNickname());
         xxlUser.setVersion(UUID.randomUUID().toString().replaceAll("-", ""));
         xxlUser.setExpireMinite(SsoLoginStore.getRedisExpireMinite());
         xxlUser.setExpireFreshTime(System.currentTimeMillis());
-
 
         // 2、make session id
         String sessionId = SsoSessionIdHelper.makeSessionId(xxlUser);

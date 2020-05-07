@@ -8,10 +8,21 @@ public class SSOUser implements Serializable {
 
     private String userId;
     private String userName;
-    private Map<String, String> plugininfo;
     private String version;
     private int expireMinite;
     private long expireFreshTime;
+
+    // exrea
+    private String nickName;
+    private Map<String, String> plugininfo;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public Map<String, String> getPlugininfo() {
         return plugininfo;

@@ -25,7 +25,6 @@ public class SSOApiController {
         return CloudSSOUtil.getSSOUser(request);
     }
 
-
     @GetMapping("/user/{id}")
     public SSOResult<CloudUser> getUserById(@PathVariable("id") Integer id){
         return userService.getUserById(id);

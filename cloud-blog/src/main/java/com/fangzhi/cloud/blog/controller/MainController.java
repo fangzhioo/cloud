@@ -28,10 +28,12 @@ public class MainController {
             if(ssoUser==null){
                 ssoUser = new SSOUser();
             }
-            model.addAttribute("user", ssoUser.getUserName());
+            model.addAttribute("userId", ssoUser.getUserId());
+            model.addAttribute("nickname",ssoUser.getNickName());
             return "index";
         }catch (Exception e){
-            model.addAttribute("user", "guest");
+            model.addAttribute("userId", 0);
+            model.addAttribute("nickname", "guest");
             return "index";
         }
 
