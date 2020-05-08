@@ -5,7 +5,6 @@ import com.fangzhi.cloud.sso.dao.model.CloudUser;
 import com.fangzhi.cloud.sso.pojo.bo.SSOLoginUser;
 import com.fangzhi.cloud.sso.core.entity.SSOResult;
 import com.fangzhi.cloud.sso.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

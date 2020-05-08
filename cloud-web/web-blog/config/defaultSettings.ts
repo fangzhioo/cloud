@@ -43,19 +43,19 @@ export interface DefaultSettings {
 }
 
 export default {
-  navTheme: 'dark',
+  navTheme: 'light',
   // 拂晓蓝
   primaryColor: '#1890ff',
-  layout: 'sidemenu',
-  contentWidth: 'Fluid',
-  fixedHeader: false,
-  autoHideHeader: false,
+  layout: 'topmenu',
+  contentWidth: 'Fixed',
+  fixedHeader: true,
+  autoHideHeader: true,
   fixSiderbar: false,
   colorWeak: false,
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'blog',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

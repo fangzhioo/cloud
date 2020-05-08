@@ -53,4 +53,35 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
 });
 
+
+/**
+ * 拦截器
+ */
+request.interceptors.response.use(async response => {
+  const d = await response.clone().text();
+  if (d) {
+    const data = await response.clone().json();
+    if (!data) {
+      notification.error({
+        message: `服务器异常`,
+        description: '获取数据失败',
+      });
+      throw new Error('服务器异常');
+    }
+    if (data.code !== 10000) {
+      notification.error({
+        message: data.message || '服务器繁忙',
+        description: `业务代码 - ${data.code}`,
+      });
+      throw new Error('服务器繁忙');
+    }
+    return response;
+  }
+  notification.error({
+    message: `请求异常`,
+    description: '无返回结果，请检查连接',
+  });
+  return response;
+});
+
 export default request;

@@ -4,25 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
-            name="keywords"
-            content="antd,umi,umijs,ant design,&#x811A;&#x624B;&#x67B6;,&#x5E03;&#x5C40;, Ant Design,&#x9879;&#x76EE;,Pro,admin,&#x63A7;&#x5236;&#x53F0;,&#x4E3B;&#x9875;,&#x5F00;&#x7BB1;&#x5373;&#x7528;,&#x4E2D;&#x540E;&#x53F0;,&#x89E3;&#x51B3;&#x65B9;&#x6848;,&#x7EC4;&#x4EF6;&#x5E93;"
-    />
-    <meta
-            name="description"
-            content="
-    An out-of-box UI solution for enterprise applications as a React boilerplate."
-    />
-    <meta
-            name="description"
-            content="
-      &#x5F00;&#x7BB1;&#x5373;&#x7528;&#x7684;&#x4E2D;&#x53F0;&#x524D;&#x7AEF;/&#x8BBE;&#x8BA1;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x3002;"
-    />
-    <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <title>blog</title>
-    <link rel="stylesheet" href="/umi.css" />
+    <link rel="stylesheet" href="umi.586a7f6e.css" />
     <script>
         window.routerBase = "/";
         window.userId='${userId}';
@@ -44,7 +30,7 @@
             padding: 0;
         }
         #root {
-            background-image: url("/home_bg.png");
+            background-image: url("home_bg.png");
             background-repeat: no-repeat;
             background-size: 100% auto;
         }
@@ -221,6 +207,6 @@
     </div>
 </div>
 
-<script src="/umi.js"></script>
+<script src="umi.12c077f9.js"></script>
 </body>
 </html>

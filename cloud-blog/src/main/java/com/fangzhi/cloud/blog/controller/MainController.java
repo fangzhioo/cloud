@@ -36,7 +36,6 @@ public class MainController {
             model.addAttribute("nickname", "guest");
             return "index";
         }
-
     }
 
     @GetMapping("/publish")
