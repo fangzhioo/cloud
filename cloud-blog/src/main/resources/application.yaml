@@ -1,5 +1,5 @@
 server:
-  port: 8089
+  port: 7001
 
 spring:
   application:
@@ -17,10 +17,10 @@ service-url:
 
 
 cloud-sso:
-  server: http://localhost:8088
+  server: http://localhost:9999
   logout:
     path: /logout
   excluded:
     paths:
   redis:
-    address: redis://127.0.0.1:6379
+    address: redis://49.234.214.14:6379

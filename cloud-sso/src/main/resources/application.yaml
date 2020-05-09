@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 7001
 
 spring:
   application:
@@ -33,7 +33,7 @@ spring:
 # redis
 cloud-sso:
   redis:
-    address: 'redis://127.0.0.1:6379'
+    address: redis://49.234.214.14:6379
     expire:
       minite: 1440
 
