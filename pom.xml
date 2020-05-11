@@ -25,6 +25,7 @@
         <module>cloud-blog</module>
         <module>cloud-mbg</module>
         <module>cloud-common</module>
+        <module>cloud-demo</module>
     </modules>
 
 

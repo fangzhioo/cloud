@@ -82,6 +82,8 @@ public class JedisUtil {
                             logger.info(">>>>>>>>>>> fangzhi-cloud-sso, JedisUtil.ShardedJedisPool init success.");
                         }
 
+                    }catch (Exception e){
+                      logger.error(e.getMessage(),e);
                     } finally {
                         INSTANCE_INIT_LOCL.unlock();
                     }

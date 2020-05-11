@@ -17,7 +17,7 @@ service-url:
 
 
 cloud-sso:
-  server: http://localhost:9999
+  server: http://sso.fangzhi.ml
   logout:
     path: /logout
   excluded:

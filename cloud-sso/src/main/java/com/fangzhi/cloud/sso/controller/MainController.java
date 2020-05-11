@@ -31,8 +31,22 @@ public class MainController {
 
     @GetMapping("/")
     public String root(Model model){
-        model.addAttribute("user","fangzhi");
-        return "index";
+        try {
+            SSOUser ssoUser = SsoWebLoginHelper.loginCheck(request, response);
+            if(ssoUser == null){
+                return "redirect:/login";
+            }
+            model.addAttribute("nickName",ssoUser.getNickName());
+            model.addAttribute("userId",ssoUser.getUserId());
+            model.addAttribute("userName",ssoUser.getUserName());
+            model.addAttribute("expireFreshTime",ssoUser.getExpireFreshTime());
+            model.addAttribute("expireMinite",ssoUser.getExpireMinite());
+            model.addAttribute("version",ssoUser.getVersion());
+            return "index";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "redirect:/login";
+        }
     }
 
     @GetMapping(SSOConstant.SSO_LOGIN)
@@ -95,7 +109,7 @@ public class MainController {
             String redirectUrlFinal = redirectUrl + "?" + SSOConstant.SSO_SESSIONID + "=" + sessionId;
             return "redirect:" + redirectUrlFinal;
         } else {
-            return "redirect:/";
+            return "redirect:/" + "?" + SSOConstant.SSO_SESSIONID + "=" + sessionId;
         }
     }
 

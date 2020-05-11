@@ -1,0 +1,10 @@
+server:
+  port: 9421
+
+spring:
+  application:
+    name: nacos-cloud-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.214.14:8848/

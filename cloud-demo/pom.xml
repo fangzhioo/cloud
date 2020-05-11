@@ -4,14 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.fangzhi</groupId>
-        <artifactId>cloud</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <artifactId>cloud</artifactId>
     </parent>
     <groupId>com.fangzhi.cloud</groupId>
-    <artifactId>blog</artifactId>
+    <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>blog</name>
+    <name>demo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -20,10 +19,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.fangzhi.cloud</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -31,12 +26,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!-- freemarker -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -55,13 +44,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

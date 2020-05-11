@@ -7,7 +7,7 @@ import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
-  // hash: true,
+  hash: true,
   history: {
     type: 'hash'
   },
@@ -22,9 +22,9 @@ export default defineConfig({
     antd: true,
     baseNavigator: true,
   },
-  // dynamicImport: {
-  //   loading: '@/components/PageLoading/index',
-  // },
+  dynamicImport: {
+    loading: '@/components/PageLoading/index',
+  },
   targets: {
     ie: 11,
   },

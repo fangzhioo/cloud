@@ -8,7 +8,7 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <title>blog</title>
-    <link rel="stylesheet" href="umi.586a7f6e.css" />
+    <link rel="stylesheet" href="umi.9edc5a26.css" />
     <script>
         window.routerBase = "/";
         window.userId='${userId}';
@@ -195,18 +195,10 @@
                 ></span>
             </div>
         </div>
-        <div
-                style="display: flex; justify-content: center; align-items: center;"
-        >
-            <img
-                    src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-                    width="32"
-                    style="margin-right: 8px;"
-            />
-        </div>
     </div>
 </div>
 
-<script src="umi.12c077f9.js"></script>
+<script src="umi.f4b44a12.js"></script>
+
 </body>
 </html>
