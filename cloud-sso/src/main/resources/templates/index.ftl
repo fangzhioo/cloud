@@ -27,6 +27,10 @@
                <span>${version}</span>
            </p>
        </div>
+       <div style="display: flex">
+           <a href="/logout" style="margin-right: 30px;"><h3>登出</h3></a>
+           <a href="/register"><h3>注册</h3></a>
+       </div>
    </div>
 </body>
 </html>

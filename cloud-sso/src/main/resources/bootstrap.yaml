@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: nacos-cloud-sso
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.214.14:8848
+      config:
+        server-addr: 49.234.214.14:8848
+        file-extension: yaml
+

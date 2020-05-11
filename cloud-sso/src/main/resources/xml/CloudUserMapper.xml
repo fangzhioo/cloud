@@ -296,4 +296,6 @@
     from cloud_user
     where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
+
+
 </mapper>

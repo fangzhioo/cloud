@@ -166,10 +166,10 @@
 <body>
 
 <div id="particles-js">
-    <form action="${request.contextPath}/doLogin" method="post">
+    <form action="${request.contextPath}/doRegister" method="post">
         <div class="login">
             <div class="login-top">
-                登录
+                SSO注册中心
             </div>
             <div class="login-center clearfix">
                 <div class="login-center-img"><img src="https://www.17sucai.com/preview/869565/2018-09-18/css3Signin/img/name.png"/></div>
@@ -185,14 +185,20 @@
                     <div class="login-center-input-text">密码</div>
                 </div>
             </div>
-            <input type="hidden" name="redirect_url" value="${redirect_url!''}" />
+            <div class="login-center clearfix">
+                <div class="login-center-img"><img src="https://www.17sucai.com/preview/869565/2018-09-18/css3Signin/img/password.png"/></div>
+                <div class="login-center-input">
+                    <input type="password" name="confirmPassword" value="" placeholder="请确认您的密码" onfocus="this.placeholder=''" onblur="this.placeholder='请确认您的密码'"/>
+                    <div class="login-center-input-text">确认密码</div>
+                </div>
+            </div>
             <#if errorMsg?exists>
                 <div class="login-center clearfix textover">
                     <p style="color: red;">${errorMsg}</p>
                 </div>
             </#if>
             <div style="text-align: center">
-                <button class="login-button" type="submit">登陆</button>
+                <button class="login-button" type="submit">提交注册</button>
             </div>
         </div>
     </form>

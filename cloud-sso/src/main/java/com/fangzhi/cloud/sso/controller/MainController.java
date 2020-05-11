@@ -8,11 +8,14 @@ import com.fangzhi.cloud.sso.core.store.SsoSessionIdHelper;
 import com.fangzhi.cloud.sso.dao.model.CloudUser;
 import com.fangzhi.cloud.sso.pojo.bo.SSOLoginUser;
 import com.fangzhi.cloud.sso.core.entity.SSOResult;
+import com.fangzhi.cloud.sso.pojo.bo.SSORegisterUser;
 import com.fangzhi.cloud.sso.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -112,7 +115,6 @@ public class MainController {
             return "redirect:/" + "?" + SSOConstant.SSO_SESSIONID + "=" + sessionId;
         }
     }
-
 
     @GetMapping(SSOConstant.SSO_LOGOUT)
     public String logout(RedirectAttributes redirectAttributes) {

@@ -2,18 +2,12 @@ server:
   port: 9999
 
 spring:
-  application:
-    name: nacos-cloud-sso
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 49.234.214.14:8848/
+  profiles:
+    active: dev
   freemarker:
     suffix: '.ftl'
     request-context-attribute: request
     settings.number_format: '0.##########'
-
-  # mysql
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,13 +23,6 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: druid
         login-password: druid
-
-# redis
-cloud-sso:
-  redis:
-    address: redis://49.234.214.14:6379
-    expire:
-      minite: 1440
 
 # mybatis
 mybatis:
