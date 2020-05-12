@@ -1,0 +1,6 @@
+# spring cloud alibaba
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 49.234.214.14:8848/

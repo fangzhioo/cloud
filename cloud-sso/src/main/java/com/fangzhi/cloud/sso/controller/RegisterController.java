@@ -11,7 +11,7 @@ import com.fangzhi.cloud.sso.pojo.bo.SSORegisterUser;
 import com.fangzhi.cloud.sso.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+//import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
-@RefreshScope // 支持nacos动态刷新
+//@RefreshScope // 支持nacos动态刷新
 public class RegisterController {
     @Autowired
     private HttpServletResponse response;

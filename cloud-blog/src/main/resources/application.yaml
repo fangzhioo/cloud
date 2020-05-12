@@ -2,25 +2,13 @@ server:
   port: 7001
 
 spring:
+  profiles:
+    active: dev
   application:
     name: nacos-cloud-blog
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 49.234.214.14:8848/
   freemarker:
     request-context-attribute: request
 
 # 需要用到的服务提供者配置
 service-url:
   nacos-cloud-sso-service: http://nacos-cloud-sso
-
-
-cloud-sso:
-  server: http://sso.fangzhi.ml
-  logout:
-    path: /logout
-  excluded:
-    paths:
-  redis:
-    address: redis://49.234.214.14:6379

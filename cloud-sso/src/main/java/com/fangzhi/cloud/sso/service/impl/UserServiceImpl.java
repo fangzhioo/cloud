@@ -1,12 +1,12 @@
 package com.fangzhi.cloud.sso.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.fangzhi.cloud.sso.dao.mapper.CloudUserMapper;
 import com.fangzhi.cloud.sso.dao.model.CloudUser;
 import com.fangzhi.cloud.sso.pojo.bo.SSOLoginUser;
 import com.fangzhi.cloud.sso.core.entity.SSOResult;
 import com.fangzhi.cloud.sso.pojo.bo.SSORegisterUser;
 import com.fangzhi.cloud.sso.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

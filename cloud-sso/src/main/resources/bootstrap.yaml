@@ -1,6 +1,5 @@
+# spring cloud alibaba
 spring:
-  application:
-    name: nacos-cloud-sso
   cloud:
     nacos:
       discovery:

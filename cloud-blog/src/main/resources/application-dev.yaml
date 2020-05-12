@@ -1,0 +1,11 @@
+server:
+  port: 7001
+
+cloud-sso:
+  server: http://sso.fangzhi.ml
+  logout:
+    path: /logout
+  excluded:
+    paths:
+  redis:
+    address: redis://49.234.214.14:6379
