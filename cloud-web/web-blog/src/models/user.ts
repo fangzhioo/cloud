@@ -5,7 +5,8 @@ export class CurrentUser {
   userId?: string;
   userName?: string;
   nickName?: string = 'guest';
-  avatar?: string = 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+  avatar?: string = '';
+
 }
 
 export interface UserModelState {

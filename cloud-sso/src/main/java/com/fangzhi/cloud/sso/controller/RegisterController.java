@@ -43,11 +43,12 @@ public class RegisterController {
     public String doRegister(
             Model model,
             String username,
+            String nickname,
             String password,
             String confirmPassword
     ){
 
-        SSORegisterUser ssoRegisterUser = new SSORegisterUser(username, password, confirmPassword);
+        SSORegisterUser ssoRegisterUser = new SSORegisterUser(username, password, confirmPassword, nickname);
         SSOResult<CloudUser> result = userService.register(ssoRegisterUser);
         if (result.getCode() != SSOResult.SUCCESS_CODE) {
             model.addAttribute("errorMsg", result.getMsg());

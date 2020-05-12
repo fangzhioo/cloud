@@ -1,17 +1,13 @@
 package com.fangzhi.cloud.blog;
 
+
 import com.fangzhi.cloud.common.util.AvatarUtil;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
-@SpringBootTest
-class BlogApplicationTests {
+public class CommonUtilTest {
 
-    @Test
-    void contextLoads() {
-    }
 
     @Test
     void avatarTest() {

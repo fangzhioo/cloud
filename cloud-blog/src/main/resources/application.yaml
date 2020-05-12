@@ -8,6 +8,7 @@ spring:
     name: nacos-cloud-blog
   freemarker:
     request-context-attribute: request
+    suffix: .html
 
 # 需要用到的服务提供者配置
 service-url:

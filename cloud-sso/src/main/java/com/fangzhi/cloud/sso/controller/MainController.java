@@ -1,5 +1,6 @@
 package com.fangzhi.cloud.sso.controller;
 
+import com.fangzhi.cloud.common.util.StringUtil;
 import com.fangzhi.cloud.sso.core.constant.SSOConstant;
 import com.fangzhi.cloud.sso.core.entity.SSOUser;
 import com.fangzhi.cloud.sso.core.login.SsoWebLoginHelper;
@@ -36,12 +37,20 @@ public class MainController {
             if(ssoUser == null){
                 return "redirect:/login";
             }
+            SSOResult<CloudUser> user = userService.getUserById(Integer.valueOf(ssoUser.getUserId()));
             model.addAttribute("nickName",ssoUser.getNickName());
             model.addAttribute("userId",ssoUser.getUserId());
             model.addAttribute("userName",ssoUser.getUserName());
             model.addAttribute("expireFreshTime",ssoUser.getExpireFreshTime());
             model.addAttribute("expireMinite",ssoUser.getExpireMinite());
             model.addAttribute("version",ssoUser.getVersion());
+            if(user.getCode() == SSOResult.SUCCESS_CODE){
+                model.addAttribute("avatar",user.getData().getAvatar());
+                model.addAttribute("email",user.getData().getEmail());
+                model.addAttribute("phone",user.getData().getPhone());
+                model.addAttribute("signature",user.getData().getSignature());
+                model.addAttribute("createdTime", StringUtil.formatDate(user.getData().getCreatedTime()));
+            }
             return "index";
         }catch (Exception e){
             e.printStackTrace();

@@ -1,17 +1,7 @@
 package com.fangzhi.cloud.blog.pojo.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fangzhi.cloud.sso.pojo.CommonUserInfo;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class BlogUserVO {
-    private String userId;
-    private String userName;
-    private String nickName;
-    private String avatar;
+public class BlogUserVO extends CommonUserInfo {
+
 }
