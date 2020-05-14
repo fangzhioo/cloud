@@ -25,13 +25,19 @@ const routers = [
         routes: [
           {
             path: '/',
-            redirect: '/welcome',
+            redirect: '/home',
           },
           {
-            path: '/welcome',
-            name: 'welcome',
-            icon: 'smile',
-            component: './Welcome',
+            path: '/home',
+            name: 'home',
+            icon: 'home',
+            component: './index',
+          },
+          {
+            path: '/publish',
+            name: 'article',
+            icon: 'book',
+            component: './article/publish'
           },
           {
             component: './404',

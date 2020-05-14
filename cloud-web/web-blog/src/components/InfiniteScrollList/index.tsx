@@ -1,6 +1,14 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
-import { List, Avatar } from 'antd';
+import { List, Avatar, Space } from 'antd';
+import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
+
+const IconText = ({ icon, text }: any) => (
+  <Space>
+    {React.createElement(icon)}
+    {text}
+  </Space>
+);
 
 interface InfiniteScrollListProps {
   dataSource?: any[];
@@ -8,7 +16,6 @@ interface InfiniteScrollListProps {
   over?: boolean;
   onInfinite?: () => void;
 }
-
 
 const InfiniteScrollList: React.FC<InfiniteScrollListProps> = ({ dataSource = [], loading = false, over = false, onInfinite = () => null }) => {
 
@@ -27,16 +34,31 @@ const InfiniteScrollList: React.FC<InfiniteScrollListProps> = ({ dataSource = []
       <List
         dataSource={dataSource}
         loading={loading}
+        itemLayout="vertical"
         renderItem={(item: any) => (
-          <List.Item key={item.email}>
+          <List.Item
+            key={item.email}
+            actions={[
+              <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+              <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+            ]}
+            extra={
+              <img
+                width={272}
+                alt="logo"
+                src={`https://i.picsum.photos/id/${item.dob.age}/544/336.jpg`}
+              />
+            }
+          >
             <List.Item.Meta
-              avatar={
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              }
-              title={<a href="https://ant.design">{item.name.last}</a>}
-              description={item.email}
+              avatar={<Avatar src={item.picture.thumbnail} />}
+              title={`${item.name.title} ${item.name.first} ${item.name.last}`}
+              description={<div>{item.registered.date}</div>}
             />
-            <div>Content</div>
+            <div style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>
+              {JSON.stringify(item.location)}
+            </div>
           </List.Item>
         )}
       >

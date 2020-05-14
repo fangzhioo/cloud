@@ -6,7 +6,7 @@
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
     "build": "umi build",
-    "deploy": "umi build && cp -r -f dist/* ../../cloud-blog/src/main/resources/static & cp -f dist/index.html ../../cloud-blog/src/main/resources/templates/index.html",
+    "deploy": "umi build && cp -r -f dist/* ../../cloud-blog/src/main/resources/static && cp -f dist/index.html ../../cloud-blog/src/main/resources/templates/index.html",
     "dev": "npm run start:dev",
     "fetch:blocks": "pro fetch-blocks --branch=umi@3 && npm run prettier",
     "gh-pages": "gh-pages -d dist",
@@ -32,19 +32,30 @@
     "test:component": "umi test ./src/components",
     "tsc": "tsc"
   },
-  "husky": { "hooks": { "pre-commit": "npm run lint-staged" } },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"]
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
     "@ant-design/pro-layout": "^5.0.8",
     "@ant-design/pro-table": "2.2.7",
     "antd": "^4.0.0",
     "classnames": "^2.2.6",
+    "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "moment": "~2.24.0",
     "omit.js": "^1.0.2",
@@ -53,6 +64,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet-async": "^1.0.4",
+    "slate": "^0.58.1",
+    "slate-plain-serializer": "^0.7.13",
+    "slate-react": "^0.58.1",
     "umi": "^3.1.2",
     "umi-request": "^1.0.8",
     "use-merge-value": "^1.0.1"
@@ -68,6 +82,7 @@
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.13",
+    "@types/slate-plain-serializer": "^0.7.0",
     "@umijs/fabric": "^2.0.5",
     "@umijs/plugin-blocks": "^2.0.5",
     "@umijs/preset-ant-design-pro": "^1.2.0",
@@ -91,8 +106,12 @@
     "puppeteer-core": "^3.0.0",
     "stylelint": "^13.0.0"
   },
-  "resolutions": { "moment": "2.24.0" },
-  "engines": { "node": ">=10.0.0" },
+  "resolutions": {
+    "moment": "2.24.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "checkFiles": [
     "src/**/*.js*",
     "src/**/*.ts*",

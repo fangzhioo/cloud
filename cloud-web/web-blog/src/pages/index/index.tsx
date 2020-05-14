@@ -4,7 +4,7 @@ import InfiniteScrollList from '@/components/InfiniteScrollList';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=10';
 
-const Text: React.FC<{}> = () => {
+const HomePage: React.FC<{}> = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -32,10 +32,10 @@ const Text: React.FC<{}> = () => {
   return (
     <Card bordered={false}>
       <BackTop />
-      <InfiniteScrollList dataSource={data} loading={loading} over={data.length > 300} onInfinite={handleInfinite} />
+      <InfiniteScrollList dataSource={data} loading={loading} over={data.length > 100} onInfinite={handleInfinite} />
     </Card>
   )
 }
 
 
-export default Text;
+export default HomePage;
