@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * @author fangzhi
+ */
 @Controller
 //@RefreshScope // 支持nacos动态刷新
 public class RegisterController {

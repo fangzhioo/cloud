@@ -24,6 +24,6 @@ cloud-sso:
     enabled: true
   # redis配置
   redis:
-    address: redis://49.234.214.14:6379
+    address: redis://:fangzhi@49.234.214.14:6379
     expire:
       minite: 1440

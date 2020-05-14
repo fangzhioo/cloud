@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author fangzhi
+ */
 @RestController
 @RequestMapping("/api")
 public class SSOApiController {
