@@ -29,7 +29,7 @@ public class SSOWebFilter extends HttpServlet implements Filter {
         logoutPath = filterConfig.getInitParameter(SSOConstant.SSO_LOGOUT_PATH);
         excludedPaths = filterConfig.getInitParameter(SSOConstant.SSO_EXCLUDED_PATHS);
 
-        logger.info("SSOWebFilter init.");
+        logger.info(" >>>>>>>>> fangzhi-SSOWebFilter init.");
     }
 
     @Override

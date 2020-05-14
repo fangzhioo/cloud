@@ -23,18 +23,18 @@ public class CloudSSOConf implements DisposableBean {
     @Value("${cloud-sso.redis.address}")
     private String xxlSsoRedisAddress;
 
-    String[] urlPatterns = {
+    private String[] urlPatterns = {
             "/*",
     };
 
     @Bean
-    public FilterRegistrationBean xxlSsoFilterRegistration() {
+    public FilterRegistrationBean<SSOWebFilter> xxlSsoFilterRegistration() {
 
         // xxl-sso, redis init
         JedisUtil.init(xxlSsoRedisAddress);
 
         // xxl-sso, filter init
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+        FilterRegistrationBean<SSOWebFilter> registration = new FilterRegistrationBean<>();
 
         registration.setName("SSOWebFilter");
         registration.setOrder(1);

@@ -9,3 +9,17 @@ cloud-sso:
     paths:
   redis:
     address: redis://:fangzhi@49.234.214.14:6379
+
+# aliyun oss
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI4Ffcku9rrqeVmy5P6ehx
+    accessKeySecret: QFh8xqlegyaZM4y8pIqLlExoPJDyT7
+    bucketName: fangzhioo
+    policy:
+      expire: 300 # 签名有效期（S）
+    maxSize: 10 # 最大尺寸（M）
+    callback: http://localhost:7001/aliyun/oss/callback
+    dir:
+      prefix: blog/images/ # 上传文件夹路径
