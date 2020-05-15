@@ -7,7 +7,7 @@
 #
 # Host: 49.234.214.14 (MySQL 5.7.29)
 # Database: cloud_sso
-# Generation Time: 2020-05-07 03:36:55 +0000
+# Generation Time: 2020-05-14 01:51:03 +0000
 # ************************************************************
 
 
@@ -30,13 +30,14 @@ CREATE TABLE `cloud_user` (
   `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(200) NOT NULL DEFAULT '' COMMENT '密码',
   `nickname` varchar(100) DEFAULT 'cloud_user' COMMENT '昵称',
-  `avatar` varchar(300) DEFAULT 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png' COMMENT '头像',
-  `signature` varchar(300) DEFAULT NULL COMMENT '签名',
-  `email` varchar(200) DEFAULT NULL COMMENT '邮箱',
-  `phone` varchar(50) DEFAULT NULL COMMENT '手机号',
+  `avatar` text COMMENT '头像',
+  `signature` varchar(300) DEFAULT '啥也没留下，太懒了?～' COMMENT '签名',
+  `email` varchar(200) DEFAULT '' COMMENT '邮箱',
+  `phone` varchar(50) DEFAULT '' COMMENT '手机号',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `modify_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `cloud_user` WRITE;
@@ -44,7 +45,9 @@ LOCK TABLES `cloud_user` WRITE;
 
 INSERT INTO `cloud_user` (`id`, `username`, `password`, `nickname`, `avatar`, `signature`, `email`, `phone`, `created_time`, `modify_time`)
 VALUES
-	(1,'fangzhi','1234567','桐ren','https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png','哈哈哈?','10@qq.gmail.com','1213123','2020-04-30 03:42:19','2020-05-06 10:01:51');
+	(1,'kirito','123456','桐人','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAAA6ElEQVR42u3ZSREAIAwAMQzjAw2oRAIeGO5mpwJo+iQ1bSkhAA1aoEGDFmjQAv0odM1leF7kWLcvaNCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNDxoE8d6c43gwYNGjRo0KBBgwYNGjRo0KBBgwYNGjRo0KBBgwYdD9rnLGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQsaGjDWjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNGjQP0JrVqBBgxZo0KARgAYt0KBBCzRogQYNWqBBCzRo0AINWqBBgxZo0AJ9ZR3K68Nt+q9iKgAAAABJRU5ErkJggg==','哈哈哈✨','10@qq.gmail.com','1','2020-04-30 11:42:19','2020-05-12 16:08:02'),
+	(2,'yasina','123456','亚丝娜','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAAA3UlEQVR42u3ZsQ0AIAgAQYd0HPdyLUewttUEg96HHnItZSikggA0aIEGDVqgQQt0UuhW+/acnPXeXtCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNCgc0Ir6Dkr0KAFGjRogQYt0KBBCzRogQYNWqBBCzTopVvPWdCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRq0QIMWaNCgBRq0QIMGLdCgBRo0aIEGLdCgQQs0aIEGDVqgQQs06E+aRT8yXQwj+mwAAAAASUVORK5CYII=','嘿嘿?','12@163.com','2','2020-05-12 15:32:06','2020-05-12 16:08:04'),
+	(3,'narito','123456','漩涡鸣人','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAAA6ElEQVR42u3bWQ0AIAwFQfRiA0coQwIeCEcbZlMDb/5bhq5UEIAGLdCgQQs0aIFOCl1bX76MHOf2ggYNGjRo0KBBgwYNGjRo0KBBgwYNGjRo0KBBgwYNOsZg0KBBgwYNGjRo0KBBgwYNGjRo0KBBgwYNGjRo0KBB34LOiAUaNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNOh9vRoc8wkVNGjQoEGDBg0aNGjQoEGDBg0aNGjQoEGDBg0aNOj/oAUaNGiBBi3QoEELNGiBBg1aoEELNGjQAg1aoEGDFmjQAg0atECHbwJoZuUqqGNkFwAAAABJRU5ErkJggg==','啥也没留下，太懒了?～','','','2020-05-12 08:09:40','2020-05-12 08:09:40');
 
 /*!40000 ALTER TABLE `cloud_user` ENABLE KEYS */;
 UNLOCK TABLES;
