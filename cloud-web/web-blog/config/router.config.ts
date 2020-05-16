@@ -11,6 +11,12 @@ const routers = [
         component: './test',
       },
       {
+        path: '/test/mdnice',
+        name: 'mdnice',
+        exact: true,
+        component: './test/mdnice',
+      },
+      {
         component: './404',
       },
     ]

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Divider } from 'antd';
+import { Card, Tabs } from 'antd';
 import RichEditor from '@/components/RichEditor';
 import AliyunOSSUpload from '@/components/AliyunOSSUpload';
-import { UploadOutlined } from '@ant-design/icons';
+import FzMdEditor from '@/components/FzMdEditor';
 
 interface ArtilcePublishPageProps {
 
@@ -12,17 +12,17 @@ const ArtilcePublishPage: React.FC<ArtilcePublishPageProps> = () => {
 
   return (
     <Card bordered={false}>
-      <h1>editor</h1>
-      <div>
-        <Divider>slate-react rich editor</Divider>
-        <Card>
+      <Tabs>
+        <Tabs.TabPane tab="markdown editor" key="0">
+          <FzMdEditor />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="rich editor" key="1">
           <RichEditor />
-        </Card>
-        <Divider>AliyunOSSUpload</Divider>
-        <AliyunOSSUpload listType="picture-card">
-          <UploadOutlined />
-        </AliyunOSSUpload>
-      </div>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="AliyunOSSUpload" key="2">
+          <AliyunOSSUpload />
+        </Tabs.TabPane>
+      </Tabs>
     </Card>
   )
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Upload, message } from 'antd';
 import { UploadProps } from "antd/lib/upload";
 import { queryAntdPolicy } from '@/services/article'
+import { UploadOutlined } from '@ant-design/icons';
 
 interface AliyunOSSUploadProps extends UploadProps<any> {
   value?: any[];
@@ -63,9 +64,8 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
 
   transformFile = (file: any) => {
     const { config } = this.state;
-
-    const suffix = file.name.slice(file.name.lastIndexOf('.'));
-    const filename = Date.now() + suffix;
+    // const suffix = file.name.slice(file.name.lastIndexOf('.'));
+    const filename = Date.now() + file.name;
     file.url = config.dir + filename;
 
     return file;
@@ -113,7 +113,7 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
 
     return (
       // @ts-ignore
-      <Upload {...props} />
+      <Upload {...props} ><UploadOutlined /></Upload>
     );
   }
 }
