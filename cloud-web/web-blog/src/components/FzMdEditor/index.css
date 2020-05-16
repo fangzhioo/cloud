@@ -1,0 +1,65 @@
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.fzmd-editor{
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+.fzmd-editor-tools{
+  background-color: azure;
+  padding: 16px;
+}
+.fzmd-editor-tools-item{
+  display: flex;
+}
+
+.fzmd-editor-warpper{
+  display: flex;
+  height: 100%;
+  padding: 20;
+  box-sizing: border-box;
+}
+.fzmd-editor-container{
+  display: flex;
+  flex-grow: 6;
+  max-width: 800px;
+  word-wrap: break-word;
+  z-index: 1;
+  position: relative;
+}
+.fzmd-editor-priview{
+  display: flex;
+  flex-grow: 4;
+  box-sizing: border-box;
+  border-left: 1px solid #efefef;
+  padding: 0 20px;
+  word-wrap: break-word;
+  position: relative;
+}
+/* pc */
+.fzmd-editor-priview-container{
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
+}
+/* 模拟微信页面 */
+.fzmd-editor-priview-container-wx{
+  overflow-y: auto;
+  padding: 25px 20px;
+  height: 100%;
+  width: 375px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
+}

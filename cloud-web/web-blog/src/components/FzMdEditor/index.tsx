@@ -4,8 +4,18 @@ import { LAYOUT_ID, MARKDOWN_THEME_ID, BOX_ID } from './util/constant';
 import { markdownParserWechat, markdownParser, replaceStyle } from './util/helper';
 import themeList from './theme';
 import { Radio } from 'antd';
-import './util/mdMirror.css';
 import bindHotkeys, { betterTab, rightClick } from './util/hotkey';
+import './util/mdMirror.css';
+import './index.css';
+
+const getPraseHtml = (value: string, themeId?: number) => {
+  try {
+    return themeId === 0 ? markdownParserWechat.render(value) : markdownParser.render(value);
+  } catch (error) {
+    console.error(error);
+    return ''
+  }
+}
 
 class FzMdEditor extends Component {
   previewWrap: HTMLElement | null = null;
@@ -147,37 +157,39 @@ class FzMdEditor extends Component {
     }
   };
 
+
+
   render() {
     const { value, themeId, codeThemeId } = this.state;
-    const parseHtml =
-      codeThemeId === 0
-        ? markdownParserWechat.render(value)
-        : markdownParser.render(value);
-
+    const parseHtml = getPraseHtml(value, codeThemeId);
+    const extraKeys = {
+      ...bindHotkeys(value, {}),
+      Tab: betterTab,
+      RightClick: rightClick,
+    };
     const codeMirrorOptions = {
       mode: 'markdown',
       theme: "md-mirror",
-      keyMap: "sublime",
+      // keyMap: "sublime",
       lineWrapping: true,
       lineNumbers: false,
-      extraKeys: {
-        ...bindHotkeys(value, {}),
-        Tab: betterTab,
-        RightClick: rightClick,
-      }
+      extraKeys
     };
-    debugger
+
     const themeListOptions = themeList.map(item => <Radio onClick={this.handleThemeChange(item)} value={item.themeId} key={item.themeId}>{item.name}</Radio>);
 
     return (
-      <div>
-        <div>
-          <Radio.Group value={themeId} >
-            {themeListOptions}
-          </Radio.Group>
+      <div className="fzmd-editor">
+        <div className="fzmd-editor-tools">
+          <div className="fzmd-editor-tools-item">
+            <div>主题&gt;&gt;&gt; </div>
+            <Radio.Group value={themeId} >
+              {themeListOptions}
+            </Radio.Group>
+          </div>
         </div>
-        <div style={{ display: 'flex', border: '1px #efefef', height: '60vh', padding: 20 }}>
-          <div style={{ width: '60%' }} onMouseOver={(e) => this.setCurrentIndex(1, e)}>
+        <div className="fzmd-editor-warpper">
+          <div className="fzmd-editor-container" onMouseOver={(e) => this.setCurrentIndex(1, e)}>
             <CodeMirror
               value={value}
               options={codeMirrorOptions}
@@ -186,17 +198,18 @@ class FzMdEditor extends Component {
               onBlur={this.handleBlur}
               onDrop={this.handleDrop}
               onPaste={this.handlePaste}
+              onScroll={this.handleScroll}
               ref={this.getInstance}
             />
           </div>
-          <div onMouseOver={(e) => this.setCurrentIndex(2, e)}>
+          <div className="fzmd-editor-priview" onMouseOver={(e) => this.setCurrentIndex(2, e)}>
             <div
               id={BOX_ID}
+              className="fzmd-editor-priview-container"
               onScroll={this.handleScroll}
               ref={(node) => {
                 this.previewContainer = node;
               }}
-              style={{ boxSizing: 'border-box', width: '40%' }}
             >
               <section
                 id={LAYOUT_ID}
