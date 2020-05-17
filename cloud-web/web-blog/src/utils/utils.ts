@@ -5,5 +5,7 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(
 
 export const isUrl = (path: string): boolean => reg.test(path);
 
+export const isString = (str: any): boolean => typeof str === 'string';
+
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);
 

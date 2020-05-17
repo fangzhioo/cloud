@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import CodeMirror, { Editor } from '@uiw/react-codemirror';
-import { LAYOUT_ID, MARKDOWN_THEME_ID, BOX_ID } from './util/constant';
-import { markdownParserWechat, markdownParser, replaceStyle } from './util/helper';
-import themeList from './theme';
-import { Radio } from 'antd';
+import { LAYOUT_ID, MARKDOWN_THEME_ID, BOX_ID, CODE_THEME_ID } from './util/constant';
+import { markdownParser, replaceStyle } from './util/helper';
+import themeList from './theme/theme';
+import codeThemeLabel, { codeThemeList, macCodeThemeList } from './theme/codeTheme';
+import TEMPLATE from './template';
+import { Radio, Switch, message } from 'antd';
 import bindHotkeys, { betterTab, rightClick } from './util/hotkey';
+// import "codemirror/addon/search/searchcursor";
+// import "codemirror/keymap/sublime";
 import './util/mdMirror.css';
 import './index.css';
+import classNames from 'classnames';
 
-const getPraseHtml = (value: string, themeId?: number) => {
+const getPraseHtml = (value: string) => {
   try {
-    return themeId === 0 ? markdownParserWechat.render(value) : markdownParser.render(value);
+    return markdownParser.render(value);
   } catch (error) {
     console.error(error);
     return ''
@@ -27,11 +32,26 @@ class FzMdEditor extends Component {
   state = {
     value: '',
     focus: false, // 获得焦点
+    isPriview: true, // 是否打开预览
     isSyncScroll: true, // 编辑和预览，同步滑动
     themeId: 0, // 整体模版
-    codeThemeId: 1, // 代码显示模版
+    codeThemeId: 'atomOneDark', // 代码显示模版
+    isMacCode: false, // 是否是mac风格
   }
 
+  componentDidMount() {
+    const { themeId, codeThemeId, isMacCode } = this.state;
+    try {
+      // 【主题】
+      replaceStyle(MARKDOWN_THEME_ID, themeList[themeId].css);
+      // 【代码主题】
+      this.handleCodeThemeRender(codeThemeId, isMacCode);
+    } catch (error) {
+      message.warning('初始化样式失败！');
+    }
+  }
+
+  // 编辑器的值改变时
   handleCodeMirrorChange = (editor: Editor) => {
     if (this.state.focus) {
       const content = editor.getValue();
@@ -41,10 +61,41 @@ class FzMdEditor extends Component {
     }
   }
 
+  // markdown主题变化,触发重新渲染
+  handleThemeRender = (themeId: any) => {
+
+  }
+
+  // markdown主题变化
   handleThemeChange = (item: any) => () => {
     const { themeId, css } = item;
     this.setState({ themeId });
     replaceStyle(MARKDOWN_THEME_ID, css);
+  }
+
+  // 代码主题变化，触发主题渲染
+  handleCodeThemeRender = (codeThemeId: string, isMacCode?: boolean) => {
+    if (isMacCode) {
+      replaceStyle(CODE_THEME_ID, TEMPLATE.macCode[codeThemeId]);
+    } else {
+      replaceStyle(CODE_THEME_ID, TEMPLATE.code[codeThemeId]);
+    }
+  }
+
+  // 代码主题变化
+  handleCodeThemeChange = (item: any) => () => {
+    const { id } = item;
+    const { isMacCode } = this.state;
+    this.setState({ codeThemeId: id })
+    this.handleCodeThemeRender(id, isMacCode);
+  }
+
+  // 代码风格是否为mac变换时
+  handleMacCodeThemeChange = (checked: boolean) => {
+    const { codeThemeId } = this.state;
+    const newCodeThemeId = codeThemeLabel[codeThemeId];
+    this.handleCodeThemeRender(newCodeThemeId, checked);
+    this.setState({ isMacCode: checked, codeThemeId: newCodeThemeId })
   }
 
   // 拖拽文件时
@@ -157,11 +208,9 @@ class FzMdEditor extends Component {
     }
   };
 
-
-
   render() {
-    const { value, themeId, codeThemeId } = this.state;
-    const parseHtml = getPraseHtml(value, codeThemeId);
+    const { value, themeId, codeThemeId, isMacCode, isPriview } = this.state;
+    const parseHtml = getPraseHtml(value);
     const extraKeys = {
       ...bindHotkeys(value, {}),
       Tab: betterTab,
@@ -178,18 +227,43 @@ class FzMdEditor extends Component {
 
     const themeListOptions = themeList.map(item => <Radio onClick={this.handleThemeChange(item)} value={item.themeId} key={item.themeId}>{item.name}</Radio>);
 
+    const codeThemeListOptions =
+      isMacCode ?
+        macCodeThemeList.map(item => <Radio onClick={this.handleCodeThemeChange(item)} value={item.id} key={item.id}>{item.name}</Radio>)
+        :
+        codeThemeList.map(item => <Radio onClick={this.handleCodeThemeChange(item)} value={item.id} key={item.id}>{item.name}</Radio>);
+
+    const editorContainerClass = classNames({
+      'fzmd-editor-container': true,
+      'fzmd-editor-container-nopriview': !isPriview
+    })
+
     return (
       <div className="fzmd-editor">
         <div className="fzmd-editor-tools">
           <div className="fzmd-editor-tools-item">
-            <div>主题&gt;&gt;&gt; </div>
+            <div>预览&gt;&gt;&gt;&nbsp;&nbsp; </div>
+            <Switch checked={isPriview} onChange={(checked) => { this.setState({ isPriview: checked }) }} />
+          </div>
+          <div className="fzmd-editor-tools-item">
+            <div>md主题 &gt;&gt;&gt;&nbsp;&nbsp; </div>
             <Radio.Group value={themeId} >
               {themeListOptions}
             </Radio.Group>
           </div>
+          <div className="fzmd-editor-tools-item">
+            <div>代码主题&gt;&gt;&gt;&nbsp;&nbsp; </div>
+            <Radio.Group value={codeThemeId} >
+              {codeThemeListOptions}
+            </Radio.Group>
+          </div>
+          <div className="fzmd-editor-tools-item">
+            <div>mac风格&gt;&gt;&gt;&nbsp;&nbsp; </div>
+            <Switch checked={isMacCode} onChange={this.handleMacCodeThemeChange} />
+          </div>
         </div>
         <div className="fzmd-editor-warpper">
-          <div className="fzmd-editor-container" onMouseOver={(e) => this.setCurrentIndex(1, e)}>
+          <div className={editorContainerClass} onMouseOver={(e) => this.setCurrentIndex(1, e)}>
             <CodeMirror
               value={value}
               options={codeMirrorOptions}
@@ -202,29 +276,32 @@ class FzMdEditor extends Component {
               ref={this.getInstance}
             />
           </div>
-          <div className="fzmd-editor-priview" onMouseOver={(e) => this.setCurrentIndex(2, e)}>
-            <div
-              id={BOX_ID}
-              className="fzmd-editor-priview-container"
-              onScroll={this.handleScroll}
-              ref={(node) => {
-                this.previewContainer = node;
-              }}
-            >
-              <section
-                id={LAYOUT_ID}
-                dangerouslySetInnerHTML={{
-                  __html: parseHtml,
-                }}
+          {
+            isPriview &&
+            <div className="fzmd-editor-priview" onMouseOver={(e) => this.setCurrentIndex(2, e)}>
+              <div
+                id={BOX_ID}
+                className="fzmd-editor-priview-container"
+                onScroll={this.handleScroll}
                 ref={(node) => {
-                  this.previewWrap = node;
+                  this.previewContainer = node;
                 }}
-              />
+              >
+                <section
+                  id={LAYOUT_ID}
+                  dangerouslySetInnerHTML={{
+                    __html: parseHtml,
+                  }}
+                  ref={(node) => {
+                    this.previewWrap = node;
+                  }}
+                />
+              </div>
             </div>
-          </div>
+          }
+
 
         </div>
-
       </div>
     )
   }
