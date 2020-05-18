@@ -2,11 +2,15 @@ import React from "react";
 import { Upload, message } from 'antd';
 import { UploadProps } from "antd/lib/upload";
 import { queryAntdPolicy } from '@/services/article'
-import { UploadOutlined } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
+import { UploadFile } from "antd/lib/upload/interface";
+
+const {Dragger} = Upload;
 
 interface AliyunOSSUploadProps extends UploadProps<any> {
   value?: any[];
   onChange?: (v: any) => void;
+  onSuccess?: (url: string,name: string)=> void;
 }
 
 interface OSSConfig {
@@ -30,7 +34,7 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
   init = async () => {
     try {
       const res = await queryAntdPolicy();
-      if (res.code === 10000) {
+      if (res && res.code === 10000) {
         this.setState({
           config: { ...res.data }
         })
@@ -89,6 +93,13 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
     return true;
   };
 
+  handleSuccess = (response: any, file: UploadFile<any>, xhr: any) => {
+    const {onSuccess} = this.props;
+    const url = `${xhr.responseURL}${file.url}`;
+    onSuccess && onSuccess(url,file.name);
+    console.log(url);
+  }
+
   render() {
     const {
       value,
@@ -109,11 +120,15 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
       transformFile: this.transformFile,
       data: this.getExtraData,
       beforeUpload: this.beforeUpload,
+      onSuccess: this.handleSuccess
     };
 
     return (
       // @ts-ignore
-      <Upload {...props} ><UploadOutlined /></Upload>
+      <Dragger {...props} >
+        <p> <InboxOutlined /></p>
+        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+      </Dragger>
     );
   }
 }

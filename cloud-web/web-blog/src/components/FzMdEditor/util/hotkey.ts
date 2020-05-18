@@ -2,8 +2,7 @@ import * as keyEvents from "./editorKeyEvents";
 import { isPlatformWindows } from "./util";
 import { EDITOR_CONTAINER_CLASS } from "./constant";
 
-const handlePressHotkey = (type: any, content: any) => {
-  const { markdownEditor } = content;
+const handlePressHotkey = (type: any, markdownEditor: any,onFinish?: (val: any)=>void) => {
   const selection = markdownEditor.getSelection();
   switch (type) {
     case "Bold":
@@ -35,54 +34,57 @@ const handlePressHotkey = (type: any, content: any) => {
   }
 
   const editorContent = markdownEditor.getValue();
-  content.setContent(editorContent);
+  onFinish && onFinish(editorContent)
 };
 
 // dispatch 用来控制一些弹窗， 上传图片等
-const bindHotkeys = (content: any, dispatch: any) =>
-  isPlatformWindows
+const bindHotkeys = (editor: any, action: any, onFinish?: (val: any)=>void) => {
+  // const {getValue} = editor;
+  // const content = getValue && getValue() || '';
+  return isPlatformWindows
     ? {
       "Ctrl-B": () => {
-        handlePressHotkey("Bold", content);
+        handlePressHotkey("Bold", editor,onFinish);
       },
       "Ctrl-U": () => {
-        handlePressHotkey("Del", content);
+        handlePressHotkey("Del", editor,onFinish);
       },
       "Ctrl-I": () => {
-        handlePressHotkey("Italic", content);
+        handlePressHotkey("Italic", editor,onFinish);
       },
       "Ctrl-Alt-C": () => {
-        handlePressHotkey("Code", content);
+        handlePressHotkey("Code", editor,onFinish);
       },
       "Ctrl-Alt-V": () => {
-        handlePressHotkey("InlineCode", content);
+        handlePressHotkey("InlineCode", editor,onFinish);
       },
       "Ctrl-Alt-1": () => {
-        handlePressHotkey("H1", content);
+        handlePressHotkey("H1", editor,onFinish);
       },
       "Ctrl-Alt-2": () => {
-        handlePressHotkey("H2", content);
+        handlePressHotkey("H2", editor,onFinish);
       },
       "Ctrl-Alt-3": () => {
-        handlePressHotkey("H3", content);
+        handlePressHotkey("H3", editor,onFinish);
       },
       "Ctrl-K": () => {
-        // dialog.setLinkOpen(true);
+        // action.setLinkOpen(true);
       },
       "Ctrl-Alt-I": () => {
-        // dialog.setImageOpen(true);
+        const {setImageOpen} = action;
+        setImageOpen && setImageOpen(true);
       },
       "Ctrl-Alt-T": () => {
-        // dialog.setFormOpen(true);
+        // action.setFormOpen(true);
       },
       "Ctrl-Alt-S": () => {
         // Converting between sans serif and serif
       },
       "Ctrl-Alt-L": () => {
-        keyEvents.parseLinkToFoot(content.content, content);
+        // keyEvents.parseLinkToFoot(content.content, content);
       },
       "Ctrl-Alt-F": () => {
-        keyEvents.formatDoc(content.content, content);
+        // keyEvents.formatDoc(content, {});
       },
       "Ctrl-F": () => {
         // dialog.setSearchOpen(!dialog.isSearchOpen);
@@ -90,34 +92,36 @@ const bindHotkeys = (content: any, dispatch: any) =>
     }
     : {
       "Cmd-B": () => {
-        handlePressHotkey("Bold", content);
+        handlePressHotkey("Bold", editor,onFinish);
       },
       "Cmd-U": () => {
-        handlePressHotkey("Del", content);
+        handlePressHotkey("Del", editor,onFinish);
       },
       "Cmd-I": () => {
-        handlePressHotkey("Italic", content);
+        handlePressHotkey("Italic", editor,onFinish);
       },
       "Cmd-Alt-C": () => {
-        handlePressHotkey("Code", content);
+        handlePressHotkey("Code", editor,onFinish);
       },
       "Cmd-Alt-V": () => {
-        handlePressHotkey("InlineCode", content);
+        handlePressHotkey("InlineCode", editor,onFinish);
       },
       "Cmd-Alt-1": () => {
-        handlePressHotkey("H1", content);
+        handlePressHotkey("H1", editor,onFinish);
       },
       "Cmd-Alt-2": () => {
-        handlePressHotkey("H2", content);
+        handlePressHotkey("H2", editor,onFinish);
       },
       "Cmd-Alt-3": () => {
-        handlePressHotkey("H3", content);
+        handlePressHotkey("H3", editor,onFinish);
       },
       "Cmd-K": () => {
         // dialog.setLinkOpen(true);
       },
       "Cmd-Alt-I": () => {
         // dialog.setImageOpen(true);
+        const {setImageOpen} = action;
+        setImageOpen && setImageOpen(true);
       },
       "Cmd-Alt-T": () => {
         // dialog.setFormOpen(true);
@@ -126,15 +130,16 @@ const bindHotkeys = (content: any, dispatch: any) =>
         // Converting between sans serif and serif
       },
       "Cmd-Alt-L": () => {
-        keyEvents.parseLinkToFoot(content.content, content);
+        // keyEvents.parseLinkToFoot(content.content, content);
       },
       "Cmd-Alt-F": () => {
-        keyEvents.formatDoc(content.content, content);
+        // keyEvents.formatDoc(content, {});
       },
       "Cmd-F": () => {
         // dialog.setSearchOpen(!dialog.isSearchOpen);
       },
     };
+}
 
 export const hotKeys = isPlatformWindows
   ? {

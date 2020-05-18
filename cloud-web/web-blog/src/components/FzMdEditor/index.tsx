@@ -5,13 +5,14 @@ import { markdownParser, replaceStyle } from './util/helper';
 import themeList from './theme/theme';
 import codeThemeLabel, { codeThemeList, macCodeThemeList } from './theme/codeTheme';
 import TEMPLATE from './template';
-import { Radio, Switch, message } from 'antd';
+import { Radio, Switch, message, Modal } from 'antd';
 import bindHotkeys, { betterTab, rightClick } from './util/hotkey';
 // import "codemirror/addon/search/searchcursor";
 // import "codemirror/keymap/sublime";
 import './util/mdMirror.css';
 import './index.css';
 import classNames from 'classnames';
+import AliyunOSSUpload from '../AliyunOSSUpload';
 
 const getPraseHtml = (value: string) => {
   try {
@@ -32,6 +33,7 @@ class FzMdEditor extends Component {
   state = {
     value: '',
     focus: false, // 获得焦点
+    visibleImageUpload: false, // 图片上传
     isPriview: true, // 是否打开预览
     isSyncScroll: true, // 编辑和预览，同步滑动
     themeId: 0, // 整体模版
@@ -185,6 +187,29 @@ class FzMdEditor extends Component {
     });
   };
 
+  handleImageUploadCancel = () => {
+    this.setState({visibleImageUpload: false})
+  }
+
+  handleImageUploadSuccess = (url: string,name:string) => {
+    this.handleImageUploadCancel();
+    const text = `![${name}](${url})`;
+    const cursor = this.editor.getCursor();
+    this.editor.replaceSelection(text, cursor);
+    const newValue = this.editor.getValue();
+    this.setState({
+      value: newValue
+    })
+  }
+
+  handleHotKeysFinish = (newValue: any) => {
+    if(newValue){
+      this.setState({
+        value: newValue
+      })
+    }
+  }
+
   getInstance = (instance: any) => {
     instance.editor.on("inputRead", function (cm: any, event: any) {
       if (event.origin === "paste") {
@@ -209,10 +234,18 @@ class FzMdEditor extends Component {
   };
 
   render() {
-    const { value, themeId, codeThemeId, isMacCode, isPriview } = this.state;
+    const { value, themeId, codeThemeId, isMacCode, isPriview,visibleImageUpload } = this.state;
     const parseHtml = getPraseHtml(value);
+    const hotKeysAction = {
+      setImageOpen: (status: boolean) => {
+        // 打开文件上传的对话框
+        this.setState({
+          visibleImageUpload: status
+        })
+      }
+    }
     const extraKeys = {
-      ...bindHotkeys(value, {}),
+      ...bindHotkeys(this.editor, hotKeysAction, this.handleHotKeysFinish),
       Tab: betterTab,
       RightClick: rightClick,
     };
@@ -299,9 +332,16 @@ class FzMdEditor extends Component {
               </div>
             </div>
           }
-
-
         </div>
+        <Modal
+          title="插入图片"
+          visible={visibleImageUpload}
+          footer={null}
+          onCancel={this.handleImageUploadCancel}
+          destroyOnClose
+        >
+          <AliyunOSSUpload onSuccess={this.handleImageUploadSuccess}/>
+        </Modal>
       </div>
     )
   }

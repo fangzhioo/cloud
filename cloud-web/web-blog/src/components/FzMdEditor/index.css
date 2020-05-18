@@ -59,6 +59,7 @@
   word-wrap: break-word;
   position: relative;
   border-radius: 4px;
+  padding: 10px;
 }
 
 .fzmd-editor-priview-nopriview{
@@ -69,14 +70,18 @@
 .fzmd-editor-priview-container{
   display: flex;
   justify-content: center;
-  padding: 0 16px;
   overflow-y: auto;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
 }
 .fzmd-editor-priview-container>section{
   width: 100%;
+}
+.fzmd-editor-priview-container>section img{
+  width: 100%;
+  max-width: 100%;
 }
 /* 模拟微信页面 */
 .fzmd-editor-priview-container-wx{
