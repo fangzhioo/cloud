@@ -20,7 +20,7 @@ const getPraseHtml = (value: string) => {
     console.error(error);
     return ''
   }
-}
+};
 
 class FzMdEditor extends Component {
   previewWrap: HTMLElement | null = null;
