@@ -34,12 +34,14 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
   init = async () => {
     try {
       const res = await queryAntdPolicy();
-      if (res && res.code === 10000) {
-        this.setState({
-          config: { ...res.data }
-        })
-      } else {
-        message.error(res.msg);
+      if(res){
+        if (res.code === 10000) {
+          this.setState({
+            config: { ...res.data }
+          })
+        } else {
+          message.error(res.msg);
+        }
       }
     } catch (error) {
       message.error(error);

@@ -23,6 +23,8 @@ const getPraseHtml = (value: string) => {
   }
 };
 
+const defalutVal = TEMPLATE.content || '';
+
 class FzMdEditor extends Component {
   previewWrap: HTMLElement | null = null;
   previewContainer: HTMLElement | null = null;
@@ -31,7 +33,7 @@ class FzMdEditor extends Component {
   index: number = 0;
   editorTop: number = 0;
   state = {
-    value: '',
+    value: defalutVal,
     focus: false, // 获得焦点
     visibleImageUpload: false, // 图片上传
     isPriview: true, // 是否打开预览
