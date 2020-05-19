@@ -5,14 +5,20 @@ import { markdownParser, replaceStyle } from './util/helper';
 import themeList from './theme/theme';
 import codeThemeLabel, { codeThemeList, macCodeThemeList } from './theme/codeTheme';
 import TEMPLATE from './template';
-import { Radio, Switch, message, Modal } from 'antd';
-import bindHotkeys, { betterTab, rightClick } from './util/hotkey';
+import { Radio, Switch, message, Modal, Drawer,Tooltip } from 'antd';
+import bindHotkeys, { betterTab, rightClick, handlePressHotkey, handleFormatDoc } from './util/hotkey';
 // import "codemirror/addon/search/searchcursor";
 // import "codemirror/keymap/sublime";
 import './util/mdMirror.css';
 import './index.css';
 import classNames from 'classnames';
 import AliyunOSSUpload from '../AliyunOSSUpload';
+import {
+  AppstoreOutlined, BoldOutlined, ItalicOutlined, HighlightOutlined, StrikethroughOutlined,
+  // OrderedListOutlined, UnorderedListOutlined, LinkOutlined,
+  FileImageOutlined, FormatPainterOutlined, EyeOutlined, EyeInvisibleOutlined, TableOutlined
+} from '@ant-design/icons';
+import TableBuildForm from './components/TableBuildForm';
 
 const getPraseHtml = (value: string) => {
   try {
@@ -35,12 +41,14 @@ class FzMdEditor extends Component {
   state = {
     value: defalutVal,
     focus: false, // 获得焦点
+    visibleTools: false, // 工具栏开关
     visibleImageUpload: false, // 图片上传
+    visibleTableBuild: false, // 表格生成
     isPriview: true, // 是否打开预览
     isSyncScroll: true, // 编辑和预览，同步滑动
     themeId: 0, // 整体模版
-    codeThemeId: 'atomOneDark', // 代码显示模版
-    isMacCode: false, // 是否是mac风格
+    codeThemeId: 'macAtomOneDark', // 代码显示模版
+    isMacCode: true, // 是否是mac风格
   }
 
   componentDidMount() {
@@ -173,26 +181,38 @@ class FzMdEditor extends Component {
     }
   };
 
+  // 记录当前是 editor 还是 priview
   setCurrentIndex(index: number, e: any) {
     this.index = index;
   }
 
+  // 处理焦点
   handleFocus = () => {
     this.setState({
       focus: true,
     });
   };
-
   handleBlur = () => {
     this.setState({
       focus: false,
     });
   };
 
+  // 处理热键按钮 加粗等
+  handleHotKeysEvent = (type: string) => () => {
+    handlePressHotkey(type,this.editor, this.handleHotKeysFinish);
+  }
+
+  // 图片上传弹窗关闭
   handleImageUploadCancel = () => {
     this.setState({visibleImageUpload: false})
   }
+  // 图片上传弹窗打开
+  handleImageUploadDialogOpen = () => {
+    this.setState({visibleImageUpload: true})
+  }
 
+  // 图片上传回调
   handleImageUploadSuccess = (url: string,name:string) => {
     this.handleImageUploadCancel();
     const text = `![${name}](${url})`;
@@ -204,6 +224,33 @@ class FzMdEditor extends Component {
     })
   }
 
+  // 表格生成弹窗取消
+  handleTableBuildCancel = () => {
+    this.setState({visibleTableBuild: false});
+  }
+
+  // 表格生成弹窗打开
+  handleTableBuildDialogOpen = () => {
+    this.setState({visibleTableBuild: true});
+  }
+
+  // 表单生成回调
+  handleTableBuildSuccess = (formatText: string) => {
+    const cursor = this.editor.getCursor();
+
+    this.editor.replaceSelection(formatText, cursor);
+
+    const content =  this.editor.getValue();
+
+    this.setState({value: content})
+
+    this.handleTableBuildCancel();
+    cursor.ch += 2;
+    this.editor.setCursor(cursor);
+    this.editor.focus();
+  }
+
+  // 部分热键回调
   handleHotKeysFinish = (newValue: any) => {
     if(newValue){
       this.setState({
@@ -212,6 +259,18 @@ class FzMdEditor extends Component {
     }
   }
 
+  // 格式化代码
+  handleDocFormat = () => {
+    const {value} = this.state;
+    handleFormatDoc(value,(formatText)=>{
+      message.success("格式化文档成功！")
+      this.setState({
+        value: formatText
+      })
+    })
+  }
+
+  // 获取编辑器实例
   getInstance = (instance: any) => {
     instance.editor.on("inputRead", function (cm: any, event: any) {
       if (event.origin === "paste") {
@@ -235,15 +294,13 @@ class FzMdEditor extends Component {
     }
   };
 
+
   render() {
-    const { value, themeId, codeThemeId, isMacCode, isPriview,visibleImageUpload } = this.state;
+    const { value, themeId, codeThemeId, isMacCode, isPriview,visibleImageUpload,visibleTools,visibleTableBuild } = this.state;
     const parseHtml = getPraseHtml(value);
     const hotKeysAction = {
-      setImageOpen: (status: boolean) => {
-        // 打开文件上传的对话框
-        this.setState({
-          visibleImageUpload: status
-        })
+      setImageOpen: () => {
+        this.handleImageUploadDialogOpen();
       }
     }
     const extraKeys = {
@@ -275,27 +332,22 @@ class FzMdEditor extends Component {
 
     return (
       <div className="fzmd-editor">
-        <div className="fzmd-editor-tools">
-          <div className="fzmd-editor-tools-item">
-            <div>预览&gt;&gt;&gt;&nbsp;&nbsp; </div>
-            <Switch checked={isPriview} onChange={(checked) => { this.setState({ isPriview: checked }) }} />
-          </div>
-          <div className="fzmd-editor-tools-item">
-            <div>md主题 &gt;&gt;&gt;&nbsp;&nbsp; </div>
-            <Radio.Group value={themeId} >
-              {themeListOptions}
-            </Radio.Group>
-          </div>
-          <div className="fzmd-editor-tools-item">
-            <div>代码主题&gt;&gt;&gt;&nbsp;&nbsp; </div>
-            <Radio.Group value={codeThemeId} >
-              {codeThemeListOptions}
-            </Radio.Group>
-          </div>
-          <div className="fzmd-editor-tools-item">
-            <div>mac风格&gt;&gt;&gt;&nbsp;&nbsp; </div>
-            <Switch checked={isMacCode} onChange={this.handleMacCodeThemeChange} />
-          </div>
+        <div className={"fz-editor-tools-warpper"}>
+          <Tooltip title="加粗"><BoldOutlined onClick={this.handleHotKeysEvent('Blod')} /></Tooltip>
+          <Tooltip title="斜体"><ItalicOutlined onClick={this.handleHotKeysEvent('Italic')} /></Tooltip>
+          <Tooltip title="删除线"><StrikethroughOutlined onClick={this.handleHotKeysEvent('Del')} /></Tooltip>
+          <Tooltip title="代码"><HighlightOutlined onClick={this.handleHotKeysEvent('Code')} /></Tooltip>
+          <Tooltip title="表格"><TableOutlined onClick={this.handleTableBuildDialogOpen} /></Tooltip>
+          {/*<Tooltip title="无序列表"><UnorderedListOutlined onClick={this.handleHotKeysEvent('')} /></Tooltip>*/}
+          {/*<Tooltip title="超链接"><LinkOutlined onClick={this.handleHotKeysEvent('')} /></Tooltip>*/}
+          <Tooltip title="图片"><FileImageOutlined onClick={this.handleImageUploadDialogOpen} /></Tooltip>
+          <Tooltip title="格式化"><FormatPainterOutlined onClick={this.handleDocFormat} /></Tooltip>
+          <Tooltip title="主题">
+            <AppstoreOutlined onClick={()=>{this.setState({visibleTools: true})}} />
+          </Tooltip>
+          <Tooltip title={isPriview ? '预览关闭' : '预览开启'}>
+            {isPriview ? <EyeOutlined onClick={()=>{this.setState({isPriview: false})}} /> :  <EyeInvisibleOutlined onClick={()=>{this.setState({isPriview: true})}} />}
+          </Tooltip>
         </div>
         <div className="fzmd-editor-warpper">
           <div className={editorContainerClass} onMouseOver={(e) => this.setCurrentIndex(1, e)}>
@@ -335,6 +387,33 @@ class FzMdEditor extends Component {
             </div>
           }
         </div>
+
+        <Drawer
+          title="tools"
+          placement="left"
+          closable={false}
+          onClose={()=> this.setState({visibleTools: false})}
+          visible={visibleTools}
+        >
+          <div className="fzmd-editor-tools">
+            <div className="fzmd-editor-tools-item">
+              <div>md主题</div>
+              <Radio.Group value={themeId} >
+                {themeListOptions}
+              </Radio.Group>
+            </div>
+            <div className="fzmd-editor-tools-item">
+              <div>代码主题 </div>
+              <Radio.Group value={codeThemeId} >
+                {codeThemeListOptions}
+              </Radio.Group>
+            </div>
+            <div className="fzmd-editor-tools-item fzmd-editor-tools-item-flex">
+              <div>mac代码</div>
+              <Switch checked={isMacCode} onChange={this.handleMacCodeThemeChange} />
+            </div>
+          </div>
+        </Drawer>
         <Modal
           title="插入图片"
           visible={visibleImageUpload}
@@ -343,6 +422,14 @@ class FzMdEditor extends Component {
           destroyOnClose
         >
           <AliyunOSSUpload onSuccess={this.handleImageUploadSuccess}/>
+        </Modal>
+        <Modal
+          title=""
+          visible={visibleTableBuild}
+          footer={null}
+          onCancel={this.handleTableBuildCancel}
+        >
+          <TableBuildForm onCancel={this.handleTableBuildCancel} onSuccess={this.handleTableBuildSuccess} />
         </Modal>
       </div>
     )

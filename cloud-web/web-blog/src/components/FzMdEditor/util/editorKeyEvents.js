@@ -1,4 +1,3 @@
-import {message} from "antd";
 import prettier from "prettier/standalone";
 import prettierMarkdown from "prettier/parser-markdown";
 
@@ -40,12 +39,11 @@ const handleWechatOuterLink = (content) => {
   }
 };
 
-export const parseLinkToFoot = (content, store) => {
+export const parseLinkToFoot = (content, onFinishLink) => {
   content = handleWechatOuterLink(content);
   content = content.replace(/([\u4e00-\u9fa5])\$/g, "$1 $");
   content = content.replace(/\$([\u4e00-\u9fa5])/g, "$ $1");
-  store.setContent(content);
-  message.success("微信外链转脚注完成！");
+  onFinishLink && onFinishLink(content);
 };
 
 const handlePrettierDoc = (content) => {
@@ -56,12 +54,11 @@ const handlePrettierDoc = (content) => {
   return prettierRes;
 };
 
-export const formatDoc = (content, store) => {
+export const formatDoc = (content, onFinishFormat) => {
   content = handlePrettierDoc(content);
   content = content.replace(/([\u4e00-\u9fa5])\$/g, "$1 $");
   content = content.replace(/\$([\u4e00-\u9fa5])/g, "$ $1");
-  store.setContent(content);
-  message.success("格式化文档完成！");
+  onFinishFormat && onFinishFormat(content);
 };
 
 export const bold = (editor, selection) => {

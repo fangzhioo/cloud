@@ -1,5 +1,5 @@
 import React from "react";
-import { Upload, message } from 'antd';
+import { Upload, message, Button, Spin } from 'antd';
 import { UploadProps } from "antd/lib/upload";
 import { queryAntdPolicy } from '@/services/article'
 import { InboxOutlined } from '@ant-design/icons';
@@ -24,7 +24,8 @@ interface OSSConfig {
 
 class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
   state = {
-    config: {} as OSSConfig
+    config: {} as OSSConfig,
+    isReady: false
   }
 
   async componentDidMount() {
@@ -37,13 +38,20 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
       if(res){
         if (res.code === 10000) {
           this.setState({
+            isReady: true,
             config: { ...res.data }
           })
         } else {
+          this.setState({
+            isReady: false
+          })
           message.error(res.msg);
         }
       }
     } catch (error) {
+      this.setState({
+        isReady: false
+      })
       message.error(error);
     }
   };
@@ -102,15 +110,22 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
     console.log(url);
   }
 
+  handleRetry = async () => {
+    await this.init();
+  }
+
   render() {
     const {
       value,
       ...restProps
     } = this.props;
-    const { config } = this.state;
+    const { config, isReady } = this.state;
     const { host } = config;
+    if(!isReady){
+      return <div style={{display: 'flex',justifyContent: 'center',padding: 20}}><Spin /></div>
+    }
     if (host === undefined || host === null || host === '') {
-      return 'policy config error !!! host is void !!!'
+      return <p>获取Aliyun OSS config失败！ <Button onClick={this.handleRetry} type="link">点击重试</Button> </p>
     }
     const props = {
       ...restProps,
@@ -136,17 +151,3 @@ class AliyunOSSUpload extends React.Component<AliyunOSSUploadProps> {
 }
 
 export default AliyunOSSUpload;
-// class FormPage extends React.Component {
-//   render() {
-//     const { getFieldDecorator } = this.props.form;
-//     return (
-//       <Form onSubmit={this.handleSubmit} labelCol={{ span: 4 }}>
-//         <Form.Item label="Photos">{getFieldDecorator('photos')(<AliyunOSSUpload />)}</Form.Item>
-//       </Form>
-//     );
-//   }
-// }
-//
-// const WrappedFormPage = Form.create()(FormPage);
-//
-// ReactDOM.render(<WrappedFormPage />, mountNode);

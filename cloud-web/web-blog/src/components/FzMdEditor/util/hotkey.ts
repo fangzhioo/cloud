@@ -2,7 +2,11 @@ import * as keyEvents from "./editorKeyEvents";
 import { isPlatformWindows } from "./util";
 import { EDITOR_CONTAINER_CLASS } from "./constant";
 
-const handlePressHotkey = (type: any, markdownEditor: any,onFinish?: (val: any)=>void) => {
+export const handleFormatDoc = (value: string,onFinishText: (formatText: string) => void) => {
+  keyEvents.formatDoc(value,onFinishText);
+}
+
+export const handlePressHotkey = (type: any, markdownEditor: any,onFinish?: (val: any)=>void) => {
   const selection = markdownEditor.getSelection();
   switch (type) {
     case "Bold":
@@ -72,7 +76,7 @@ const bindHotkeys = (editor: any, action: any, onFinish?: (val: any)=>void) => {
       },
       "Ctrl-Alt-I": () => {
         const {setImageOpen} = action;
-        setImageOpen && setImageOpen(true);
+        setImageOpen && setImageOpen();
       },
       "Ctrl-Alt-T": () => {
         // action.setFormOpen(true);
@@ -84,7 +88,7 @@ const bindHotkeys = (editor: any, action: any, onFinish?: (val: any)=>void) => {
         // keyEvents.parseLinkToFoot(content.content, content);
       },
       "Ctrl-Alt-F": () => {
-        // keyEvents.formatDoc(content, {});
+        // keyEvents.formatDoc(content, onFinish);
       },
       "Ctrl-F": () => {
         // dialog.setSearchOpen(!dialog.isSearchOpen);
@@ -121,7 +125,7 @@ const bindHotkeys = (editor: any, action: any, onFinish?: (val: any)=>void) => {
       "Cmd-Alt-I": () => {
         // dialog.setImageOpen(true);
         const {setImageOpen} = action;
-        setImageOpen && setImageOpen(true);
+        setImageOpen && setImageOpen();
       },
       "Cmd-Alt-T": () => {
         // dialog.setFormOpen(true);
@@ -133,7 +137,7 @@ const bindHotkeys = (editor: any, action: any, onFinish?: (val: any)=>void) => {
         // keyEvents.parseLinkToFoot(content.content, content);
       },
       "Cmd-Alt-F": () => {
-        // keyEvents.formatDoc(content, {});
+        // keyEvents.formatDoc(content, onFinish);
       },
       "Cmd-F": () => {
         // dialog.setSearchOpen(!dialog.isSearchOpen);
