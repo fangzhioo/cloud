@@ -7,18 +7,17 @@ import codeThemeLabel, { codeThemeList, macCodeThemeList } from './theme/codeThe
 import TEMPLATE from './template';
 import { Radio, Switch, message, Modal, Drawer,Tooltip } from 'antd';
 import bindHotkeys, { betterTab, rightClick, handlePressHotkey, handleFormatDoc } from './util/hotkey';
-// import "codemirror/addon/search/searchcursor";
-// import "codemirror/keymap/sublime";
 import './util/mdMirror.css';
 import './index.css';
 import classNames from 'classnames';
 import AliyunOSSUpload from '../AliyunOSSUpload';
 import {
   AppstoreOutlined, BoldOutlined, ItalicOutlined, HighlightOutlined, StrikethroughOutlined,
-  // OrderedListOutlined, UnorderedListOutlined, LinkOutlined,
-  FileImageOutlined, FormatPainterOutlined, EyeOutlined, EyeInvisibleOutlined, TableOutlined
+  FileImageOutlined, FormatPainterOutlined, EyeOutlined, EyeInvisibleOutlined, TableOutlined,
+  CodeOutlined, LinkOutlined, MergeCellsOutlined, SplitCellsOutlined
 } from '@ant-design/icons';
 import TableBuildForm from './components/TableBuildForm';
+import LinkBuildForm from './components/LinkBuildForm';
 
 const getPraseHtml = (value: string) => {
   try {
@@ -42,6 +41,7 @@ class FzMdEditor extends Component {
     value: defalutVal,
     focus: false, // 获得焦点
     visibleTools: false, // 工具栏开关
+    visibleLink: false, // 添加链接
     visibleImageUpload: false, // 图片上传
     visibleTableBuild: false, // 表格生成
     isPriview: true, // 是否打开预览
@@ -201,6 +201,37 @@ class FzMdEditor extends Component {
   // 处理热键按钮 加粗等
   handleHotKeysEvent = (type: string) => () => {
     handlePressHotkey(type,this.editor, this.handleHotKeysFinish);
+    this.editor.focus();
+  }
+
+  // 链接弹窗打开
+  handleLinkDialogOpen = () => {
+    this.setState({
+      visibleLink: true
+    })
+  }
+
+  // 链接弹窗关闭
+  handleLinkCancel = () => {
+    this.setState({
+      visibleLink: false
+    })
+  }
+
+  // 链接成功
+  handleLinkSuccess = (link: string) => {
+    const cursor = this.editor.getCursor();
+    const selection = this.editor.getSelection();
+    const text = `[${selection}](${link})`;
+    this.editor.replaceSelection(text, cursor);
+    // 上传后实时更新内容
+    const content = this.editor.getValue();
+    this.setState({value: content})
+    this.handleLinkCancel();
+
+    cursor.ch += 1;
+    this.editor.setCursor(cursor);
+    this.editor.focus();
   }
 
   // 图片上传弹窗关闭
@@ -222,6 +253,7 @@ class FzMdEditor extends Component {
     this.setState({
       value: newValue
     })
+    this.editor.focus();
   }
 
   // 表格生成弹窗取消
@@ -294,9 +326,10 @@ class FzMdEditor extends Component {
     }
   };
 
-
   render() {
-    const { value, themeId, codeThemeId, isMacCode, isPriview,visibleImageUpload,visibleTools,visibleTableBuild } = this.state;
+    const { value, themeId, codeThemeId, isMacCode, isPriview,isSyncScroll,
+      visibleImageUpload,visibleTools,visibleTableBuild ,visibleLink
+    } = this.state;
     const parseHtml = getPraseHtml(value);
     const hotKeysAction = {
       setImageOpen: () => {
@@ -311,7 +344,6 @@ class FzMdEditor extends Component {
     const codeMirrorOptions = {
       mode: 'markdown',
       theme: "md-mirror",
-      // keyMap: "sublime",
       lineWrapping: true,
       lineNumbers: false,
       extraKeys
@@ -333,13 +365,13 @@ class FzMdEditor extends Component {
     return (
       <div className="fzmd-editor">
         <div className={"fz-editor-tools-warpper"}>
-          <Tooltip title="加粗"><BoldOutlined onClick={this.handleHotKeysEvent('Blod')} /></Tooltip>
+          <Tooltip title="加粗"><BoldOutlined onClick={this.handleHotKeysEvent('Bold')} /></Tooltip>
           <Tooltip title="斜体"><ItalicOutlined onClick={this.handleHotKeysEvent('Italic')} /></Tooltip>
           <Tooltip title="删除线"><StrikethroughOutlined onClick={this.handleHotKeysEvent('Del')} /></Tooltip>
-          <Tooltip title="代码"><HighlightOutlined onClick={this.handleHotKeysEvent('Code')} /></Tooltip>
+          <Tooltip title="行内代码"><HighlightOutlined onClick={this.handleHotKeysEvent('InlineCode')} /></Tooltip>
+          <Tooltip title="代码块"><CodeOutlined onClick={this.handleHotKeysEvent('Code')} /></Tooltip>
           <Tooltip title="表格"><TableOutlined onClick={this.handleTableBuildDialogOpen} /></Tooltip>
-          {/*<Tooltip title="无序列表"><UnorderedListOutlined onClick={this.handleHotKeysEvent('')} /></Tooltip>*/}
-          {/*<Tooltip title="超链接"><LinkOutlined onClick={this.handleHotKeysEvent('')} /></Tooltip>*/}
+          <Tooltip title="链接"><LinkOutlined onClick={this.handleLinkDialogOpen} /></Tooltip>
           <Tooltip title="图片"><FileImageOutlined onClick={this.handleImageUploadDialogOpen} /></Tooltip>
           <Tooltip title="格式化"><FormatPainterOutlined onClick={this.handleDocFormat} /></Tooltip>
           <Tooltip title="主题">
@@ -347,6 +379,9 @@ class FzMdEditor extends Component {
           </Tooltip>
           <Tooltip title={isPriview ? '预览关闭' : '预览开启'}>
             {isPriview ? <EyeOutlined onClick={()=>{this.setState({isPriview: false})}} /> :  <EyeInvisibleOutlined onClick={()=>{this.setState({isPriview: true})}} />}
+          </Tooltip>
+          <Tooltip title={isSyncScroll ? '同步滚动关闭' : '同步滚动开启'}>
+            {isSyncScroll ? <MergeCellsOutlined  onClick={()=>{this.setState({isSyncScroll: false})}} /> :  <SplitCellsOutlined  onClick={()=>{this.setState({isSyncScroll: true})}} />}
           </Tooltip>
         </div>
         <div className="fzmd-editor-warpper">
@@ -363,29 +398,26 @@ class FzMdEditor extends Component {
               ref={this.getInstance}
             />
           </div>
-          {
-            isPriview &&
-            <div className="fzmd-editor-priview" onMouseOver={(e) => this.setCurrentIndex(2, e)}>
-              <div
-                id={BOX_ID}
-                className="fzmd-editor-priview-container"
-                onScroll={this.handleScroll}
-                ref={(node) => {
-                  this.previewContainer = node;
+          <div className="fzmd-editor-priview" style={{ display: isPriview ? 'flex': 'none' }} onMouseOver={(e) => this.setCurrentIndex(2, e)}>
+            <div
+              id={BOX_ID}
+              className="fzmd-editor-priview-container"
+              onScroll={this.handleScroll}
+              ref={(node) => {
+                this.previewContainer = node;
+              }}
+            >
+              <section
+                id={LAYOUT_ID}
+                dangerouslySetInnerHTML={{
+                  __html: parseHtml,
                 }}
-              >
-                <section
-                  id={LAYOUT_ID}
-                  dangerouslySetInnerHTML={{
-                    __html: parseHtml,
-                  }}
-                  ref={(node) => {
-                    this.previewWrap = node;
-                  }}
-                />
-              </div>
+                ref={(node) => {
+                  this.previewWrap = node;
+                }}
+              />
             </div>
-          }
+          </div>
         </div>
 
         <Drawer
@@ -424,12 +456,20 @@ class FzMdEditor extends Component {
           <AliyunOSSUpload onSuccess={this.handleImageUploadSuccess}/>
         </Modal>
         <Modal
-          title=""
+          title="插入表格"
           visible={visibleTableBuild}
           footer={null}
           onCancel={this.handleTableBuildCancel}
         >
           <TableBuildForm onCancel={this.handleTableBuildCancel} onSuccess={this.handleTableBuildSuccess} />
+        </Modal>
+        <Modal
+          title="插入链接"
+          visible={visibleLink}
+          footer={null}
+          onCancel={this.handleLinkCancel}
+        >
+          <LinkBuildForm onCancel={this.handleLinkCancel} onSuccess={this.handleLinkSuccess} />
         </Modal>
       </div>
     )
