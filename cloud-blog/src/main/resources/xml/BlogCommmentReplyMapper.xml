@@ -7,10 +7,12 @@
     <result column="article_id" jdbcType="INTEGER" property="articleId" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
     <result column="author_nickname" jdbcType="VARCHAR" property="authorNickname" />
-    <result column="author_avatar" jdbcType="VARCHAR" property="authorAvatar" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fangzhi.cloud.blog.dao.model.BlogCommmentReply">
+    <result column="author_avatar" jdbcType="LONGVARCHAR" property="authorAvatar" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,9 +73,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, comment_id, article_id, author_id, author_nickname, author_avatar, content, gmt_create, 
-    gmt_modified
+    id, comment_id, article_id, author_id, author_nickname, gmt_create, gmt_modified
   </sql>
+  <sql id="Blob_Column_List">
+    author_avatar, content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommmentReplyExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_commment_reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommmentReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,9 +108,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from blog_commment_reply
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -109,11 +131,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into blog_commment_reply (comment_id, article_id, author_id, 
-      author_nickname, author_avatar, content, 
-      gmt_create, gmt_modified)
+      author_nickname, gmt_create, gmt_modified, 
+      author_avatar, content)
     values (#{commentId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, 
-      #{authorNickname,jdbcType=VARCHAR}, #{authorAvatar,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+      #{authorNickname,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{authorAvatar,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommmentReply">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -133,17 +155,17 @@
       <if test="authorNickname != null">
         author_nickname,
       </if>
-      <if test="authorAvatar != null">
-        author_avatar,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
       <if test="gmtModified != null">
         gmt_modified,
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar,
+      </if>
+      <if test="content != null">
+        content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -159,17 +181,17 @@
       <if test="authorNickname != null">
         #{authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="authorAvatar != null">
-        #{authorAvatar,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorAvatar != null">
+        #{authorAvatar,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -197,19 +219,34 @@
       <if test="record.authorNickname != null">
         author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorAvatar != null">
-        author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
-      </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.authorAvatar != null">
+        author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update blog_commment_reply
+    set id = #{record.id,jdbcType=INTEGER},
+      comment_id = #{record.commentId,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=INTEGER},
+      author_id = #{record.authorId,jdbcType=INTEGER},
+      author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,8 +258,6 @@
       article_id = #{record.articleId,jdbcType=INTEGER},
       author_id = #{record.authorId,jdbcType=INTEGER},
       author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -244,19 +279,31 @@
       <if test="authorNickname != null">
         author_nickname = #{authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="authorAvatar != null">
-        author_avatar = #{authorAvatar,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="authorAvatar != null">
+        author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommmentReply">
+    update blog_commment_reply
+    set comment_id = #{commentId,jdbcType=INTEGER},
+      article_id = #{articleId,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=INTEGER},
+      author_nickname = #{authorNickname,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommmentReply">
@@ -265,8 +312,6 @@
       article_id = #{articleId,jdbcType=INTEGER},
       author_id = #{authorId,jdbcType=INTEGER},
       author_nickname = #{authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -4,6 +4,9 @@ import com.fangzhi.cloud.blog.dao.model.BlogArticle;
 import com.fangzhi.cloud.blog.pojo.dto.BlogArticleDTO;
 import com.fangzhi.cloud.blog.pojo.vo.BlogArticleVO;
 
+/**
+ * @author fangzhi
+ */
 public class POJOConverter {
 
     /**
@@ -21,6 +24,10 @@ public class POJOConverter {
                 .editor(article.getEditor())
                 .editorTheme(article.getEditorTheme())
                 .title(article.getTitle())
+                .subtitle(article.getSubtitle())
+                .cover(article.getCover())
+                .cid(article.getCid())
+                .status(article.getStatus())
                 .userLike(article.getUserLike())
                 .gmtCreate(article.getGmtCreate())
                 .gmtModified(article.getGmtModified())
@@ -40,6 +47,9 @@ public class POJOConverter {
         article.setEditor(articleDTO.getEditor());
         article.setEditorContent(articleDTO.getEditorContent());
         article.setEditorTheme(articleDTO.getEditorTheme());
+        article.setSubtitle(articleDTO.getSubtitle());
+        article.setCid(articleDTO.getCid());
+        article.setCover(article.getCover());
         return article;
     }
 }

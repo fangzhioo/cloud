@@ -19,18 +19,32 @@ public class BlogArticle implements Serializable {
     private String title;
 
     /**
+     * 副标题
+     *
+     * @mbg.generated
+     */
+    private String subtitle;
+
+    /**
+     * 封面
+     *
+     * @mbg.generated
+     */
+    private String cover;
+
+    /**
+     * 类目 默认999
+     *
+     * @mbg.generated
+     */
+    private Integer cid;
+
+    /**
      * 作者
      *
      * @mbg.generated
      */
     private Integer authorId;
-
-    /**
-     * 作者头像
-     *
-     * @mbg.generated
-     */
-    private String authorAvatar;
 
     /**
      * 作者昵称
@@ -61,6 +75,13 @@ public class BlogArticle implements Serializable {
     private Integer userLike;
 
     /**
+     * 状态 - 2草稿|1发布|0删除
+     *
+     * @mbg.generated
+     */
+    private Integer status;
+
+    /**
      * 创建时间
      *
      * @mbg.generated
@@ -80,6 +101,13 @@ public class BlogArticle implements Serializable {
      * @mbg.generated
      */
     private String content;
+
+    /**
+     * 作者头像
+     *
+     * @mbg.generated
+     */
+    private String authorAvatar;
 
     /**
      * 编辑器的内容
@@ -106,20 +134,36 @@ public class BlogArticle implements Serializable {
         this.title = title;
     }
 
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
+
     public Integer getAuthorId() {
         return authorId;
     }
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
-    }
-
-    public String getAuthorAvatar() {
-        return authorAvatar;
-    }
-
-    public void setAuthorAvatar(String authorAvatar) {
-        this.authorAvatar = authorAvatar;
     }
 
     public String getAuthorNickname() {
@@ -154,6 +198,14 @@ public class BlogArticle implements Serializable {
         this.userLike = userLike;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -178,6 +230,14 @@ public class BlogArticle implements Serializable {
         this.content = content;
     }
 
+    public String getAuthorAvatar() {
+        return authorAvatar;
+    }
+
+    public void setAuthorAvatar(String authorAvatar) {
+        this.authorAvatar = authorAvatar;
+    }
+
     public String getEditorContent() {
         return editorContent;
     }
@@ -194,15 +254,19 @@ public class BlogArticle implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
+        sb.append(", subtitle=").append(subtitle);
+        sb.append(", cover=").append(cover);
+        sb.append(", cid=").append(cid);
         sb.append(", authorId=").append(authorId);
-        sb.append(", authorAvatar=").append(authorAvatar);
         sb.append(", authorNickname=").append(authorNickname);
         sb.append(", editor=").append(editor);
         sb.append(", editorTheme=").append(editorTheme);
         sb.append(", userLike=").append(userLike);
+        sb.append(", status=").append(status);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", content=").append(content);
+        sb.append(", authorAvatar=").append(authorAvatar);
         sb.append(", editorContent=").append(editorContent);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

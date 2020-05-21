@@ -6,11 +6,11 @@
     <result column="article_id" jdbcType="INTEGER" property="articleId" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
     <result column="author_nickname" jdbcType="VARCHAR" property="authorNickname" />
-    <result column="author_avatar" jdbcType="VARCHAR" property="authorAvatar" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fangzhi.cloud.blog.dao.model.BlogComment">
+    <result column="author_avatar" jdbcType="LONGVARCHAR" property="authorAvatar" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,10 +72,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, article_id, author_id, author_nickname, author_avatar, gmt_create, gmt_modified
+    id, article_id, author_id, author_nickname, gmt_create, gmt_modified
   </sql>
   <sql id="Blob_Column_List">
-    content
+    author_avatar, content
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.fangzhi.cloud.blog.dao.model.BlogCommentExample" resultMap="ResultMapWithBLOBs">
     select
@@ -130,10 +130,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into blog_comment (article_id, author_id, author_nickname, 
-      author_avatar, gmt_create, gmt_modified, 
+      gmt_create, gmt_modified, author_avatar, 
       content)
     values (#{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{authorNickname,jdbcType=VARCHAR}, 
-      #{authorAvatar,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{authorAvatar,jdbcType=LONGVARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fangzhi.cloud.blog.dao.model.BlogComment">
@@ -151,14 +151,14 @@
       <if test="authorNickname != null">
         author_nickname,
       </if>
-      <if test="authorAvatar != null">
-        author_avatar,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
       <if test="gmtModified != null">
         gmt_modified,
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar,
       </if>
       <if test="content != null">
         content,
@@ -174,14 +174,14 @@
       <if test="authorNickname != null">
         #{authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="authorAvatar != null">
-        #{authorAvatar,jdbcType=VARCHAR},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorAvatar != null">
+        #{authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
@@ -209,14 +209,14 @@
       <if test="record.authorNickname != null">
         author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorAvatar != null">
-        author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
-      </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.authorAvatar != null">
+        author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -232,9 +232,9 @@
       article_id = #{record.articleId,jdbcType=INTEGER},
       author_id = #{record.authorId,jdbcType=INTEGER},
       author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -246,7 +246,6 @@
       article_id = #{record.articleId,jdbcType=INTEGER},
       author_id = #{record.authorId,jdbcType=INTEGER},
       author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -265,14 +264,14 @@
       <if test="authorNickname != null">
         author_nickname = #{authorNickname,jdbcType=VARCHAR},
       </if>
-      <if test="authorAvatar != null">
-        author_avatar = #{authorAvatar,jdbcType=VARCHAR},
-      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
@@ -285,9 +284,9 @@
     set article_id = #{articleId,jdbcType=INTEGER},
       author_id = #{authorId,jdbcType=INTEGER},
       author_nickname = #{authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -296,7 +295,6 @@
     set article_id = #{articleId,jdbcType=INTEGER},
       author_id = #{authorId,jdbcType=INTEGER},
       author_nickname = #{authorNickname,jdbcType=VARCHAR},
-      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

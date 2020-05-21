@@ -17,15 +17,21 @@ public interface BlogCommmentReplyMapper {
 
     int insertSelective(BlogCommmentReply record);
 
+    List<BlogCommmentReply> selectByExampleWithBLOBs(BlogCommmentReplyExample example);
+
     List<BlogCommmentReply> selectByExample(BlogCommmentReplyExample example);
 
     BlogCommmentReply selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") BlogCommmentReply record, @Param("example") BlogCommmentReplyExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") BlogCommmentReply record, @Param("example") BlogCommmentReplyExample example);
+
     int updateByExample(@Param("record") BlogCommmentReply record, @Param("example") BlogCommmentReplyExample example);
 
     int updateByPrimaryKeySelective(BlogCommmentReply record);
+
+    int updateByPrimaryKeyWithBLOBs(BlogCommmentReply record);
 
     int updateByPrimaryKey(BlogCommmentReply record);
 }

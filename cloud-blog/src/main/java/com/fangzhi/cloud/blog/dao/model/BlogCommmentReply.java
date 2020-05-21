@@ -40,6 +40,20 @@ public class BlogCommmentReply implements Serializable {
     private String authorNickname;
 
     /**
+     * 创建时间
+     *
+     * @mbg.generated
+     */
+    private Date gmtCreate;
+
+    /**
+     * 修改时间
+     *
+     * @mbg.generated
+     */
+    private Date gmtModified;
+
+    /**
      * 评论者头像
      *
      * @mbg.generated
@@ -52,10 +66,6 @@ public class BlogCommmentReply implements Serializable {
      * @mbg.generated
      */
     private String content;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
 
     private static final long serialVersionUID = 1L;
 
@@ -99,22 +109,6 @@ public class BlogCommmentReply implements Serializable {
         this.authorNickname = authorNickname;
     }
 
-    public String getAuthorAvatar() {
-        return authorAvatar;
-    }
-
-    public void setAuthorAvatar(String authorAvatar) {
-        this.authorAvatar = authorAvatar;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -131,6 +125,22 @@ public class BlogCommmentReply implements Serializable {
         this.gmtModified = gmtModified;
     }
 
+    public String getAuthorAvatar() {
+        return authorAvatar;
+    }
+
+    public void setAuthorAvatar(String authorAvatar) {
+        this.authorAvatar = authorAvatar;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -142,10 +152,10 @@ public class BlogCommmentReply implements Serializable {
         sb.append(", articleId=").append(articleId);
         sb.append(", authorId=").append(authorId);
         sb.append(", authorNickname=").append(authorNickname);
-        sb.append(", authorAvatar=").append(authorAvatar);
-        sb.append(", content=").append(content);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
+        sb.append(", authorAvatar=").append(authorAvatar);
+        sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

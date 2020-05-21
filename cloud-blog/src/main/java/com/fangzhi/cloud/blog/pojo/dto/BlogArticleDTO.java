@@ -2,6 +2,9 @@ package com.fangzhi.cloud.blog.pojo.dto;
 
 import lombok.Data;
 
+/**
+ * @author fangzhi
+ */
 @Data
 public class BlogArticleDTO {
     /**
@@ -17,6 +20,27 @@ public class BlogArticleDTO {
      * @mbg.generated
      */
     private String title;
+    /**
+     * 副标题
+     *
+     * @mbg.generated
+     */
+    private String subtitle;
+
+    /**
+     * 封面
+     *
+     * @mbg.generated
+     */
+    private String cover;
+
+    /**
+     * 类目 默认999
+     *
+     * @mbg.generated
+     */
+    private Integer cid;
+
     /**
      * 所用编辑器 md\rich
      *

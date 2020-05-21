@@ -1,6 +1,5 @@
 package com.fangzhi.cloud.blog.dao.mapper;
 
-
 import com.fangzhi.cloud.blog.dao.model.BlogArticle;
 import com.fangzhi.cloud.blog.dao.model.BlogArticleExample;
 import com.fangzhi.cloud.blog.pojo.query.BlogArticleQuery;
@@ -36,7 +35,6 @@ public interface BlogArticleMapper {
     int updateByPrimaryKeyWithBLOBs(BlogArticle record);
 
     int updateByPrimaryKey(BlogArticle record);
-
 
     List<BlogArticle> listByQuery(BlogArticleQuery query);
 }

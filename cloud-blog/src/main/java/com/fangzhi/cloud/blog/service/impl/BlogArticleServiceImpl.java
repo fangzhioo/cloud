@@ -6,7 +6,6 @@ import com.fangzhi.cloud.blog.dao.model.BlogArticle;
 import com.fangzhi.cloud.blog.pojo.dto.BlogArticleDTO;
 import com.fangzhi.cloud.blog.pojo.query.BlogArticleQuery;
 import com.fangzhi.cloud.blog.pojo.vo.BlogArticleVO;
-import com.fangzhi.cloud.blog.pojo.vo.BlogUserVO;
 import com.fangzhi.cloud.blog.service.BlogArticleService;
 import com.fangzhi.cloud.blog.service.BlogUserService;
 import com.fangzhi.cloud.common.base.Preconditions;
@@ -18,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author fangzhi
+ */
 @Service
 public class BlogArticleServiceImpl implements BlogArticleService {
 
@@ -30,6 +32,7 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     @Override
     public BlogArticleVO getById(Integer id) {
         BlogArticle article = blogArticleMapper.selectByPrimaryKey(id);
+        Preconditions.checkNotNull(article,CommonErrorCodeEnum.ERROR_CODE_20000);
         return POJOConverter.doToVO(article);
     }
 

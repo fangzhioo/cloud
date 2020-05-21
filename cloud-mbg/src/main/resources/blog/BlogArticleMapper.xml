@@ -4,17 +4,21 @@
   <resultMap id="BaseResultMap" type="com.fangzhi.cloud.mbg.blog.model.BlogArticle">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
-    <result column="author_avatar" jdbcType="VARCHAR" property="authorAvatar" />
     <result column="author_nickname" jdbcType="VARCHAR" property="authorNickname" />
     <result column="editor" jdbcType="VARCHAR" property="editor" />
     <result column="editor_theme" jdbcType="VARCHAR" property="editorTheme" />
     <result column="user_like" jdbcType="INTEGER" property="userLike" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fangzhi.cloud.mbg.blog.model.BlogArticle">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="author_avatar" jdbcType="LONGVARCHAR" property="authorAvatar" />
     <result column="editor_content" jdbcType="LONGVARCHAR" property="editorContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -76,11 +80,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, author_id, author_avatar, author_nickname, editor, editor_theme, user_like, 
-    gmt_create, gmt_modified
+    id, title, subtitle, cover, cid, author_id, author_nickname, editor, editor_theme, 
+    user_like, status, gmt_create, gmt_modified
   </sql>
   <sql id="Blob_Column_List">
-    content, editor_content
+    content, author_avatar, editor_content
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.fangzhi.cloud.mbg.blog.model.BlogArticleExample" resultMap="ResultMapWithBLOBs">
     select
@@ -134,14 +138,18 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into blog_article (title, author_id, author_avatar, 
-      author_nickname, editor, editor_theme, 
-      user_like, gmt_create, gmt_modified, 
-      content, editor_content)
-    values (#{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, #{authorAvatar,jdbcType=VARCHAR}, 
-      #{authorNickname,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{editorTheme,jdbcType=VARCHAR}, 
-      #{userLike,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{content,jdbcType=LONGVARCHAR}, #{editorContent,jdbcType=LONGVARCHAR})
+    insert into blog_article (title, subtitle, cover, 
+      cid, author_id, author_nickname, 
+      editor, editor_theme, user_like, 
+      status, gmt_create, gmt_modified, 
+      content, author_avatar, editor_content
+      )
+    values (#{title,jdbcType=VARCHAR}, #{subtitle,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{authorNickname,jdbcType=VARCHAR}, 
+      #{editor,jdbcType=VARCHAR}, #{editorTheme,jdbcType=VARCHAR}, #{userLike,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{authorAvatar,jdbcType=LONGVARCHAR}, #{editorContent,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.fangzhi.cloud.mbg.blog.model.BlogArticle">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -152,11 +160,17 @@
       <if test="title != null">
         title,
       </if>
+      <if test="subtitle != null">
+        subtitle,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
       <if test="authorId != null">
         author_id,
-      </if>
-      <if test="authorAvatar != null">
-        author_avatar,
       </if>
       <if test="authorNickname != null">
         author_nickname,
@@ -170,6 +184,9 @@
       <if test="userLike != null">
         user_like,
       </if>
+      <if test="status != null">
+        status,
+      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -179,6 +196,9 @@
       <if test="content != null">
         content,
       </if>
+      <if test="authorAvatar != null">
+        author_avatar,
+      </if>
       <if test="editorContent != null">
         editor_content,
       </if>
@@ -187,11 +207,17 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
       <if test="authorId != null">
         #{authorId,jdbcType=INTEGER},
-      </if>
-      <if test="authorAvatar != null">
-        #{authorAvatar,jdbcType=VARCHAR},
       </if>
       <if test="authorNickname != null">
         #{authorNickname,jdbcType=VARCHAR},
@@ -205,6 +231,9 @@
       <if test="userLike != null">
         #{userLike,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -213,6 +242,9 @@
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="authorAvatar != null">
+        #{authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="editorContent != null">
         #{editorContent,jdbcType=LONGVARCHAR},
@@ -234,11 +266,17 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.subtitle != null">
+        subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null">
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
       <if test="record.authorId != null">
         author_id = #{record.authorId,jdbcType=INTEGER},
-      </if>
-      <if test="record.authorAvatar != null">
-        author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
       </if>
       <if test="record.authorNickname != null">
         author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
@@ -252,6 +290,9 @@
       <if test="record.userLike != null">
         user_like = #{record.userLike,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -260,6 +301,9 @@
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.authorAvatar != null">
+        author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.editorContent != null">
         editor_content = #{record.editorContent,jdbcType=LONGVARCHAR},
@@ -273,15 +317,19 @@
     update blog_article
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
       author_id = #{record.authorId,jdbcType=INTEGER},
-      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
       author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
       editor = #{record.editor,jdbcType=VARCHAR},
       editor_theme = #{record.editorTheme,jdbcType=VARCHAR},
       user_like = #{record.userLike,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR},
+      author_avatar = #{record.authorAvatar,jdbcType=LONGVARCHAR},
       editor_content = #{record.editorContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -291,12 +339,15 @@
     update blog_article
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
       author_id = #{record.authorId,jdbcType=INTEGER},
-      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
       author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
       editor = #{record.editor,jdbcType=VARCHAR},
       editor_theme = #{record.editorTheme,jdbcType=VARCHAR},
       user_like = #{record.userLike,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -309,11 +360,17 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="subtitle != null">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
       <if test="authorId != null">
         author_id = #{authorId,jdbcType=INTEGER},
-      </if>
-      <if test="authorAvatar != null">
-        author_avatar = #{authorAvatar,jdbcType=VARCHAR},
       </if>
       <if test="authorNickname != null">
         author_nickname = #{authorNickname,jdbcType=VARCHAR},
@@ -327,6 +384,9 @@
       <if test="userLike != null">
         user_like = #{userLike,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -335,6 +395,9 @@
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
       </if>
       <if test="editorContent != null">
         editor_content = #{editorContent,jdbcType=LONGVARCHAR},
@@ -345,27 +408,34 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fangzhi.cloud.mbg.blog.model.BlogArticle">
     update blog_article
     set title = #{title,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
       author_id = #{authorId,jdbcType=INTEGER},
-      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
       author_nickname = #{authorNickname,jdbcType=VARCHAR},
       editor = #{editor,jdbcType=VARCHAR},
       editor_theme = #{editorTheme,jdbcType=VARCHAR},
       user_like = #{userLike,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR},
+      author_avatar = #{authorAvatar,jdbcType=LONGVARCHAR},
       editor_content = #{editorContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fangzhi.cloud.mbg.blog.model.BlogArticle">
     update blog_article
     set title = #{title,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
       author_id = #{authorId,jdbcType=INTEGER},
-      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
       author_nickname = #{authorNickname,jdbcType=VARCHAR},
       editor = #{editor,jdbcType=VARCHAR},
       editor_theme = #{editorTheme,jdbcType=VARCHAR},
       user_like = #{userLike,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

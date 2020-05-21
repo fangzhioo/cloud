@@ -32,16 +32,16 @@ public class BlogComment implements Serializable {
      */
     private String authorNickname;
 
+    private Date gmtCreate;
+
+    private Date gmtModified;
+
     /**
      * 评论人头像
      *
      * @mbg.generated
      */
     private String authorAvatar;
-
-    private Date gmtCreate;
-
-    private Date gmtModified;
 
     /**
      * 评论内容
@@ -84,14 +84,6 @@ public class BlogComment implements Serializable {
         this.authorNickname = authorNickname;
     }
 
-    public String getAuthorAvatar() {
-        return authorAvatar;
-    }
-
-    public void setAuthorAvatar(String authorAvatar) {
-        this.authorAvatar = authorAvatar;
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -106,6 +98,14 @@ public class BlogComment implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getAuthorAvatar() {
+        return authorAvatar;
+    }
+
+    public void setAuthorAvatar(String authorAvatar) {
+        this.authorAvatar = authorAvatar;
     }
 
     public String getContent() {
@@ -126,9 +126,9 @@ public class BlogComment implements Serializable {
         sb.append(", articleId=").append(articleId);
         sb.append(", authorId=").append(authorId);
         sb.append(", authorNickname=").append(authorNickname);
-        sb.append(", authorAvatar=").append(authorAvatar);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
+        sb.append(", authorAvatar=").append(authorAvatar);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
