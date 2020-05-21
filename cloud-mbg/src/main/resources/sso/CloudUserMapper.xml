@@ -6,12 +6,14 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="signature" jdbcType="VARCHAR" property="signature" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fangzhi.cloud.mbg.sso.model.CloudUser">
+    <result column="avatar" jdbcType="LONGVARCHAR" property="avatar" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,9 +74,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, nickname, avatar, signature, email, phone, created_time, 
-    modify_time
+    id, username, password, nickname, signature, email, phone, created_time, modify_time
   </sql>
+  <sql id="Blob_Column_List">
+    avatar
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fangzhi.cloud.mbg.sso.model.CloudUserExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cloud_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.fangzhi.cloud.mbg.sso.model.CloudUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -89,9 +109,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from cloud_user
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -110,12 +132,12 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into cloud_user (username, password, nickname, 
-      avatar, signature, email, 
-      phone, created_time, modify_time
+      signature, email, phone, 
+      created_time, modify_time, avatar
       )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{avatar,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      #{signature,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fangzhi.cloud.mbg.sso.model.CloudUser">
@@ -133,9 +155,6 @@
       <if test="nickname != null">
         nickname,
       </if>
-      <if test="avatar != null">
-        avatar,
-      </if>
       <if test="signature != null">
         signature,
       </if>
@@ -151,6 +170,9 @@
       <if test="modifyTime != null">
         modify_time,
       </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="username != null">
@@ -161,9 +183,6 @@
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null">
-        #{avatar,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
         #{signature,jdbcType=VARCHAR},
@@ -179,6 +198,9 @@
       </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -203,9 +225,6 @@
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
-      <if test="record.avatar != null">
-        avatar = #{record.avatar,jdbcType=VARCHAR},
-      </if>
       <if test="record.signature != null">
         signature = #{record.signature,jdbcType=VARCHAR},
       </if>
@@ -221,7 +240,26 @@
       <if test="record.modifyTime != null">
         modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update cloud_user
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      avatar = #{record.avatar,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -232,7 +270,6 @@
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
       signature = #{record.signature,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
@@ -254,9 +291,6 @@
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="avatar != null">
-        avatar = #{avatar,jdbcType=VARCHAR},
-      </if>
       <if test="signature != null">
         signature = #{signature,jdbcType=VARCHAR},
       </if>
@@ -272,7 +306,23 @@
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fangzhi.cloud.mbg.sso.model.CloudUser">
+    update cloud_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      avatar = #{avatar,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.fangzhi.cloud.mbg.sso.model.CloudUser">
@@ -280,7 +330,6 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},

@@ -33,13 +33,6 @@ public class CloudUser implements Serializable {
     private String nickname;
 
     /**
-     * 头像
-     *
-     * @mbg.generated
-     */
-    private String avatar;
-
-    /**
      * 签名
      *
      * @mbg.generated
@@ -74,6 +67,13 @@ public class CloudUser implements Serializable {
      */
     private Date modifyTime;
 
+    /**
+     * 头像
+     *
+     * @mbg.generated
+     */
+    private String avatar;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -106,14 +106,6 @@ public class CloudUser implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getSignature() {
@@ -156,6 +148,14 @@ public class CloudUser implements Serializable {
         this.modifyTime = modifyTime;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -166,12 +166,12 @@ public class CloudUser implements Serializable {
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", nickname=").append(nickname);
-        sb.append(", avatar=").append(avatar);
         sb.append(", signature=").append(signature);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", avatar=").append(avatar);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

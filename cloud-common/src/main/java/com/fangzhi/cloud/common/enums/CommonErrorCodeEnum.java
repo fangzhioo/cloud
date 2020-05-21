@@ -3,6 +3,12 @@ package com.fangzhi.cloud.common.enums;
 public enum CommonErrorCodeEnum {
 
     ERROR_CODE_10000(10000,"成功"),
+
+    // 文章相关错误
+
+
+
+    ERROR_CODE_99998(99998, "未获取到当前登陆用户"),
     ERROR_CODE_99999(99999,"系统默认错误！");
 
     private Integer errorCode;

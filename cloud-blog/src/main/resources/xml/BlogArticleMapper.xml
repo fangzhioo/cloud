@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fangzhi.cloud.blog.dao.mapper.BlogArticleMapper">
+  <resultMap id="BaseResultMap" type="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="author_avatar" jdbcType="VARCHAR" property="authorAvatar" />
+    <result column="author_nickname" jdbcType="VARCHAR" property="authorNickname" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="editor_theme" jdbcType="VARCHAR" property="editorTheme" />
+    <result column="user_like" jdbcType="INTEGER" property="userLike" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="editor_content" jdbcType="LONGVARCHAR" property="editorContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, author_id, author_avatar, author_nickname, editor, editor_theme, user_like, 
+    gmt_create, gmt_modified
+  </sql>
+  <sql id="Blob_Column_List">
+    content, editor_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticleExample">
+    delete from blog_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_article (title, author_id, author_avatar, 
+      author_nickname, editor, editor_theme, 
+      user_like, gmt_create, gmt_modified, 
+      content, editor_content)
+    values (#{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, #{authorAvatar,jdbcType=VARCHAR}, 
+      #{authorNickname,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{editorTheme,jdbcType=VARCHAR}, 
+      #{userLike,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{editorContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into blog_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar,
+      </if>
+      <if test="authorNickname != null">
+        author_nickname,
+      </if>
+      <if test="editor != null">
+        editor,
+      </if>
+      <if test="editorTheme != null">
+        editor_theme,
+      </if>
+      <if test="userLike != null">
+        user_like,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="editorContent != null">
+        editor_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorAvatar != null">
+        #{authorAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="authorNickname != null">
+        #{authorNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editorTheme != null">
+        #{editorTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="userLike != null">
+        #{userLike,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="editorContent != null">
+        #{editorContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticleExample" resultType="java.lang.Long">
+    select count(*) from blog_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorId != null">
+        author_id = #{record.authorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorAvatar != null">
+        author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorNickname != null">
+        author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editor != null">
+        editor = #{record.editor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editorTheme != null">
+        editor_theme = #{record.editorTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLike != null">
+        user_like = #{record.userLike,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.editorContent != null">
+        editor_content = #{record.editorContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update blog_article
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=INTEGER},
+      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
+      author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
+      editor = #{record.editor,jdbcType=VARCHAR},
+      editor_theme = #{record.editorTheme,jdbcType=VARCHAR},
+      user_like = #{record.userLike,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      editor_content = #{record.editorContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog_article
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=INTEGER},
+      author_avatar = #{record.authorAvatar,jdbcType=VARCHAR},
+      author_nickname = #{record.authorNickname,jdbcType=VARCHAR},
+      editor = #{record.editor,jdbcType=VARCHAR},
+      editor_theme = #{record.editorTheme,jdbcType=VARCHAR},
+      user_like = #{record.userLike,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    update blog_article
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="authorAvatar != null">
+        author_avatar = #{authorAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="authorNickname != null">
+        author_nickname = #{authorNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="editorTheme != null">
+        editor_theme = #{editorTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="userLike != null">
+        user_like = #{userLike,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="editorContent != null">
+        editor_content = #{editorContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    update blog_article
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
+      author_nickname = #{authorNickname,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      editor_theme = #{editorTheme,jdbcType=VARCHAR},
+      user_like = #{userLike,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      editor_content = #{editorContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fangzhi.cloud.blog.dao.model.BlogArticle">
+    update blog_article
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      author_avatar = #{authorAvatar,jdbcType=VARCHAR},
+      author_nickname = #{authorNickname,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      editor_theme = #{editorTheme,jdbcType=VARCHAR},
+      user_like = #{userLike,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+<!--  自定义sql-->
+  <select id="listByQuery" parameterType="com.fangzhi.cloud.blog.pojo.query.BlogArticleQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    left(content,200) as content,
+    left(editor_content,200) as editor_content
+    from blog_article
+    where 1=1
+    order by id desc
+    <if test="limit != null">
+      <if test="offset != null">
+        limit #{offset}, #{limit}
+      </if>
+      <if test="offset == null">
+        limit #{limit}
+      </if>
+    </if>
+  </select>
+</mapper>

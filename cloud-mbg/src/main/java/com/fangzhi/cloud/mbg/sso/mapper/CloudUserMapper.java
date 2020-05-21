@@ -16,15 +16,21 @@ public interface CloudUserMapper {
 
     int insertSelective(CloudUser record);
 
+    List<CloudUser> selectByExampleWithBLOBs(CloudUserExample example);
+
     List<CloudUser> selectByExample(CloudUserExample example);
 
     CloudUser selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") CloudUser record, @Param("example") CloudUserExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") CloudUser record, @Param("example") CloudUserExample example);
+
     int updateByExample(@Param("record") CloudUser record, @Param("example") CloudUserExample example);
 
     int updateByPrimaryKeySelective(CloudUser record);
+
+    int updateByPrimaryKeyWithBLOBs(CloudUser record);
 
     int updateByPrimaryKey(CloudUser record);
 }
