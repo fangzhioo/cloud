@@ -2,6 +2,22 @@ import { IRoute } from 'umi';
 
 const routers = [
   {
+    path: '/',
+    exact: true,
+    component: '@/layouts/FullLayout',
+    routes: [
+      {
+        path: '/',
+        name: 'home',
+        icon: 'home',
+        component: './index',
+      },
+      {
+        component: './404',
+      },
+    ]
+  },
+  {
     path: '/test',
     component: '@/layouts/TestLayout',
     routes: [
@@ -23,40 +39,26 @@ const routers = [
   },
   {
     path: '/',
-    component: '@/layouts/BlankLayout',
+    component: '@/layouts/BasicLayout',
     routes: [
       {
-        path: '/',
-        component: '@/layouts/BasicLayout',
-        routes: [
-          {
-            path: '/',
-            redirect: '/home',
-          },
-          {
-            path: '/home',
-            name: 'home',
-            icon: 'home',
-            component: './index',
-          },
-          {
-            path: '/publish',
-            name: 'article',
-            icon: 'book',
-            component: './article/publish'
-          },
-          {
-            path: '/lib',
-            name: 'lib',
-            icon: 'book',
-            component: './lib/fzmd'
-          },
-          {
-            component: './404',
-          },
-        ],
+        path: '/article',
+        name: 'article',
+        icon: 'book',
+        component: './article/list',
       },
-
+      {
+        path: '/publish',
+        name: 'publish',
+        icon: 'edit',
+        component: './article/publish',
+      },
+      {
+        path: '/lib',
+        name: 'lib',
+        icon: 'book',
+        component: './lib/fzmd'
+      },
       {
         component: './404',
       },
