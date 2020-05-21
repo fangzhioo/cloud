@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: local
   application:
     name: nacos-cloud-blog
   freemarker:
@@ -18,3 +18,9 @@ service-url:
 mybatis:
   mapper-locations: classpath*:xml/*.xml
   type-aliases-package: com.fangzhi.cloud.blog.dao.model
+
+# open-api / swagger3
+springdoc:
+  api-docs:
+    enabled: true
+  packagesToScan: com.fangzhi.cloud.blog.controller.web

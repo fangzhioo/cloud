@@ -3,4 +3,4 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 49.234.214.14:8848/
+        server-addr: http://localhost:8848/

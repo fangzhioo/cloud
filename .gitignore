@@ -69,3 +69,6 @@ screenshot
 .eslintcache
 
 build
+
+# custom
+application-local.yaml
