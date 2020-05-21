@@ -5,6 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
+const COMMONT_RESULT_SUCCESS_CODE = 10000;
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -53,14 +54,13 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
 });
 
-
 /**
  * 拦截器
  */
-request.interceptors.response.use(async response => {
+request.interceptors.response.use(async (response) => {
   const d = await response.clone().text();
   if (d) {
-    const data = await response.clone().json();
+    const data: CommonResult<any> = await response.clone().json();
     if (!data) {
       notification.error({
         message: `服务器异常`,
@@ -68,7 +68,7 @@ request.interceptors.response.use(async response => {
       });
       throw new Error('服务器异常');
     }
-    if (data.code !== 10000) {
+    if (data.code !== COMMONT_RESULT_SUCCESS_CODE) {
       notification.error({
         message: data.message || '服务器繁忙',
         description: `业务代码 - ${data.code}`,

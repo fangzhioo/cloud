@@ -3,6 +3,8 @@ export default {
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.article': '文章',
+  'menu.publish': '发表',
+
   'menu.lib': '实验室',
   'menu.lib.fzmd': 'md编辑器',
 

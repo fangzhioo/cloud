@@ -1,12 +1,10 @@
 import { Effect, Reducer } from 'umi';
-import { queryCurrent } from '@/services/user';
 
 export class CurrentUser {
   userId?: string;
   userName?: string;
   nickName?: string = 'guest';
   avatar?: string = '';
-
 }
 
 export interface UserModelState {
@@ -28,12 +26,12 @@ const UserModel: UserModelType = {
   namespace: 'user',
 
   state: {
-    currentUser: new CurrentUser,
+    currentUser: new CurrentUser(),
   },
 
   effects: {
     *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
+      const response = yield call(API.blog.user.currentUser.request, {});
       if (response) {
         yield put({
           type: 'saveCurrentUser',

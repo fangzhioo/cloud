@@ -29,6 +29,15 @@ interface Window {
   reloadAuthorized: () => void;
 }
 
+/**
+ * 自定义后端返回集结构
+ */
+interface CommonResult<T> {
+  code?: number;
+  message?: string;
+  data?: T
+}
+
 declare let ga: Function;
 
 // preview.pro.ant.design only do not use in your production ;
