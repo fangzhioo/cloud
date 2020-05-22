@@ -1,15 +1,21 @@
 /**
- * @description undefined
+ * @description listArticleByQuery
  */
 
 import Request from '@/utils/request';
 import * as defs from '../../baseClass';
 
 export class Params {
-  /** query */
-  query: defs.blog.BlogArticleQuery;
+  /** current */
+  current?: number;
+  /** limit */
+  limit?: number;
+  /** offset */
+  offset?: number;
+  /** pageSize */
+  pageSize?: number;
 }
-export const init = new defs.blog.CommonResultListBlogArticleVO();
+export const init = new defs.blog.CommonResult();
 
 export async function request({
   params = {},

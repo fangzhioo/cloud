@@ -1,5 +1,5 @@
 /**
- * @description undefined
+ * @description currentUser
  */
 
 import Request from '@/utils/request';

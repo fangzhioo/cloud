@@ -1,5 +1,5 @@
 /**
- * @description
+ * @description User Controller
  */
 import * as currentUser from './currentUser';
 

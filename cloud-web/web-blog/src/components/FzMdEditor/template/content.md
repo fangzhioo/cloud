@@ -2,6 +2,10 @@
 
 ---
 
+[toc]
+
+---
+
 ## node
 
 ### 安装 node.js / npm
@@ -46,8 +50,7 @@
 
 ### const、let 和 var
 
-`const`、`let`和`var`都是用来声明变量的作用。`const`和`let`是 ES6 开始引入的概念。
-`const` 用来表示常量，一旦声明就无法改变值。 但这是指基本数据类型，对数组和对象修改属性和数组项并不受影响。  
+`const`、`let`和`var`都是用来声明变量的作用。`const`和`let`是 ES6 开始引入的概念。 `const` 用来表示常量，一旦声明就无法改变值。 但这是指基本数据类型，对数组和对象修改属性和数组项并不受影响。  
 `let` 用法相当与`var`，只是`let`只在块级作用域起作用，不存在变量提升。在项目中，尽量不要使用`var`。用`let`和`const`就足够了。
 
 ### 解构
@@ -62,33 +65,33 @@ let c = 3;
 let [a, b, c] = [1, 2, 3];
 
 let [foo, [[bar], baz]] = [1, [[2], 3]];
-foo // 1
-bar // 2
-baz // 3
+foo; // 1
+bar; // 2
+baz; // 3
 
-let [ , , third] = ["foo", "bar", "baz"];
-third // "baz"
+let [, , third] = ['foo', 'bar', 'baz'];
+third; // "baz"
 
 let [x, , y] = [1, 2, 3];
-x // 1
-y // 3
+x; // 1
+y; // 3
 
 let [head, ...tail] = [1, 2, 3, 4];
-head // 1
-tail // [2, 3, 4]
+head; // 1
+tail; // [2, 3, 4]
 
 let [x, y, ...z] = ['a'];
-x // "a"
-y // undefined
-z // []
+x; // "a"
+y; // undefined
+z; // []
 
 // 解构不仅可以用于数组，还可以用于对象
 let { bar, foo } = { foo: 'aaa', bar: 'bbb' };
-foo // "aaa"
-bar // "bbb"
+foo; // "aaa"
+bar; // "bbb"
 
 let { baz } = { foo: 'aaa', bar: 'bbb' };
-baz // undefined
+baz; // undefined
 ```
 
 项目中，会频繁的用到解构赋值，所以这个非常重要，需要理解解构的语法。
@@ -98,7 +101,7 @@ baz // undefined
 > ES6 允许使用“箭头”（=>）定义函数。
 
 ```js
-var f = v => v;
+var f = (v) => v;
 
 // 等同于
 var f = function (v) {
@@ -114,22 +117,17 @@ var f = function (v) {
 
 ```js
 const foo = 'bar';
-const baz = {foo};
-baz // {foo: "bar"}
+const baz = { foo };
+baz; // {foo: "bar"}
 // 等同于
-const baz = {foo: foo};
+const baz = { foo: foo };
 ```
 
 这里对象的拓展用法，在项目用的比较普遍。
 
 ### Promise 对象
 
-> Promise 是异步编程的一种解决方案，比传统的解决方案（回调函数和事件）更合理和更强大。
-> Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
-> Promise 对象有以下两个特点。
-> （1）对象的状态不受外界影响。Promise 对象代表一个异步操作，有三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是 Promise 这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。
-> （2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（已定型）。如果改变已经发生了，你再对 Promise 对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
-> Promise 对象是一个构造函数，用来生成 Promise 实例。
+> Promise 是异步编程的一种解决方案，比传统的解决方案（回调函数和事件）更合理和更强大。 Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。 Promise 对象有以下两个特点。（1）对象的状态不受外界影响。Promise 对象代表一个异步操作，有三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。这也是 Promise 这个名字的由来，它的英语意思就是“承诺”，表示其他手段无法改变。（2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果，这时就称为 resolved（已定型）。如果改变已经发生了，你再对 Promise 对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。 Promise 对象是一个构造函数，用来生成 Promise 实例。
 
 ```js
 // 创建一个Promise函数
@@ -154,8 +152,7 @@ promise.then(function(value) {
 
 ### async / await
 
-> ES2017 标准引入了 async 函数，使得异步操作变得更加方便，它就是 Generator 函数的语法糖。
-> async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。async 函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而 await 命令就是内部 then 命令的语法糖。
+> ES2017 标准引入了 async 函数，使得异步操作变得更加方便，它就是 Generator 函数的语法糖。 async 函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用 then 方法指定下一步的操作。async 函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而 await 命令就是内部 then 命令的语法糖。
 
 这是一种异步转同步的方案，我们项目中可能需要留意的是，Generator 函数，在 dva 定义的 modal 中，`yield` 关键词的作用，就类似这里的异步转同步。
 
@@ -166,16 +163,12 @@ promise.then(function(value) {
 概念类比 java 中的 class，这里我们可能更需要关注的是 React 类组件
 
 ```js
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
- class Page extends Component {
-    render() {
-        return (
-            <div>
-                page
-            </div>
-        )
-    }
+class Page extends Component {
+  render() {
+    return <div>page</div>;
+  }
 }
 export default Page;
 ```
@@ -184,8 +177,7 @@ export default Page;
 
 ### Module 的语法
 
-> ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。
-> 模块功能主要由两个命令构成：export 和 import。export 命令用于规定模块的对外接口，import 命令用于输入其他模块提供的功能。
+> ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。模块功能主要由两个命令构成：export 和 import。export 命令用于规定模块的对外接口，import 命令用于输入其他模块提供的功能。
 
 ```js
 // a.js
@@ -196,7 +188,7 @@ export default const SystemName = 'OneData';
 使用 `export` 命令定义了模块的对外接口以后，其他 JS 文件就可以通过`import`命令加载这个模块。
 
 ```js
-import {appName} from './a.js';
+import { appName } from './a.js';
 import SystemName from './a.js';
 ```
 
@@ -210,8 +202,7 @@ typescript 面对 javascript 有什么优势？比较下两者的不同。
 
 > Typescript 是 Javascript 的超集。（Typescript = Type + Javascript）
 
-更加详细的文档，可以[查看这里](https://ts.xcatliu.com/introduction/what-is-typescript)
-在线示例可以[查看这里](https://www.typescriptlang.org/play/)
+更加详细的文档，可以[查看这里](https://ts.xcatliu.com/introduction/what-is-typescript) 在线示例可以[查看这里](https://www.typescriptlang.org/play/)
 
 ### 基本语法
 
@@ -254,13 +245,7 @@ Typescript 与 Java 刚好相反，Java 的类型定义在变量前，Typescript
 
 ### 基本类型
 
-Java => Typescript
-Java: Float, Integer, Double
-Typescript：number
-Java: String
-Typescript: string
-Java: Boolean
-Typescript: boolean
+Java => Typescript Java: Float, Integer, Double Typescript：number Java: String Typescript: string Java: Boolean Typescript: boolean
 
 示例：  
 Java：
@@ -278,7 +263,7 @@ Typescript：
 let userMan: boolean = true;
 let userAge: number = 81;
 let userAverage: number = 10.5;
-let userName: string = "Henri Bergson";
+let userName: string = 'Henri Bergson';
 ```
 
 ### 任意值
@@ -289,18 +274,29 @@ let userName: string = "Henri Bergson";
 
 ### 复合类型
 
-- enum
-  语法比较一致
+- enum 语法比较一致
 
 ```typescript
 // Java
 enum WeekDayEnum {
-  Mon, Tue, Wed, Thu, Fri, Sat, Sun
+  Mon,
+  Tue,
+  Wed,
+  Thu,
+  Fri,
+  Sat,
+  Sun,
 }
 
 // Typescript
 enum WeekDayEnum {
-  Mon, Tue, Wed, Thu, Fri, Sat, Sun
+  Mon,
+  Tue,
+  Wed,
+  Thu,
+  Fri,
+  Sat,
+  Sun,
 }
 
 // 附上初始值：
@@ -311,15 +307,13 @@ enum WeekDayEnum {
   Thu = 4,
   Fri = 5,
   Sat = 6,
-  Sun = 7
+  Sun = 7,
 }
 ```
 
 ### interface、type 和 class
 
-`interface`接口，类比 java 中的 interface，接口是一系列抽象方法的声明，是一些方法特征的集合，这些方法都应该是抽象的，需要由具体的类去实现，然后第三方就可以通过这组抽象方法调用，让具体的类执行具体的方法。
-`type` 用来定义数据结构。
-`class` 类比 java，有私有和静态属性，可以继承，构造方法……
+`interface`接口，类比 java 中的 interface，接口是一系列抽象方法的声明，是一些方法特征的集合，这些方法都应该是抽象的，需要由具体的类去实现，然后第三方就可以通过这组抽象方法调用，让具体的类执行具体的方法。 `type` 用来定义数据结构。 `class` 类比 java，有私有和静态属性，可以继承，构造方法……
 
 ```typescript
 interface Person {
@@ -351,7 +345,7 @@ class Cat = {
 let userMan = true;
 let userAge = 81;
 let userAverage = 10.5;
-let userName = "Henri Bergson";
+let userName = 'Henri Bergson';
 ```
 
 ### 函数定义
@@ -359,7 +353,7 @@ let userName = "Henri Bergson";
 上面例子中已经有函数的例子了，java 在定义时，返回值以参数类型都需要写。并且写在变量之前。而 typescript 则是之后。看下面的例子 🌰：
 
 ```typescript
-const multiply: (a: number, b: number)=> number = (a, b) =>  a * b ;
+const multiply: (a: number, b: number) => number = (a, b) => a * b;
 ```
 
 ### 文件类型
@@ -376,85 +370,80 @@ const multiply: (a: number, b: number)=> number = (a, b) =>  a * b ;
 
 什么是 react.js? 为什么选择 react.js？
 
-> React 使创建交互式 UI 变得轻而易举。为你应用的每一个状态设计简洁的视图，当数据改变时 React 能有效地更新并正确地渲染组件。
-> 创建拥有各自状态的组件，再由这些组件构成更加复杂的 UI。
-> 组件逻辑使用 JavaScript 编写而非模版，因此你可以轻松地在应用中传递数据，并使得状态与 DOM 分离。
-> 一个通过 react 框架构成的前端应用，其构成结构为：元素 -> 组件 -> 模块 -> 页面 -> 站点；
-> **牢记重点：状态、组件、单向数据流。**
+> React 使创建交互式 UI 变得轻而易举。为你应用的每一个状态设计简洁的视图，当数据改变时 React 能有效地更新并正确地渲染组件。创建拥有各自状态的组件，再由这些组件构成更加复杂的 UI。组件逻辑使用 JavaScript 编写而非模版，因此你可以轻松地在应用中传递数据，并使得状态与 DOM 分离。一个通过 react 框架构成的前端应用，其构成结构为：元素 -> 组件 -> 模块 -> 页面 -> 站点； **牢记重点：状态、组件、单向数据流。**
 
-React.js 是一个帮助你构建页面 UI 的库。如果你熟悉 MVC 概念的话，那么 React 的组件就相当于 MVC 里面的 View。如果你不熟悉也没关系，你可以简单地理解为，React.js 将帮助我们将界面分成了各个独立的小块，每一个块就是组件，这些组件之间可以组合、嵌套，就成了我们的页面。
-一个组件的显示形态和行为有可能是由某些数据决定的。而数据是可能发生改变的，这时候组件的显示形态就会发生相应的改变。而 React.js 也提供了一种非常高效的方式帮助我们做到了数据和组件显示形态之间的同步。
-React.js 不是一个框架，它只是一个库。它只提供 UI （view）层面的解决方案。在实际的项目当中，它并不能解决我们所有的问题，需要结合其它的库，例如 Redux、React-router 等来协助提供完整的解决方法。
+React.js 是一个帮助你构建页面 UI 的库。如果你熟悉 MVC 概念的话，那么 React 的组件就相当于 MVC 里面的 View。如果你不熟悉也没关系，你可以简单地理解为，React.js 将帮助我们将界面分成了各个独立的小块，每一个块就是组件，这些组件之间可以组合、嵌套，就成了我们的页面。一个组件的显示形态和行为有可能是由某些数据决定的。而数据是可能发生改变的，这时候组件的显示形态就会发生相应的改变。而 React.js 也提供了一种非常高效的方式帮助我们做到了数据和组件显示形态之间的同步。 React.js 不是一个框架，它只是一个库。它只提供 UI （view）层面的解决方案。在实际的项目当中，它并不能解决我们所有的问题，需要结合其它的库，例如 Redux、React-router 等来协助提供完整的解决方法。
 
 一个小 demo 帮你理解 react 在做什么？
 
 ```html
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>What Reactjs do?</title>
     <style media="screen">
-      .like-btn { font-size: 50px; }
+      .like-btn {
+        font-size: 50px;
+      }
     </style>
   </head>
 
   <body>
-    <div class='wrapper'></div>
+    <div class="wrapper"></div>
   </body>
 
   <script type="text/javascript">
     /* Component */
     class Component {
-      constructor (props = {}) {
-        this.props = props
+      constructor(props = {}) {
+        this.props = props;
       }
 
-      setState (state) {
-        const oldEl = this.el
-        this.state = state
-        this.el = this.renderDOM()
-        if (this.onStateChange) this.onStateChange(oldEl, this.el)
+      setState(state) {
+        const oldEl = this.el;
+        this.state = state;
+        this.el = this.renderDOM();
+        if (this.onStateChange) this.onStateChange(oldEl, this.el);
       }
 
-      renderDOM () {
-        this.el = createDOMFromString(this.render())
+      renderDOM() {
+        this.el = createDOMFromString(this.render());
         if (this.onClick) {
-          this.el.addEventListener('click', this.onClick.bind(this), false)
+          this.el.addEventListener('click', this.onClick.bind(this), false);
         }
-        return this.el
+        return this.el;
       }
     }
 
     const createDOMFromString = (domString) => {
-      const div = document.createElement('div')
-      div.innerHTML = domString
-      return div
-    }
+      const div = document.createElement('div');
+      div.innerHTML = domString;
+      return div;
+    };
 
     const mount = (component, wrapper) => {
-      wrapper.appendChild(component.renderDOM())
+      wrapper.appendChild(component.renderDOM());
       component.onStateChange = (oldEl, newEl) => {
-        wrapper.insertBefore(newEl, oldEl)
-        wrapper.removeChild(oldEl)
-      }
-    }
+        wrapper.insertBefore(newEl, oldEl);
+        wrapper.removeChild(oldEl);
+      };
+    };
 
     /* ========================================= */
     class LikeButton extends Component {
-      constructor (props) {
-        super(props)
-        this.state = { isLiked: false }
+      constructor(props) {
+        super(props);
+        this.state = { isLiked: false };
       }
 
-      onClick () {
+      onClick() {
         this.setState({
-          isLiked: !this.state.isLiked
-        })
+          isLiked: !this.state.isLiked,
+        });
       }
 
-      render () {
+      render() {
         return `
           <button class='like-btn' style="background-color: ${this.props.bgColor}">
             <span class='like-text'>
@@ -462,35 +451,35 @@ React.js 不是一个框架，它只是一个库。它只提供 UI （view）层
             </span>
             <span>👍</span>
           </button>
-        `
+        `;
       }
     }
 
     class RedBlueButton extends Component {
-      constructor (props) {
-        super(props)
+      constructor(props) {
+        super(props);
         this.state = {
-          color: 'red'
-        }
+          color: 'red',
+        };
       }
 
-      onClick () {
+      onClick() {
         this.setState({
-          color: 'blue'
-        })
+          color: 'blue',
+        });
       }
 
-      render () {
+      render() {
         return `
           <div style='color: ${this.state.color};'>${this.state.color}</div>
-        `
+        `;
       }
     }
 
-    const wrapper = document.querySelector('.wrapper')
-    mount(new LikeButton({ bgColor: 'red' }), wrapper)
-    mount(new LikeButton(), wrapper)
-    mount(new RedBlueButton(), wrapper)
+    const wrapper = document.querySelector('.wrapper');
+    mount(new LikeButton({ bgColor: 'red' }), wrapper);
+    mount(new LikeButton(), wrapper);
+    mount(new RedBlueButton(), wrapper);
   </script>
 </html>
 ```
@@ -502,23 +491,20 @@ React.js 不是一个框架，它只是一个库。它只提供 UI （view）层
 这种看起来“在 JavaScript 写的标签的”语法叫 JSX。但注意的是，在写组件的时候，需要引入 react。
 
 ```jsx
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 class Page extends Component {
-  render () {
+  render() {
     return (
       <div>
         <h1>Hello World</h1>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(
-  <Page />,
-  document.getElementById('root')
-)
+ReactDOM.render(<Page />, document.getElementById('root'));
 ```
 
 想了解更多可以查看[jsx 的原理](http://zzzzzzoooo.gitee.io)
@@ -527,8 +513,7 @@ ReactDOM.render(
 
 ![jsx编译过程](https://huzidaha.github.io/static/assets/img/posts/44B5EC06-EAEB-4BA2-B3DC-325703E4BA45.png)
 
-所以为啥不可以直接从 jsx 直接解析为 dom，而是先解析为 js 对象后，再经过`react-dom`，解析为 dom？
-第一点，在于可以复用结构，我们不一定仅仅渲染成 dom，也可以去渲染成其他的结构。比如，想象有个`react-dingding`，那我们也可以把这个 js 对象解析成钉钉小程序需要的页面？  
+所以为啥不可以直接从 jsx 直接解析为 dom，而是先解析为 js 对象后，再经过`react-dom`，解析为 dom？第一点，在于可以复用结构，我们不一定仅仅渲染成 dom，也可以去渲染成其他的结构。比如，想象有个`react-dingding`，那我们也可以把这个 js 对象解析成钉钉小程序需要的页面？  
 第二点，在于方便做 diff 算法。
 
 总结：
@@ -576,18 +561,14 @@ class Page extends Component {
 
 ```
 
-组件中，可以定义 jsx 变量，组件之间也是可以嵌套、组合的。
-`{}`内可以放任何 JavaScript 的代码，包括变量、表达式计算、函数执行等等。  
-render 会把这些代码返回的内容如实地渲染到页面上，非常的灵活。
-⚠️ 注意这里的类名，用的是`className`，因为`class`是 js 的关键字，类似的比如`htmlFor`用来替代`label`的`for`属性。
+组件中，可以定义 jsx 变量，组件之间也是可以嵌套、组合的。 `{}`内可以放任何 JavaScript 的代码，包括变量、表达式计算、函数执行等等。  
+render 会把这些代码返回的内容如实地渲染到页面上，非常的灵活。 ⚠️ 注意这里的类名，用的是`className`，因为`class`是 js 的关键字，类似的比如`htmlFor`用来替代`label`的`for`属性。
 
 ### Props
 
-组件是相互独立、可复用的单元，一个组件可能在不同地方被用到。但是在不同的场景下对这个组件的需求可能会根据情况有所不同。React.js 的 props 就可以帮助我们达到这个效果。
-⚠️ 注意无法在组件内修改组件的 props。只能是父组件修改 props，传入子组件触发更新。
+组件是相互独立、可复用的单元，一个组件可能在不同地方被用到。但是在不同的场景下对这个组件的需求可能会根据情况有所不同。React.js 的 props 就可以帮助我们达到这个效果。 ⚠️ 注意无法在组件内修改组件的 props。只能是父组件修改 props，传入子组件触发更新。
 
-那么怎么把 props 传进去呢？
-在使用一个组件的时候，可以把参数放在标签的属性当中，所有的属性都会作为 props 对象的键值。比如上面的`<Header />` 传入的参数`title`。
+那么怎么把 props 传进去呢？在使用一个组件的时候，可以把参数放在标签的属性当中，所有的属性都会作为 props 对象的键值。比如上面的`<Header />` 传入的参数`title`。
 
 总结：
 
@@ -598,55 +579,38 @@ render 会把这些代码返回的内容如实地渲染到页面上，非常的�
 
 ### State
 
-一个组件的显示形态是可以由它数据状态`state`和配置参数`props`决定的。一个组件可以拥有自己的状态`state`。
-但是状态不能直接赋值修改，只能通过`setState`进行修改。
+一个组件的显示形态是可以由它数据状态`state`和配置参数`props`决定的。一个组件可以拥有自己的状态`state`。但是状态不能直接赋值修改，只能通过`setState`进行修改。
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Page extends Component {
-  state={
-  	count: 0
+  state = {
+    count: 0,
   };
 
   handleBtnClick = () => {
-  	setState({
-		count: this.state.count + 1
-	})
+    setState({
+      count: this.state.count + 1,
+    });
   };
 
-  render () {
+  render() {
     return (
-			<div>
-	  			<p>当前数量：{ this.state.count } </p>
-				<p>
-					<button onClick={this.handleBtnClick}>加一</button>
-				</p>
-	  		</div>
-    )
+      <div>
+        <p>当前数量：{this.state.count} </p>
+        <p>
+          <button onClick={this.handleBtnClick}>加一</button>
+        </p>
+      </div>
+    );
   }
 }
 ```
 
 ### 生命周期
 
-可以为 class 组件声明一些特殊的方法，当组件挂载或更新或卸载时就会去执行这些方法，称为组件生命周期方法。
-当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：
-• `constructor()`
-• `static getDerivedStateFromProps()`
-• `render()`
-• `componentDidMount()`
-当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：
-• `static getDerivedStateFromProps()`
-• `shouldComponentUpdate()`
-• `render()`
-• `getSnapshotBeforeUpdate()`
-• `componentDidUpdate()`
-当组件从 DOM 中移除时会调用如下方法：
-• `componentWillUnmount()`
-当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法：
-• `static getDerivedStateFromError()`
-• `componentDidCatch()`
+可以为 class 组件声明一些特殊的方法，当组件挂载或更新或卸载时就会去执行这些方法，称为组件生命周期方法。当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下： • `constructor()` • `static getDerivedStateFromProps()` • `render()` • `componentDidMount()` 当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下： • `static getDerivedStateFromProps()` • `shouldComponentUpdate()` • `render()` • `getSnapshotBeforeUpdate()` • `componentDidUpdate()` 当组件从 DOM 中移除时会调用如下方法： • `componentWillUnmount()` 当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法： • `static getDerivedStateFromError()` • `componentDidCatch()`
 
 ⚠️ 注意，这里的生命周期指的是，React@17+版本，对比之前版本，删去了`componentWillMount`, `componentWillReceiveProps`和`componentWillUpdate`三个生命钩子。
 
@@ -654,34 +618,34 @@ class Page extends Component {
 
 ### 事件处理
 
-在 React.js 里面监听事件是很容易的事情，你只需要给需要监听事件的元素加上属性类似于 `onClick`、`onKeyDown` 这样的属性。建议在书写监听函数时，也使用驼峰式写法。[参考上面的例子](#State)。
+在 React.js 里面监听事件是很容易的事情，你只需要给需要监听事件的元素加上属性类似于 `onClick`、`onKeyDown` 这样的属性。建议在书写监听函数时，也使用驼峰式写法。参考上面的例子。
 
 ⚠️ 注意，上面的例子`handleBtnClick`使用的是箭头函数。是因为其中使用了`this`指针，只有使用箭头函数，才能保证函数内部的`this`指向这个组件。如果不使用箭头函数，则需要使用`bind`来指定`this`的指向。
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Page extends Component {
-  state={
-  	count: 0
+  state = {
+    count: 0,
   };
 
-// 这里使用不是箭头函数，如果未绑定this，内部的this会是 undefined
-  handleBtnClick () {
-  	setState({
-		count: this.state.count + 1
-	})
-  };
+  // 这里使用不是箭头函数，如果未绑定this，内部的this会是 undefined
+  handleBtnClick() {
+    setState({
+      count: this.state.count + 1,
+    });
+  }
 
-  render () {
+  render() {
     return (
-			<div>
-	  			<p>当前数量：{ this.state.count } </p>
-				<p>
-					<button onClick={this.handleBtnClick.bind(this)}>加一</button>
-				</p>
-	  		</div>
-    )
+      <div>
+        <p>当前数量：{this.state.count} </p>
+        <p>
+          <button onClick={this.handleBtnClick.bind(this)}>加一</button>
+        </p>
+      </div>
+    );
   }
 }
 ```
@@ -694,8 +658,7 @@ class Page extends Component {
 
 ### 列表和 key
 
-列表数据在前端非常常见，我们经常要处理这种类型的数据，例如文章列表、评论列表、用户列表…
-React.js 当然也允许我们处理列表数据，但在使用 React.js 处理列表数据的时候，需要掌握一些规则。
+列表数据在前端非常常见，我们经常要处理这种类型的数据，例如文章列表、评论列表、用户列表… React.js 当然也允许我们处理列表数据，但在使用 React.js 处理列表数据的时候，需要掌握一些规则。
 
 1. 使用 map 渲染列表数据
 
@@ -704,11 +667,11 @@ const users = [
   { username: 'Jerry', age: 21, gender: 'male' },
   { username: 'Tomy', age: 22, gender: 'male' },
   { username: 'Lily', age: 19, gender: 'female' },
-  { username: 'Lucy', age: 20, gender: 'female' }
-]
+  { username: 'Lucy', age: 20, gender: 'female' },
+];
 
 class Index extends Component {
-  render () {
+  render() {
     return (
       <div>
         {users.map((user) => {
@@ -719,22 +682,17 @@ class Index extends Component {
               <div>性别：{user.gender}</div>
               <hr />
             </div>
-          )
+          );
         })}
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(
-  <Index />,
-  document.getElementById('root')
-)
+ReactDOM.render(<Index />, document.getElementById('root'));
 ```
 
-以上代码虽然可以正确地渲染出结果，但是打开控制台就发现，报出了很多错误`a key should be provided for list items`。意思是，列表的每一项，应该设置一个唯一的`**key**`来标记，这和 diff 算法有关。
-React.js 的是非常高效的，它高效依赖于所谓的 Virtual-DOM 策略。简单来说，能复用的话 React.js 就会尽量复用，没有必要的话绝对不碰 DOM。对于列表元素来说也是这样，但是处理列表元素的复用性会有一个问题：元素可能会在一个列表中改变位置。但是如果设置了唯一的 key，那么我们就知道哪些元素改变了，需要重新渲染。
-⚠️ 注意，不要使用`index`作为元素的 key，尽量是后台返回数据的 id 作为唯一 key。
+以上代码虽然可以正确地渲染出结果，但是打开控制台就发现，报出了很多错误`a key should be provided for list items`。意思是，列表的每一项，应该设置一个唯一的`**key**`来标记，这和 diff 算法有关。 React.js 的是非常高效的，它高效依赖于所谓的 Virtual-DOM 策略。简单来说，能复用的话 React.js 就会尽量复用，没有必要的话绝对不碰 DOM。对于列表元素来说也是这样，但是处理列表元素的复用性会有一个问题：元素可能会在一个列表中改变位置。但是如果设置了唯一的 key，那么我们就知道哪些元素改变了，需要重新渲染。 ⚠️ 注意，不要使用`index`作为元素的 key，尽量是后台返回数据的 id 作为唯一 key。
 
 ### 父组件和子组件通信
 
@@ -745,16 +703,16 @@ class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 1
+      value: 1,
     };
   }
 
   // 父级组件触发回调函数后获取到传递过来的数据，变更 state，重新渲染
   handleChange = (data) => {
     this.setState({
-      value: data
+      value: data,
     });
-  }
+  };
 
   render() {
     return (
@@ -770,12 +728,10 @@ class Parent extends React.Component {
 class Child extends React.Component {
   handleClick = () => {
     this.props.onChange(2);
-  }
+  };
 
   render() {
-    return (
-      <div onClick={this.handleClick}>{this.props.data}</div>
-    );
+    return <div onClick={this.handleClick}>{this.props.data}</div>;
   }
 }
 ```
@@ -792,20 +748,11 @@ class Child extends React.Component {
 
 ### ✨ 特性
 
-📦 开箱即用，内置 react、react-router 等
-🏈 类 next.js 且功能完备的路由约定，同时支持配置的路由方式
-🎉 完善的插件体系，覆盖从源码到构建产物的每个生命周期
-🚀 高性能，通过插件支持 PWA、以路由为单元的 code splitting 等
-💈 支持静态页面导出，适配各种环境，比如中台业务、无线业务、egg、支付宝钱包、云凤蝶等
-🚄 开发启动快，支持一键开启 dll 等
-🐠 一键兼容到 IE9，基于 umi-plugin-polyfills
-🍁 完善的 TypeScript 支持，包括 d.ts 定义和 umi test
-🌴 与 dva 数据流的深入融合，支持 duck directory、model 的自动加载、code splitting 等等
+📦 开箱即用，内置 react、react-router 等 🏈 类 next.js 且功能完备的路由约定，同时支持配置的路由方式 🎉 完善的插件体系，覆盖从源码到构建产物的每个生命周期 🚀 高性能，通过插件支持 PWA、以路由为单元的 code splitting 等 💈 支持静态页面导出，适配各种环境，比如中台业务、无线业务、egg、支付宝钱包、云凤蝶等 🚄 开发启动快，支持一键开启 dll 等 🐠 一键兼容到 IE9，基于 umi-plugin-polyfills 🍁 完善的 TypeScript 支持，包括 d.ts 定义和 umi test 🌴 与 dva 数据流的深入融合，支持 duck directory、model 的自动加载、code splitting 等等
 
 关于 roadhog 与 umi.js 的关系？
 
-> roadhog 是基于 webpack 的封装工具，目的是简化 webpack 的配置。
-> umi 可以简单地理解为 roadhog + 路由，思路类似`next.js/nuxt.js`，辅以一套插件机制，目的是通过框架的方式简化 React 开发。
+> roadhog 是基于 webpack 的封装工具，目的是简化 webpack 的配置。 umi 可以简单地理解为 roadhog + 路由，思路类似`next.js/nuxt.js`，辅以一套插件机制，目的是通过框架的方式简化 React 开发。
 
 umi 架构图
 
@@ -847,12 +794,7 @@ dva 流程：
 
 ### ✨ 特性
 
-🌈 提炼自企业级中后台产品的交互语言和视觉风格。
-📦 开箱即用的高质量 React 组件。
-🛡 使用 TypeScript 开发，提供完整的类型定义文件。
-⚙️ 全链路开发和设计工具体系。
-🌍 数十个国际化语言支持。
-🎨 深入每个细节的主题定制能力。
+🌈 提炼自企业级中后台产品的交互语言和视觉风格。 📦 开箱即用的高质量 React 组件。 🛡 使用 TypeScript 开发，提供完整的类型定义文件。 ⚙️ 全链路开发和设计工具体系。 🌍 数十个国际化语言支持。 🎨 深入每个细节的主题定制能力。
 
 这里 UI 组件，在项目中会大量用到，具体的用法可以查看[组件库](https://ant-design.gitee.io/components/button-cn/)，有详细的使用 Demo 和文档说明。
 
@@ -860,8 +802,7 @@ dva 流程：
 
 ## Pont
 
-> pont 在法语中是“桥”的意思，寓意着前后端之间的桥梁
-> Pont 把 swagger、rap、dip 等多种接口文档平台，转换成 Pont 元数据。Pont 利用接口元数据，可以高度定制化生成前端接口层代码，接口 mock 平台和接口测试平台。
+> pont 在法语中是“桥”的意思，寓意着前后端之间的桥梁 Pont 把 swagger、rap、dip 等多种接口文档平台，转换成 Pont 元数据。Pont 利用接口元数据，可以高度定制化生成前端接口层代码，接口 mock 平台和接口测试平台。
 
 关于 pont 更多的信息，可以查看[官方文档](https://github.com/alibaba/pont)
 
@@ -871,8 +812,7 @@ dva 流程：
 
 ## 从零开始构建项目
 
-目前 [datacompare](https://datacompare.alibaba-inc.com/) 和 [datamonitor](https://datamonitor.alibaba-inc.com/) 采用的前端也是[umi.js](https://umijs.org/zh/) 这一套；
-接下来，我们从零开始搭建一个前端项目，以 `OneData` 为基础。
+目前 [datacompare](https://datacompare.alibaba-inc.com/) 和 [datamonitor](https://datamonitor.alibaba-inc.com/) 采用的前端也是[umi.js](https://umijs.org/zh/) 这一套；接下来，我们从零开始搭建一个前端项目，以 `OneData` 为基础。
 
 ### 使用 create-umi 脚手架创建基础项目
 
@@ -952,7 +892,7 @@ root
 别忘了在 global.tsx 中添加
 
 ```js
-import '@/pont'
+import '@/pont';
 ```
 
 pont-config.json
@@ -963,7 +903,6 @@ pont-config.json
   "originUrl": "http://localhost:7001/v2/api-docs",
   "templatePath": "./pontTemplate"
 }
-
 ```
 
 pontTemplate.ts
@@ -975,7 +914,7 @@ export default class MyGenerator extends CodeGenerator {
   getInterfaceContentInDeclaration(inter: Interface) {
     const paramsCode = inter.getParamsCode();
     const bodyParamsCode = inter.getBodyParamsCode();
-    const hasGetParams = !!inter.parameters.filter(param => param.in !== 'body').length;
+    const hasGetParams = !!inter.parameters.filter((param) => param.in !== 'body').length;
     const requestParams = bodyParamsCode
       ? `{ ${hasGetParams ? 'params, ' : ''}data }:{ params${
           hasGetParams ? '' : '?'
@@ -1025,7 +964,6 @@ export default class MyGenerator extends CodeGenerator {
    `;
   }
 }
-
 ```
 
 2. 添加项目对 pont 的支持，这里的`pont-engine`,需要执行
@@ -1040,18 +978,19 @@ npm install pont-engine --save-dev
 
 ```js
 dispatch({
-        type: 'global/fetchMicroData',
-  		payload: {
-				// query参数放在params中， 如get请求
-		  		params: {
-					id: 1 , name: 'test'
-				},
-		  		// body参数放在data中， 如post请求
-		  		data: {
-					username: 'biubiu',
-				  	age: 10
-				}
-		}
+  type: 'global/fetchMicroData',
+  payload: {
+    // query参数放在params中， 如get请求
+    params: {
+      id: 1,
+      name: 'test',
+    },
+    // body参数放在data中， 如post请求
+    data: {
+      username: 'biubiu',
+      age: 10,
+    },
+  },
 });
 ```
 
@@ -1080,8 +1019,7 @@ pont
    访问线上项目，获取到 cookie 后，修改 host，让线上地址指向本地 localhost。  
    如访问 `datamonitor.alibaba-inc.com`后，修改 host， 将`datamonitor.alibaba-inc.com`指向 `localhost`.这种方法很麻烦。且需要频繁修改 host。所以一般不这样做。
 
-2. 代理请求
-   在应对这种情况时，前端开发已经有了好的解决方法，通过提供的 umi 插件，实现代理请求。  
+2. 代理请求在应对这种情况时，前端开发已经有了好的解决方法，通过提供的 umi 插件，实现代理请求。  
    在 `config` 中，会有一个 `proxy.ts` 文件，用来定义接口代理的配置。这个功能只在`dev`环境生效，线上需要自己配置实现，如`nginx反向代理`。
 
 ```js
@@ -1125,7 +1063,7 @@ export default {
 
 ```js
 // 这里定义前端需要使用的VO 如这里的大盘展示需要的数据对象。
-export class AnalysisVO extends IndexPageCountBO{};
+export class AnalysisVO extends IndexPageCountBO {}
 ```
 
 5. 编写 model 模块的`effects`和`reducers`。
@@ -1162,9 +1100,9 @@ reducers: {
 7. 在页面中用 dva 提供的高阶函数包装页面组件；
 
 ```js
-export default connect(({dashboard,loading}:ConnectState)=>({
-    analysisData: dashboard.analysis,
-    loading: loading.effects['dashboard/fetchDashboardAnalysis']
+export default connect(({ dashboard, loading }: ConnectState) => ({
+  analysisData: dashboard.analysis,
+  loading: loading.effects['dashboard/fetchDashboardAnalysis'],
 }))(Analysis);
 ```
 
@@ -1172,12 +1110,12 @@ export default connect(({dashboard,loading}:ConnectState)=>({
 
 ```js
 useEffect(() => {
-        if(dispatch){
-            dispatch({
-                type: 'dashboard/fetchDashboardAnalysis'
-            })
-        }
-}, [])
+  if (dispatch) {
+    dispatch({
+      type: 'dashboard/fetchDashboardAnalysis',
+    });
+  }
+}, []);
 ```
 
 以上就是一个模块从零搭建的过程，这边建议，page 和 model 尽量是一一对应上的。当然其中会有一些如`global`,`common`等用来管理全局状态和通用状态的 model。

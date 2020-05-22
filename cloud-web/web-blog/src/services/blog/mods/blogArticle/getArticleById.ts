@@ -1,5 +1,5 @@
 /**
- * @description undefined
+ * @description getArticleById
  */
 
 import Request from '@/utils/request';
@@ -7,9 +7,9 @@ import * as defs from '../../baseClass';
 
 export class Params {
   /** articleId */
-  articleId: any;
+  articleId: number;
 }
-export const init = new defs.blog.CommonResultBlogArticleVO();
+export const init = new defs.blog.CommonResult();
 
 export async function request({
   params = {},

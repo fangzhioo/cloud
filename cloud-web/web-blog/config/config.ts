@@ -1,7 +1,7 @@
 // https://umijs.org/config/
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
-import pageRouter from './router.config'
+import pageRouter from './router.config';
 import proxy from './proxy';
 
 const { REACT_APP_ENV } = process.env;
@@ -9,7 +9,7 @@ const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
   history: {
-    type: 'hash'
+    type: 'browser',
   },
   antd: {},
   dva: {

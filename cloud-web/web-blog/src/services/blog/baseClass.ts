@@ -47,20 +47,6 @@ class BlogArticleDTO {
   title = '';
 }
 
-class BlogArticleQuery {
-  /** current */
-  current = undefined;
-
-  /** limit */
-  limit = undefined;
-
-  /** offset */
-  offset = undefined;
-
-  /** pageSize */
-  pageSize = undefined;
-}
-
 class BlogArticleVO {
   /** articleId */
   articleId = undefined;
@@ -113,51 +99,7 @@ class CommonResult {
   code = undefined;
 
   /** data */
-  data = undefined;
-
-  /** msg */
-  msg = '';
-}
-
-class CommonResultAliyunOssAntdPolicyBo {
-  /** code */
-  code = undefined;
-
-  /** data */
   data = new AliyunOssAntdPolicyBo();
-
-  /** msg */
-  msg = '';
-}
-
-class CommonResultBlogArticleVO {
-  /** code */
-  code = undefined;
-
-  /** data */
-  data = new BlogArticleVO();
-
-  /** msg */
-  msg = '';
-}
-
-class CommonResultInteger {
-  /** code */
-  code = undefined;
-
-  /** data */
-  data = undefined;
-
-  /** msg */
-  msg = '';
-}
-
-class CommonResultListBlogArticleVO {
-  /** code */
-  code = undefined;
-
-  /** data */
-  data = [];
 
   /** msg */
   msg = '';
@@ -166,11 +108,6 @@ class CommonResultListBlogArticleVO {
 export const blog = {
   AliyunOssAntdPolicyBo,
   BlogArticleDTO,
-  BlogArticleQuery,
   BlogArticleVO,
   CommonResult,
-  CommonResultAliyunOssAntdPolicyBo,
-  CommonResultBlogArticleVO,
-  CommonResultInteger,
-  CommonResultListBlogArticleVO,
 };

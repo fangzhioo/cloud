@@ -39,24 +39,24 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => menuList;
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="xxxxxxxxxx"
     links={[
       {
         key: 'Ant Design Pro',
         title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
+        href: '',
         blankTarget: true,
       },
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        href: '',
         blankTarget: true,
       },
       {
         key: 'Ant Design',
         title: 'Ant Design',
-        href: 'https://ant.design',
+        href: '',
         blankTarget: true,
       },
     ]}
@@ -64,11 +64,7 @@ const defaultFooterDom = (
 );
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
-  const {
-    dispatch,
-    children,
-    settings,
-  } = props;
+  const { dispatch, children, settings } = props;
   /**
    * constructor
    */
@@ -125,11 +121,12 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return first ? (
           <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
         ) : (
-            <span>{route.breadcrumbName}</span>
-          );
+          <span>{route.breadcrumbName}</span>
+        );
       }}
       footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
+      disableContentMargin
       rightContentRender={() => <RightContent />}
       {...props}
       {...settings}

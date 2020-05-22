@@ -1,7 +1,7 @@
-import themeList from './theme';
+import mdThemeList from './mdTheme';
 import codeThemeList from './codeTheme';
 
 export default {
-  themeList,
-  codeThemeList
-}
+  mdThemeList,
+  codeThemeList,
+};

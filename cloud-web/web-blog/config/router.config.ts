@@ -15,7 +15,7 @@ const routers = [
       {
         component: './404',
       },
-    ]
+    ],
   },
   {
     path: '/test',
@@ -35,7 +35,7 @@ const routers = [
       {
         component: './404',
       },
-    ]
+    ],
   },
   {
     path: '/',
@@ -44,12 +44,19 @@ const routers = [
       {
         path: '/article',
         name: 'article',
+        exact: true,
         icon: 'book',
         component: './article/list',
       },
       {
+        path: '/article/detail',
+        exact: true,
+        component: './article/detail',
+      },
+      {
         path: '/publish',
         name: 'publish',
+        exact: true,
         icon: 'edit',
         component: './article/publish',
       },
@@ -57,7 +64,7 @@ const routers = [
         path: '/lib',
         name: 'lib',
         icon: 'book',
-        component: './lib/fzmd'
+        component: './lib/fzmd',
       },
       {
         component: './404',

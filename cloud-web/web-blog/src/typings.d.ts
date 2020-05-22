@@ -34,8 +34,8 @@ interface Window {
  */
 interface CommonResult<T> {
   code?: number;
-  message?: string;
-  data?: T
+  msg?: string;
+  data?: T;
 }
 
 declare let ga: Function;

@@ -1,5 +1,5 @@
 /**
- * @description
+ * @description Blog Article Controller
  */
 import * as getArticleById from './getArticleById';
 import * as listArticleByQuery from './listArticleByQuery';

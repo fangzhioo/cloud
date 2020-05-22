@@ -70,10 +70,10 @@ request.interceptors.response.use(async (response) => {
     }
     if (data.code !== COMMONT_RESULT_SUCCESS_CODE) {
       notification.error({
-        message: data.message || '服务器繁忙',
+        message: data.msg || '服务器繁忙',
         description: `业务代码 - ${data.code}`,
       });
-      throw new Error('服务器繁忙');
+      throw new Error(data.msg || '服务器繁忙');
     }
     return response;
   }

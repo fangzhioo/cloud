@@ -1,36 +1,3 @@
-export const macCodeThemeList = [
-  {
-    key: 1,
-    id: "macAtomOneDark",
-    name: "atom-one-dark",
-  },
-  {
-    key: 2,
-    id: "macAtomOneLight",
-    name: "atom-one-light",
-  },
-  {
-    key: 3,
-    id: "macMonokai",
-    name: "monokai",
-  },
-  {
-    key: 4,
-    id: "macGithub",
-    name: "github",
-  },
-  {
-    key: 5,
-    id: "macVs2015",
-    name: "vs2015",
-  },
-  {
-    key: 6,
-    id: "macXcode",
-    name: "xcode",
-  },
-]
-
 export const codeThemeList = [
   // {
   //   key: 0,
@@ -38,51 +5,53 @@ export const codeThemeList = [
   //   name: "微信代码主题",
   // },
   {
-    key: 1,
-    id: "atomOneDark",
-    name: "atom-one-dark",
+    id: 'atomOneDark',
+    name: 'atom-one-dark',
   },
   {
-    key: 2,
-    id: "atomOneLight",
-    name: "atom-one-light",
+    id: 'atomOneLight',
+    name: 'atom-one-light',
   },
   {
-    key: 3,
-    id: "monokai",
-    name: "monokai",
+    id: 'monokai',
+    name: 'monokai',
   },
   {
-    key: 4,
-    id: "github",
-    name: "github",
+    id: 'github',
+    name: 'github',
   },
   {
-    key: 5,
-    id: "vs2015",
-    name: "vs2015",
+    id: 'vs2015',
+    name: 'vs2015',
   },
   {
-    key: 6,
-    id: "xcode",
-    name: "xcode",
+    id: 'xcode',
+    name: 'xcode',
   },
-
+  {
+    id: 'macAtomOneDark',
+    name: '【mac】atom-one-dark',
+  },
+  {
+    id: 'macAtomOneLight',
+    name: '【mac】atom-one-light',
+  },
+  {
+    id: 'macMonokai',
+    name: '【mac】monokai',
+  },
+  {
+    id: 'macGithub',
+    name: '【mac】github',
+  },
+  {
+    id: 'macVs2015',
+    name: '【mac】vs2015',
+  },
+  {
+    id: 'macXcode',
+    name: '【mac】xcode',
+  },
 ];
 
-const codeThemeLabel = {
-  xcode: 'macXcode',
-  vs2015: 'macVs2015',
-  github: 'macGithub',
-  monokai: 'macMonokai',
-  atomOneLight: 'macAtomOneLight',
-  atomOneDark: 'macAtomOneDark',
-  macXcode: 'xcode',
-  macVs2015: 'vs2015',
-  macGithub: 'github',
-  macMonokai: 'monokai',
-  macAtomOneLight: 'atomOneLight',
-  macAtomOneDark: 'atomOneDark'
-}
-
-export default codeThemeLabel;
+export default codeThemeList;

@@ -2,15 +2,26 @@
   {
     "mods": [
       {
-        "description": "",
+        "description": "Aliyun Oss Controller",
         "interfaces": [
           {
+            "description": "antdPolicy",
             "name": "antdPolicy",
             "method": "get",
             "path": "/api/aliyun/antdPolicy",
             "response": {
-              "typeArgs": [],
-              "typeName": "CommonResultAliyunOssAntdPolicyBo",
+              "typeArgs": [
+                {
+                  "typeArgs": [],
+                  "typeName": "AliyunOssAntdPolicyBo",
+                  "isDefsType": true,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              ],
+              "typeName": "CommonResult",
               "isDefsType": true,
               "templateIndex": -1,
               "compileTemplateKeyword": "#/definitions/",
@@ -23,15 +34,26 @@
         "name": "aliyunOss"
       },
       {
-        "description": "",
+        "description": "Blog Article Controller",
         "interfaces": [
           {
+            "description": "getArticleById",
             "name": "getArticleById",
             "method": "get",
             "path": "/api/article/getArticleById",
             "response": {
-              "typeArgs": [],
-              "typeName": "CommonResultBlogArticleVO",
+              "typeArgs": [
+                {
+                  "typeArgs": [],
+                  "typeName": "BlogArticleVO",
+                  "isDefsType": true,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              ],
+              "typeName": "CommonResult",
               "isDefsType": true,
               "templateIndex": -1,
               "compileTemplateKeyword": "#/definitions/",
@@ -41,11 +63,12 @@
             "parameters": [
               {
                 "in": "query",
+                "description": "articleId",
                 "name": "articleId",
                 "required": true,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "",
+                  "typeName": "number",
                   "isDefsType": false,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
@@ -56,12 +79,33 @@
             ]
           },
           {
+            "description": "listArticleByQuery",
             "name": "listArticleByQuery",
             "method": "get",
             "path": "/api/article/listArticleByQuery",
             "response": {
-              "typeArgs": [],
-              "typeName": "CommonResultListBlogArticleVO",
+              "typeArgs": [
+                {
+                  "typeArgs": [
+                    {
+                      "typeArgs": [],
+                      "typeName": "BlogArticleVO",
+                      "isDefsType": true,
+                      "templateIndex": -1,
+                      "compileTemplateKeyword": "#/definitions/",
+                      "enum": [],
+                      "typeProperties": []
+                    }
+                  ],
+                  "typeName": "Array",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              ],
+              "typeName": "CommonResult",
               "isDefsType": true,
               "templateIndex": -1,
               "compileTemplateKeyword": "#/definitions/",
@@ -71,12 +115,54 @@
             "parameters": [
               {
                 "in": "query",
-                "name": "query",
-                "required": true,
+                "name": "current",
+                "required": false,
                 "dataType": {
                   "typeArgs": [],
-                  "typeName": "BlogArticleQuery",
-                  "isDefsType": true,
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              },
+              {
+                "in": "query",
+                "name": "limit",
+                "required": false,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              },
+              {
+                "in": "query",
+                "name": "offset",
+                "required": false,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              },
+              {
+                "in": "query",
+                "name": "pageSize",
+                "required": false,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
                   "templateIndex": -1,
                   "compileTemplateKeyword": "#/definitions/",
                   "enum": [],
@@ -86,27 +172,58 @@
             ]
           },
           {
+            "consumes": [
+              "application/json"
+            ],
+            "description": "publishArticle",
             "name": "publishArticle",
             "method": "post",
             "path": "/api/article/publishArticle",
             "response": {
-              "typeArgs": [],
-              "typeName": "CommonResultInteger",
+              "typeArgs": [
+                {
+                  "typeArgs": [],
+                  "typeName": "number",
+                  "isDefsType": false,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              ],
+              "typeName": "CommonResult",
               "isDefsType": true,
               "templateIndex": -1,
               "compileTemplateKeyword": "#/definitions/",
               "enum": [],
               "typeProperties": []
             },
-            "parameters": []
+            "parameters": [
+              {
+                "in": "body",
+                "description": "articleDTO",
+                "name": "articleDTO",
+                "required": true,
+                "dataType": {
+                  "typeArgs": [],
+                  "typeName": "BlogArticleDTO",
+                  "isDefsType": true,
+                  "templateIndex": -1,
+                  "compileTemplateKeyword": "#/definitions/",
+                  "enum": [],
+                  "typeProperties": []
+                }
+              }
+            ]
           }
         ],
         "name": "blogArticle"
       },
       {
-        "description": "",
+        "description": "User Controller",
         "interfaces": [
           {
+            "description": "currentUser",
             "name": "currentUser",
             "method": "get",
             "path": "/api/currentUser",
@@ -335,64 +452,6 @@
         "templateArgs": []
       },
       {
-        "name": "BlogArticleQuery",
-        "properties": [
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "current",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "limit",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "offset",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "pageSize",
-            "required": false
-          }
-        ],
-        "templateArgs": []
-      },
-      {
         "name": "BlogArticleVO",
         "properties": [
           {
@@ -612,54 +671,9 @@
           {
             "dataType": {
               "typeArgs": [],
-              "typeName": "object",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "data",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "string",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "msg",
-            "required": false
-          }
-        ],
-        "templateArgs": []
-      },
-      {
-        "name": "CommonResultAliyunOssAntdPolicyBo",
-        "properties": [
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "code",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
               "typeName": "AliyunOssAntdPolicyBo",
               "isDefsType": true,
-              "templateIndex": -1,
+              "templateIndex": 0,
               "compileTemplateKeyword": "#/definitions/",
               "enum": [],
               "typeProperties": []
@@ -681,152 +695,17 @@
             "required": false
           }
         ],
-        "templateArgs": []
-      },
-      {
-        "name": "CommonResultBlogArticleVO",
-        "properties": [
+        "templateArgs": [
           {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "code",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "BlogArticleVO",
-              "isDefsType": true,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "data",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "string",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "msg",
-            "required": false
+            "typeArgs": [],
+            "typeName": "AliyunOssAntdPolicyBo",
+            "isDefsType": true,
+            "templateIndex": -1,
+            "compileTemplateKeyword": "#/definitions/",
+            "enum": [],
+            "typeProperties": []
           }
-        ],
-        "templateArgs": []
-      },
-      {
-        "name": "CommonResultInteger",
-        "properties": [
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "code",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "data",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "string",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "msg",
-            "required": false
-          }
-        ],
-        "templateArgs": []
-      },
-      {
-        "name": "CommonResultListBlogArticleVO",
-        "properties": [
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "number",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "code",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [
-                {
-                  "typeArgs": [],
-                  "typeName": "BlogArticleVO",
-                  "isDefsType": true,
-                  "templateIndex": -1,
-                  "compileTemplateKeyword": "#/definitions/",
-                  "enum": [],
-                  "typeProperties": []
-                }
-              ],
-              "typeName": "Array",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "data",
-            "required": false
-          },
-          {
-            "dataType": {
-              "typeArgs": [],
-              "typeName": "string",
-              "isDefsType": false,
-              "templateIndex": -1,
-              "compileTemplateKeyword": "#/definitions/",
-              "enum": [],
-              "typeProperties": []
-            },
-            "name": "msg",
-            "required": false
-          }
-        ],
-        "templateArgs": []
+        ]
       }
     ]
   }
