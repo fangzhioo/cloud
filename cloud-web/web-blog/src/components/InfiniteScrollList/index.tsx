@@ -2,6 +2,7 @@ import React from 'react'
 import InfiniteScroll from 'react-infinite-scroller';
 import { List, Avatar, Space } from 'antd';
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
+import {Link} from 'umi';
 
 const IconText = ({ icon, text }: any) => (
   <Space>
@@ -51,14 +52,16 @@ const InfiniteScrollList: React.FC<InfiniteScrollListProps> = ({ dataSource = []
               />
             }
           >
-            <List.Item.Meta
-              avatar={<Avatar src={item.picture.thumbnail} />}
-              title={`${item.name.title} ${item.name.first} ${item.name.last}`}
-              description={<div>{item.registered.date}</div>}
-            />
-            <div style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>
-              {JSON.stringify(item.location)}
-            </div>
+            <Link to={`/article/detail?aid=4`}>
+              <List.Item.Meta
+                avatar={<Avatar src={item.picture.thumbnail} />}
+                title={`${item.name.title} ${item.name.first} ${item.name.last}`}
+                description={<div>{item.registered.date}</div>}
+              />
+              <div style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>
+                {JSON.stringify(item.location)}
+              </div>
+            </Link>
           </List.Item>
         )}
       >

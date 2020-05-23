@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { FzmdPriviewParser } from '@/components/FzMdEditor';
 import { getUrlParam } from '@/utils/utils';
 import * as _ from 'lodash';
-import { message, Empty, Row, Col, Anchor } from 'antd';
+import { message, Empty, Row, Col, Anchor, Skeleton, Avatar } from 'antd';
 import CommentList from './components/CommentList';
 import './index.css';
 import { GridContent } from '@ant-design/pro-layout';
 import getMKTitles from '@/utils/getMarkDownTOC';
 import MdTocAnchor from './components/MdTocAnchor';
+import { connect } from 'umi';
+import { ConnectState, ConnectProps } from '@/models/connect';
 
 const DEFAULT_MD_THEME = 'normal|macAtomOneDark';
 
@@ -29,52 +31,28 @@ const getArticleTheme = (aTheme: string = DEFAULT_MD_THEME) => {
 
 class Props {
   location?: any;
+  articleDetail?: defs.blog.BlogArticleVO;
+  loading?: boolean;
 }
-class State {
-  articleDetail: defs.blog.BlogArticleVO = new defs.blog.BlogArticleVO();
-}
+class State {}
 
-export default class ArticleDetailPage extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = new State();
-  }
+class ArticleDetailPage extends Component<Props & ConnectProps, State> {
+  public state = new State();
 
   componentDidMount() {
-    const { location } = this.props;
+    const { location, dispatch } = this.props;
     const articleId = Number(getUrlParam('aid', location));
-    API.blog.blogArticle.getArticleById
-      .request({ params: { articleId } })
-      .then((res) => {
-        this.setState({
-          articleDetail: _.get(res, 'data', new defs.blog.BlogArticleVO()),
-        });
-      })
-      .catch((e) => {
-        message.error(e);
-      });
+    dispatch({
+      type: 'article/fetchArticleDetail',
+      payload: {
+        params: { articleId },
+      },
+    });
   }
 
-  renderTOC = (mdText: string) => {
-    return (
-      <Anchor>
-        <Anchor.Link href="#开发环境准备" title="开发环境准备" />
-        <Anchor.Link href="#components-anchor-demo-static" title="Static demo" />
-        <Anchor.Link
-          href="#components-anchor-demo-basic"
-          title="Basic demo with Target"
-          target="_blank"
-        />
-        <Anchor.Link href="#API" title="API">
-          <Anchor.Link href="#Anchor-Props" title="Anchor Props" />
-          <Anchor.Link href="#Link-Props" title="Link Props" />
-        </Anchor.Link>
-      </Anchor>
-    );
-  };
-
   render() {
-    const { articleDetail } = this.state;
+    const { articleDetail, loading } = this.props;
+    const articleId = Number(getUrlParam('aid', location));
     const aHtml = _.get(articleDetail, 'content', null);
     const { themeId, codeThemeId } = getArticleTheme(
       _.get(articleDetail, 'editorTheme', DEFAULT_MD_THEME),
@@ -85,26 +63,38 @@ export default class ArticleDetailPage extends Component<Props, State> {
     const cover = _.get(
       articleDetail,
       'cover',
-      `https://i.picsum.photos/id/${articleDetail.articleId || '521'}/1200/300.jpg`,
+      `https://i.picsum.photos/id/${articleId || '521'}/1200/300.jpg`,
     );
     const title = _.get(articleDetail, 'title', '');
     const authorAvatar = _.get(articleDetail, 'authorAvatar', '');
     const authorNickname = _.get(articleDetail, 'authorNickname', '');
+    const gmtCreate = _.get(articleDetail, 'gmtCreate', '');
     const toc = getTOC(aHtml);
 
     return (
       <GridContent>
         <div className="article-detail-wapper">
           <div className="article-detail-header" style={{ backgroundImage: `url(${cover})` }}>
-            <div>{title}</div>
+            <div className="article-detail-header-mark">
+              <div className="article-detail-title">{title}</div>
+              <div className="article-detail-author">
+                <Avatar size="small" src={authorAvatar} />
+                <div className="article-detail-author-nickname"> {authorNickname}</div>
+                <div className="article-detail-created">{gmtCreate}</div>
+              </div>
+            </div>
           </div>
           <div className="article-detail-content">
             <Row gutter={24}>
               <Col lg={17} md={24}>
-                <FzmdPriviewParser content={aHtml} themeId={themeId} codeThemeId={codeThemeId} />
+                <Skeleton active loading={loading}>
+                  <FzmdPriviewParser content={aHtml} themeId={themeId} codeThemeId={codeThemeId} />
+                </Skeleton>
               </Col>
               <Col lg={7} md={24}>
-                <MdTocAnchor toc={toc} />
+                <Skeleton active loading={loading}>
+                  <MdTocAnchor toc={toc} />
+                </Skeleton>
               </Col>
             </Row>
           </div>
@@ -116,3 +106,8 @@ export default class ArticleDetailPage extends Component<Props, State> {
     );
   }
 }
+
+export default connect(({ article, loading }: ConnectState) => ({
+  articleDetail: article.articleDetail,
+  loading: loading.effects['article/fetchArticleDetail'],
+}))(ArticleDetailPage);

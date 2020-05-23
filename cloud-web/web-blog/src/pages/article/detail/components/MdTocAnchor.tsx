@@ -30,7 +30,7 @@ const MdTocAnchorLink: React.FC<Props> = (props = new Props()) => {
 
 const MdTocAnchor: React.FC<Props> = (props = new Props()) => {
   return (
-    <Anchor>
+    <Anchor showInkInFixed>
       <MdTocAnchorLink {...props} />
     </Anchor>
   );

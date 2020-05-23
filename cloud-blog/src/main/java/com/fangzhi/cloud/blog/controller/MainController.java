@@ -10,12 +10,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author fangzhi
+ */
 @Controller
 public class MainController {
     @Autowired
     private HttpServletRequest request;
 
     @GetMapping("/")
+    public String poster(){
+        return "poster";
+    }
+
+    @GetMapping("/blog/**")
     public String root(Model model){
         try {
             SSOUser ssoUser = CloudSSOUtil.getSSOUser(request);
@@ -31,36 +39,4 @@ public class MainController {
             return "index";
         }
     }
-
-    @GetMapping("/publish")
-    public String publish(){
-        return "publish";
-    }
-
-    @GetMapping("/currentUser")
-    @ResponseBody
-    public SSOUser currentUser(){
-        SSOUser ssoUser = CloudSSOUtil.getSSOUser(request);
-        return ssoUser;
-    }
-
-//    @GetMapping("/article/{id}")
-//    @ResponseBody
-//    public BlogArticle getArticleById(@PathVariable("id") String articleId){
-//        BlogArticle article = new BlogArticle();
-//        article.setId(articleId);
-//        article.setTitle("title");
-//        return article;
-//    }
-//
-//    @Resource
-//    private RestTemplate restTemplate;
-//    @Value("${service-url.nacos-cloud-sso-service}")
-//    private String nacosCloudSSOUrl;
-//
-//    @GetMapping("/getAuthor")
-//    public String getAuthor(@RequestParam("id") String id){
-//        // 调用sso中的服务
-//        return restTemplate.getForObject(nacosCloudSSOUrl+"/user/"+ id,String.class);
-//    }
 }

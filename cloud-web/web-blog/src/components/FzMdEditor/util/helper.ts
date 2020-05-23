@@ -88,7 +88,7 @@ export const markdownParser = new MarkdownIt({
   },
 });
 
-const slugify = (s: any) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-'));
+const slugify = (s: any) => encodeURI(String(s).trim());
 const transformLink = (link: any) => link;
 
 markdownParser
