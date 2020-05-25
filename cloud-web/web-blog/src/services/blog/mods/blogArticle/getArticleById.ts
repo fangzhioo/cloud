@@ -1,5 +1,5 @@
 /**
- * @description getArticleById
+ * @description 获取文章详情
  */
 
 import Request from '@/utils/request';

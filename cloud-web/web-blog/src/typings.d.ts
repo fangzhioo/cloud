@@ -27,6 +27,8 @@ interface Window {
     fieldsObject: GAFieldsObject | string,
   ) => void;
   reloadAuthorized: () => void;
+  userId?: string | number;
+  nickName?: string;
 }
 
 /**

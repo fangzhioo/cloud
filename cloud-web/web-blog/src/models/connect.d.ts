@@ -29,10 +29,6 @@ export interface ConnectState {
   article: ArticleModelState;
 }
 
-export interface ConnectProps {
-  dispatch: Dispatch;
-}
-
 export interface Route extends MenuDataItem {
   routes?: Route[];
 }

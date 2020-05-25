@@ -89,6 +89,13 @@ public class SSOWebFilter extends HttpServlet implements Filter {
                 // total link
                 String link = req.getRequestURL().toString();
 
+                // custom redirect_url
+                String redirectUrl = request.getParameter(SSOConstant.REDIRECT_URL);
+                if (redirectUrl!=null && redirectUrl.trim().length()>0) {
+                    // reset link
+                    link = redirectUrl;
+                }
+
                 // redirect logout
                 String loginPageUrl = ssoServer.concat(SSOConstant.SSO_LOGIN)
                         + "?" + SSOConstant.REDIRECT_URL + "=" + link;

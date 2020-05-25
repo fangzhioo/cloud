@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +28,11 @@ public class MainController {
     public String root(Model model){
         try {
             SSOUser ssoUser = CloudSSOUtil.getSSOUser(request);
-            if(ssoUser==null){
-                ssoUser = new SSOUser();
-            }
             model.addAttribute("userId", ssoUser.getUserId());
             model.addAttribute("nickname",ssoUser.getNickName());
             return "index";
         }catch (Exception e){
-            model.addAttribute("userId", 0);
+            model.addAttribute("userId", "");
             model.addAttribute("nickname", "guest");
             return "index";
         }

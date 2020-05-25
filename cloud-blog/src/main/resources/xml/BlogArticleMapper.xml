@@ -445,8 +445,8 @@
     select
     <include refid="Base_Column_List" />
     ,
-    left(content,200) as content,
-    left(editor_content,200) as editor_content
+    left(content,150) as content,
+    left(editor_content,150) as editor_content
     from blog_article
     where 1=1
     order by id desc
@@ -459,4 +459,11 @@
       </if>
     </if>
   </select>
+  <select id="countByQuery" parameterType="com.fangzhi.cloud.blog.pojo.query.BlogArticleQuery" resultType="java.lang.Long">
+    select
+    count(1)
+    from blog_article
+    where 1=1
+  </select>
+
 </mapper>

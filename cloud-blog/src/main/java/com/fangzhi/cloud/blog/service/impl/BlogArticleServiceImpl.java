@@ -58,8 +58,8 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     }
 
     @Override
-    public Integer countByQuery(BlogArticleQuery query) {
-        return null;
+    public Long countByQuery(BlogArticleQuery query) {
+        return blogArticleMapper.countByQuery(query);
     }
 
     @Override

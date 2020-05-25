@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+// @ts-ignore
 import InfiniteScroll from 'react-infinite-scroller';
 import { List, Avatar, Space } from 'antd';
 import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
-import {Link} from 'umi';
+import { Link } from 'umi';
 
 const IconText = ({ icon, text }: any) => (
   <Space>
@@ -11,23 +12,24 @@ const IconText = ({ icon, text }: any) => (
   </Space>
 );
 
-interface InfiniteScrollListProps {
-  dataSource?: any[];
-  loading?: boolean;
-  over?: boolean;
-  onInfinite?: () => void;
+class Props {
+  dataSource?: defs.blog.BlogArticleVO[] = [];
+  loading?: boolean = false;
+  over?: boolean = false;
+  onInfinite?: (page?: any) => void = () => null;
+  pageStart?: number = 1;
 }
 
-const InfiniteScrollList: React.FC<InfiniteScrollListProps> = ({ dataSource = [], loading = false, over = false, onInfinite = () => null }) => {
-
-  const handleInfiniteOnLoad = () => {
-    onInfinite && onInfinite();
+const InfiniteScrollList: React.FC<Props> = (props) => {
+  const { dataSource, loading, over, onInfinite, pageStart = 1 } = props;
+  const handleInfiniteOnLoad = (page?: any) => {
+    onInfinite && onInfinite(page);
   };
 
   return (
     <InfiniteScroll
       initialLoad={false}
-      pageStart={0}
+      pageStart={pageStart}
       loadMore={handleInfiniteOnLoad}
       hasMore={!over}
       useWindow={true}
@@ -36,38 +38,39 @@ const InfiniteScrollList: React.FC<InfiniteScrollListProps> = ({ dataSource = []
         dataSource={dataSource}
         loading={loading}
         itemLayout="vertical"
-        renderItem={(item: any) => (
+        renderItem={(item: defs.blog.BlogArticleVO) => (
           <List.Item
-            key={item.email}
+            key={item.articleId}
             actions={[
               <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-              <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+              <IconText icon={LikeOutlined} text={item.userLike} key="list-vertical-like-o" />,
               <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
             ]}
             extra={
               <img
                 width={272}
                 alt="logo"
-                src={`https://i.picsum.photos/id/${item.dob.age}/544/336.jpg`}
+                src={
+                  item.cover
+                    ? item.cover
+                    : `https://i.picsum.photos/id/${item.articleId}/544/336.jpg`
+                }
               />
             }
           >
-            <Link to={`/article/detail?aid=4`}>
+            <Link to={`/article/detail?aid=${item.articleId}`}>
               <List.Item.Meta
-                avatar={<Avatar src={item.picture.thumbnail} />}
-                title={`${item.name.title} ${item.name.first} ${item.name.last}`}
-                description={<div>{item.registered.date}</div>}
+                avatar={<Avatar src={item.authorAvatar} />}
+                title={`${item.title}`}
+                description={<div>{item.subtitle}</div>}
               />
-              <div style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>
-                {JSON.stringify(item.location)}
-              </div>
+              <div style={{ wordBreak: 'break-all', whiteSpace: 'normal' }}>{item.content}</div>
             </Link>
           </List.Item>
         )}
-      >
-      </List>
+      ></List>
     </InfiniteScroll>
-  )
-}
+  );
+};
 
 export default InfiniteScrollList;

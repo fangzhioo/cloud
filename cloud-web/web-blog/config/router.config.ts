@@ -60,12 +60,12 @@ const routers = [
         icon: 'edit',
         component: './article/publish',
       },
-      {
-        path: '/lib',
-        name: 'lib',
-        icon: 'book',
-        component: './lib/fzmd',
-      },
+      // {
+      //   path: '/lib',
+      //   name: 'lib',
+      //   icon: 'book',
+      //   component: './lib/fzmd',
+      // },
       {
         component: './404',
       },

@@ -1,11 +1,5 @@
 # 开发环境准备
 
----
-
-[toc]
-
----
-
 ## node
 
 ### 安装 node.js / npm
@@ -16,11 +10,11 @@
 
 ## vscode 代码编辑器
 
-前端代码推荐使用 vscode 开发，因为需要配合后面用到的**pont**接口层生成工具，还有就是对 typescript 比较友好。
+前端代码推荐使用 vscode 开发，因为需要配合后面用到的**pont**接口层生成工具，还有就是对 `typescript` 比较友好。
 
 可以去官网自行下载安装 [官方站点](https://code.visualstudio.com/)。
 
-在插件拓展里，可以搜索安装需要的插件。来对 React.js、typescript 等更加友好的支持。
+在插件拓展里，可以搜索安装需要的插件。来对 `React.js` 、`typescript` 等更加友好的支持。
 
 常见的插件有如下：
 
@@ -42,7 +36,7 @@
 
 ## ES6
 
-对于 javascript，我们并不陌生，这里说的 ES6，甚至 ES7、ES8 等又是什么回事？
+对于 `javascript` ，我们并不陌生，这里说的 `ES6`，甚至 ES7、ES8 等又是什么回事？
 
 > ECMAScript 6.0（简称 ES6）是 JavaScript 语言的下一代标准，已经在 2015 年 6 月正式发布。它的目标，是使得 JavaScript 语言可以用来编写复杂的大型应用程序，成为企业级开发语言。
 
@@ -109,7 +103,7 @@ var f = function (v) {
 };
 ```
 
-值得一提的是，项目中，涉及到 class 组件时，会有 this 指针的问题，所以能用箭头函数，尽量用箭头函数定义函数。
+值得一提的是，项目中，涉及到 `class` 组件时，会有 `this` 指针的问题，所以能用箭头函数，**尽量用箭头函数定义函数**。
 
 ### 对象的拓展
 
@@ -160,7 +154,7 @@ promise.then(function(value) {
 
 > ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过 class 关键字，可以定义类。ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
 
-概念类比 java 中的 class，这里我们可能更需要关注的是 React 类组件
+概念类比 java 中的 `class`，这里我们可能更需要关注的是 React 类组件
 
 ```js
 import React, { Component } from 'react';
@@ -181,8 +175,8 @@ export default Page;
 
 ```js
 // a.js
-export const appName = 'DataMonitor';
-export default const SystemName = 'OneData';
+export const appName = 'Fz\'Blog';
+export default const SystemName = 'cloud-blog';
 ```
 
 使用 `export` 命令定义了模块的对外接口以后，其他 JS 文件就可以通过`import`命令加载这个模块。
@@ -198,7 +192,7 @@ import SystemName from './a.js';
 
 ## TypeScript
 
-typescript 面对 javascript 有什么优势？比较下两者的不同。
+`typescript` 面对 `javascript` 有什么优势？为什么选择前者，比较下两者的不同。
 
 > Typescript 是 Javascript 的超集。（Typescript = Type + Javascript）
 
@@ -206,8 +200,8 @@ typescript 面对 javascript 有什么优势？比较下两者的不同。
 
 ### 基本语法
 
-前面提到了，Typescript 就是在 javascript 加了一层**type**。 大家对 java 比较熟悉，java 是一个典型的强类型语言，任何变量都需要有自己的类型声明，但是 javascript 却是一个弱类型语言。 一个 number 类型的变量可以被赋值为 string 类型，这就带来了很多的麻烦。  
-Typescript 就是解决类型匹配和好的方案。我们可以看下面一段 java 代码和 typescript 代码。
+前面提到了，`Typescript` 就是在 `Javascript` 加了一层**type**。 大家对 java 比较熟悉，java 是一个典型的强类型语言，任何变量都需要有自己的类型声明，但是 `Javascript` 却是一个弱类型语言。 一个 `number` 类型的变量可以被赋值为 `string` 类型，这就带来了诸多的麻烦。  
+`Typescript` 就是解决类型匹配很好的方案。我们可以看下面一段 java 代码和 typescript 代码。
 
 Java：
 
@@ -231,7 +225,7 @@ const str: string = '我是字符串';
 class Cat {
   private name: string = 'biubiu';
 
-  // ? 表示该属性可能不存在
+  // ? 表示该属性可能不存在 即 undefined
   age?: number;
 
   cry(): string {
@@ -241,11 +235,14 @@ class Cat {
 }
 ```
 
-Typescript 与 Java 刚好相反，Java 的类型定义在变量前，Typescript 的类型定义在变量后。
+类型声明时，`Typescript` 与 `Java` 刚好相反，`Java` 的类型定义在变量前，`Typescript` 的类型定义在变量后。
 
 ### 基本类型
 
-Java => Typescript Java: Float, Integer, Double Typescript：number Java: String Typescript: string Java: Boolean Typescript: boolean
+Java => Typescript  
+Java: Float, Integer, Double ==> Typescript：number  
+Java: String ==> Typescript: string  
+Java: Boolean ==> Typescript: boolean
 
 示例：  
 Java：
@@ -254,7 +251,7 @@ Java：
 boolean userMan = true;
 int userAge = 81;
 float userAverage = 10.5;
-String userName = "Henri Bergson";
+String userName = "桐人";
 ```
 
 Typescript：
@@ -263,18 +260,18 @@ Typescript：
 let userMan: boolean = true;
 let userAge: number = 81;
 let userAverage: number = 10.5;
-let userName: string = 'Henri Bergson';
+let userName: string = '桐人';
 ```
 
 ### 任意值
 
 > 由于前端数据来源比较广而脆弱，对数据类型的灵活性要求也比较高，Typescript 发明了 any 类型，来应对各种类型不匹配的 edge case，快速解决类型问题无法编译通过的问题。
 
-在不清楚数据类型时，可以用`any`来定义。不过不建议大量使用。不然 ts 就没有什么意义了。
+在不清楚数据类型时，可以用`any`来定义。不过不建议大量使用。不然使用 `typescript` 就没有什么意义了。
 
 ### 复合类型
 
-- enum 语法比较一致
+enum 语法比较一致
 
 ```typescript
 // Java
@@ -345,7 +342,7 @@ class Cat = {
 let userMan = true;
 let userAge = 81;
 let userAverage = 10.5;
-let userName = 'Henri Bergson';
+let userName = '桐人';
 ```
 
 ### 函数定义
@@ -372,16 +369,16 @@ const multiply: (a: number, b: number) => number = (a, b) => a * b;
 
 > React 使创建交互式 UI 变得轻而易举。为你应用的每一个状态设计简洁的视图，当数据改变时 React 能有效地更新并正确地渲染组件。创建拥有各自状态的组件，再由这些组件构成更加复杂的 UI。组件逻辑使用 JavaScript 编写而非模版，因此你可以轻松地在应用中传递数据，并使得状态与 DOM 分离。一个通过 react 框架构成的前端应用，其构成结构为：元素 -> 组件 -> 模块 -> 页面 -> 站点； **牢记重点：状态、组件、单向数据流。**
 
-React.js 是一个帮助你构建页面 UI 的库。如果你熟悉 MVC 概念的话，那么 React 的组件就相当于 MVC 里面的 View。如果你不熟悉也没关系，你可以简单地理解为，React.js 将帮助我们将界面分成了各个独立的小块，每一个块就是组件，这些组件之间可以组合、嵌套，就成了我们的页面。一个组件的显示形态和行为有可能是由某些数据决定的。而数据是可能发生改变的，这时候组件的显示形态就会发生相应的改变。而 React.js 也提供了一种非常高效的方式帮助我们做到了数据和组件显示形态之间的同步。 React.js 不是一个框架，它只是一个库。它只提供 UI （view）层面的解决方案。在实际的项目当中，它并不能解决我们所有的问题，需要结合其它的库，例如 Redux、React-router 等来协助提供完整的解决方法。
+`React.js` 是一个帮助你构建页面 UI 的库。如果你熟悉 MVC 概念的话，那么 React 的组件就相当于 MVC 里面的 View。如果你不熟悉也没关系，你可以简单地理解为，`React.js` 将帮助我们将界面分成了各个独立的小块，每一个块就是组件，这些组件之间可以组合、嵌套，就成了我们的页面。一个组件的显示形态和行为有可能是由某些数据决定的。而数据是可能发生改变的，这时候组件的显示形态就会发生相应的改变。而 `React.js` 也提供了一种非常高效的方式帮助我们做到了数据和组件显示形态之间的同步。 `React.js` 不是一个框架，它只是一个库。**它只提供 UI （view）层面的解决方案**。在实际的项目当中，它并不能解决我们所有的问题，需要结合其它的库，例如 `Redux`、`React-router` 等来协助提供完整的解决方法。
 
-一个小 demo 帮你理解 react 在做什么？
+一个小 `Demo` 帮你理解 react 在做什么？
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>What Reactjs do?</title>
+    <title>What's Reactjs?</title>
     <style media="screen">
       .like-btn {
         font-size: 50px;
@@ -484,7 +481,7 @@ React.js 是一个帮助你构建页面 UI 的库。如果你熟悉 MVC 概念�
 </html>
 ```
 
-**更详细的理解 React.js 可以查看[这里](http://zzzzzzoooo.gitee.io);**
+**更详细的理解 React.js 可以查看[这里](http://fangzhioooo.gitee.io);**
 
 ### jsx
 
@@ -507,7 +504,7 @@ class Page extends Component {
 ReactDOM.render(<Page />, document.getElementById('root'));
 ```
 
-想了解更多可以查看[jsx 的原理](http://zzzzzzoooo.gitee.io)
+想了解更多可以查看[jsx 的原理](http://fangzhioooo.gitee.io)
 
 从 jsx 到页面的过程，大致如下：
 
@@ -748,7 +745,15 @@ class Child extends React.Component {
 
 ### ✨ 特性
 
-📦 开箱即用，内置 react、react-router 等 🏈 类 next.js 且功能完备的路由约定，同时支持配置的路由方式 🎉 完善的插件体系，覆盖从源码到构建产物的每个生命周期 🚀 高性能，通过插件支持 PWA、以路由为单元的 code splitting 等 💈 支持静态页面导出，适配各种环境，比如中台业务、无线业务、egg、支付宝钱包、云凤蝶等 🚄 开发启动快，支持一键开启 dll 等 🐠 一键兼容到 IE9，基于 umi-plugin-polyfills 🍁 完善的 TypeScript 支持，包括 d.ts 定义和 umi test 🌴 与 dva 数据流的深入融合，支持 duck directory、model 的自动加载、code splitting 等等
+- 📦 开箱即用，内置 react、react-router 等
+- 🏈 类 next.js 且功能完备的路由约定，同时支持配置的路由方式
+- 🎉 完善的插件体系，覆盖从源码到构建产物的每个生命周期
+- 🚀 高性能，通过插件支持 PWA、以路由为单元的 code splitting 等
+- 💈 支持静态页面导出，适配各种环境，比如中台业务、无线业务、egg、支付宝钱包、云凤蝶等
+- 🚄 开发启动快，支持一键开启 dll 等
+- 🐠 一键兼容到 IE9，基于 umi-plugin-polyfills
+- 🍁 完善的 TypeScript 支持，包括 d.ts 定义和 umi test
+- 🌴 与 dva 数据流的深入融合，支持 duck directory、model 的自动加载、code splitting 等等
 
 关于 roadhog 与 umi.js 的关系？
 
@@ -794,7 +799,12 @@ dva 流程：
 
 ### ✨ 特性
 
-🌈 提炼自企业级中后台产品的交互语言和视觉风格。 📦 开箱即用的高质量 React 组件。 🛡 使用 TypeScript 开发，提供完整的类型定义文件。 ⚙️ 全链路开发和设计工具体系。 🌍 数十个国际化语言支持。 🎨 深入每个细节的主题定制能力。
+- 🌈 提炼自企业级中后台产品的交互语言和视觉风格。
+- 📦 开箱即用的高质量 React 组件。
+- 🛡 使用 TypeScript 开发，提供完整的类型定义文件。
+- ⚙️ 全链路开发和设计工具体系。
+- 🌍 数十个国际化语言支持。
+- 🎨 深入每个细节的主题定制能力。
 
 这里 UI 组件，在项目中会大量用到，具体的用法可以查看[组件库](https://ant-design.gitee.io/components/button-cn/)，有详细的使用 Demo 和文档说明。
 
@@ -812,7 +822,7 @@ dva 流程：
 
 ## 从零开始构建项目
 
-目前 [datacompare](https://datacompare.alibaba-inc.com/) 和 [datamonitor](https://datamonitor.alibaba-inc.com/) 采用的前端也是[umi.js](https://umijs.org/zh/) 这一套；接下来，我们从零开始搭建一个前端项目，以 `OneData` 为基础。
+现有的 OneData 系列的三个产品，均采用的前端也是目前这一套技术栈；接下来，我们从零开始搭建一个前端项目，以 `OneData` 为基础。
 
 ### 使用 create-umi 脚手架创建基础项目
 
@@ -831,7 +841,7 @@ success Installed "create-umi@0.21.2" with binaries:
 ? 🤓 Which language do you want to use? TypeScript
 ? 🚀 Do you need all the blocks or a simple scaffold? simple
 ? 🦄 Time to use better, faster and latest antd@4! Yes
-Cloning into '/Users/zzzzzz/Desktop/Project/onedefine/onedefine-ts'...
+Cloning into '/Users/fz/Desktop/Project/onedefine/onedefine-ts'...
 remote: Enumerating objects: 189, done.
 remote: Counting objects: 100% (189/189), done.
 remote: Compressing objects: 100% (174/174), done.
@@ -885,7 +895,7 @@ root
 
 ### 接入接口层自动生成工具 pont
 
-**这里需要后端提供的接口尽量标准，请求方法明确；虽然理论上可以实现 RESTful 风格的接口，但是暂时不太好实践 ，后端暂时不要使用。**
+**这里需要后端提供的接口尽量标准（openapi），关于 api 文档，官方推荐 swagger2+版本，请求方法明确；虽然理论上可以实现 RESTful 风格的接口，但是暂时不太好实践 ，后端暂时不要使用。**
 
 1. 在根目录下添加`pont-config.json`和其中指定的`templatePath`文件`pontTemplate.ts`.
 
@@ -1017,7 +1027,7 @@ pont
 
 1. 修改 host  
    访问线上项目，获取到 cookie 后，修改 host，让线上地址指向本地 localhost。  
-   如访问 `datamonitor.alibaba-inc.com`后，修改 host， 将`datamonitor.alibaba-inc.com`指向 `localhost`.这种方法很麻烦。且需要频繁修改 host。所以一般不这样做。
+   如访问 `yourdomain.com`后，修改 host， 将`yourdomain.com`指向 `localhost`.这种方法很麻烦。且需要频繁修改 host。所以一般不这样做。
 
 2. 代理请求在应对这种情况时，前端开发已经有了好的解决方法，通过提供的 umi 插件，实现代理请求。  
    在 `config` 中，会有一个 `proxy.ts` 文件，用来定义接口代理的配置。这个功能只在`dev`环境生效，线上需要自己配置实现，如`nginx反向代理`。
@@ -1126,11 +1136,15 @@ useEffect(() => {
 
 对于`umi.js`的项目而言，项目构建只需要在项目根目录下运行 `npm run build`，就可以打包构建项目了，会在根目录下生成`dist`文件夹，如果没有设置按需加载，那么只会打包出 `index.html`、`umi.js`和`umi.css` 三个文件。一般而言，只需要将这些静态资源发布到 web 服务器即可。
 
-因为目前项目使用的是`volecity`的模版引擎，严格来说，是前后端不分离的写法。在已经提供了`index.html`的情况，我们只需要向模版页面提供**js**和**css**，并在页面中添加 react 的根节点元素即可。那我们部署的流程如下：
+因为目前项目使用的是`volecity`的模版引擎，严格来说，是前后端不分离的写法。在已经提供了`index.html`的情况，我们只需要向模版页面提供**js**和**css**，并在页面中添加 `react 的根节点元素`即可。那我们部署的流程如下：
 
-前端打包 --> 将打包好的`umi.js`和`umi.css`文件移动到 java 工程的静态资源文件夹下 --> `volecity`模版中引入 js 和 css --> 后端 aone 发布。
+1. 前端打包;
+2. 将打包好的`umi.js`和`umi.css`文件移动到工程静态资源文件夹下;
+3. `volecity`模版中引入 js 和 css;
+4. 后端 aone 发布。
 
-注意前端需要配置为禁止打包 hash 和使用 hash 路由，如果静态资源未配置，那么建议也不要页面按需加载打包了。
+注意前端需要配置为禁止打包 hash 和使用 hash 路由，如果静态资源未配置，那么建议也不要页面按需加载打包了。  
+当然也有通过配置 `config.ts`中的`base`，部署到非根目录，再在`controller`中，添加对应的路径映射，避免了页面路由和 api 请求冲突。
 
 ### 版本控制
 
@@ -1140,10 +1154,10 @@ useEffect(() => {
 
 ```json
 {
-  "name": "onedefine",
+  "name": "xxxx",
   "version": "0.0.2",
   "private": true,
-  "description": "onedefine前端项目",
+  "description": "xxx前端项目",
   "scripts": {
     "build": "umi build",
     "deploy": "umi build && mkdir ../onedefine-start/src/main/resources/static/${npm_package_version} &&  cp  -r dist/* ../onedefine-start/src/main/resources/static/${npm_package_version}",
@@ -1173,13 +1187,15 @@ java 代码如下：
 
 ```velocity
 	## 判断前端版本
-    #if(!$!projectfrontversion)
+  #if(!$!projectfrontversion)
     <h1>前端版本获取失败</h1>
-    #else
+  #else
     <link rel="stylesheet" href="/static/$!projectfrontversion/umi.css"/>
     <script type="text/javascript" src="/static/$!projectfrontversion/umi.js"></script>
-    #end
+  #end
 ```
+
+以上部署方法比较死板，需要修改很多文件。按照之前的 def 发布经验，即使不使用 diamond 的情况下，也可以通过配置中心的方式控制版本。这里不多介绍。
 
 # 相关链接
 
@@ -1189,5 +1205,3 @@ java 代码如下：
 - [React.js](https://react.docschina.org/docs/getting-started.html)
 - [Typescript](https://www.tslang.cn/docs/home.html)
 - ...
-
-# 附件

@@ -1,5 +1,5 @@
 /**
- * @description listArticleByQuery
+ * @description 获取文章列表
  */
 
 import Request from '@/utils/request';

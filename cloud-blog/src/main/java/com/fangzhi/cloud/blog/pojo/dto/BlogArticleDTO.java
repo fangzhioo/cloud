@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * @author fangzhi
+ * @description 文章提交时，所传对象
  */
 @Data
 public class BlogArticleDTO {

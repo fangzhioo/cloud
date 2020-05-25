@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * @author fangzhi
+ * @description  前端展示文章的VO
  */
 @Data
 @Builder

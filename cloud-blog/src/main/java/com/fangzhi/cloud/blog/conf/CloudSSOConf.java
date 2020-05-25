@@ -9,6 +9,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author fangzhi
+ */
 @Configuration
 public class CloudSSOConf implements DisposableBean {
     @Value("${cloud-sso.server}")
@@ -24,7 +27,8 @@ public class CloudSSOConf implements DisposableBean {
     private String xxlSsoRedisAddress;
 
     private String[] urlPatterns = {
-            "/*",
+            "/api/login",
+            "/api/logout"
     };
 
     @Bean

@@ -9,7 +9,7 @@ public class CommonPageQuery {
      * 【注意】数据库中offset是从0开始，这里的current是从1开始
      */
     private int current = 1;
-    private int pageSize = 5;
+    private int pageSize = 10;
 
     public int getCurrent() {
         return current;

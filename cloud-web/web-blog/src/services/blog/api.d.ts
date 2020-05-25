@@ -141,7 +141,34 @@ declare namespace API {
      */
     export namespace blogArticle {
       /**
-       * getArticleById
+       * countArticleByQuery
+       * /api/article/countArticleByQuery
+       */
+      export namespace countArticleByQuery {
+        export class Params {
+          /** current */
+          current?: number;
+          /** limit */
+          limit?: number;
+          /** offset */
+          offset?: number;
+          /** pageSize */
+          pageSize?: number;
+        }
+
+        export type Response = defs.blog.CommonResult<number>;
+
+        export const init: Response;
+
+        export function request({
+          params,
+        }: {
+          params: Params;
+        }): Promise<Response>;
+      }
+
+      /**
+       * 获取文章详情
        * /api/article/getArticleById
        */
       export namespace getArticleById {
@@ -162,7 +189,7 @@ declare namespace API {
       }
 
       /**
-       * listArticleByQuery
+       * 获取文章列表
        * /api/article/listArticleByQuery
        */
       export namespace listArticleByQuery {
@@ -222,6 +249,41 @@ declare namespace API {
         export class Params {}
 
         export type Response = defs.blog.CommonResult;
+
+        export const init: Response;
+
+        export function request({}: { params?: Params }): Promise<Response>;
+      }
+
+      /**
+       * login
+       * /api/login
+       */
+      export namespace login {
+        export class Params {
+          /** redirect_url */
+          redirect_url?: string;
+        }
+
+        export type Response = defs.blog.CommonResult;
+
+        export const init: Response;
+
+        export function request({
+          params,
+        }: {
+          params: Params;
+        }): Promise<Response>;
+      }
+
+      /**
+       * logout
+       * /api/logout
+       */
+      export namespace logout {
+        export class Params {}
+
+        export type Response = any;
 
         export const init: Response;
 

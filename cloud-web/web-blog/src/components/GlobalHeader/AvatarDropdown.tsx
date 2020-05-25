@@ -1,5 +1,5 @@
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Menu, Spin } from 'antd';
+import { Avatar, Menu, Spin, Button } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
 import { history, ConnectProps, connect } from 'umi';
@@ -11,6 +11,7 @@ import styles from './index.less';
 export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
   currentUser?: CurrentUser;
   menu?: boolean;
+  loading?: boolean;
 }
 
 class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
@@ -18,7 +19,6 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     const { key } = event;
 
     if (key === 'logout') {
-
       return;
     }
 
@@ -32,6 +32,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
         nickName: '',
       },
       menu,
+      loading = false,
     } = this.props;
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
@@ -55,27 +56,29 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
         </Menu.Item>
       </Menu>
     );
-    return currentUser && currentUser.userId ? (
-      <HeaderDropdown overlay={menuHeaderDropdown}>
-        <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-          <span className={styles.name}>{currentUser.nickName}</span>
-        </span>
-      </HeaderDropdown>
+    return currentUser && currentUser.userId !== undefined ? (
+      <Spin spinning={loading}>
+        <HeaderDropdown overlay={menuHeaderDropdown}>
+          <span className={`${styles.action} ${styles.account}`}>
+            <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+            <span className={styles.name}>{currentUser.nickName}</span>
+          </span>
+        </HeaderDropdown>
+      </Spin>
     ) : (
-        <span className={`${styles.action} ${styles.account}`}>
-          <Spin
-            size="small"
-            style={{
-              marginLeft: 8,
-              marginRight: 8,
-            }}
-          />
-        </span>
-      );
+      <span className={`${styles.action} ${styles.account}`}>
+        <Button type="link">登陆</Button>
+      </span>
+    );
   }
 }
 
-export default connect(({ user }: ConnectState) => ({
-  currentUser: user.currentUser,
-}), null, null, { forwardRef: true })(AvatarDropdown);
+export default connect(
+  ({ user, loading }: ConnectState) => ({
+    currentUser: user.currentUser,
+    loading: loading.effects['user/currentUser'],
+  }),
+  null,
+  null,
+  { forwardRef: true },
+)(AvatarDropdown);

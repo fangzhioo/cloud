@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { FzmdPriviewParser } from '@/components/FzMdEditor';
 import { getUrlParam } from '@/utils/utils';
 import * as _ from 'lodash';
-import { message, Empty, Row, Col, Anchor, Skeleton, Avatar } from 'antd';
+import { Empty, Row, Col, Skeleton, Avatar } from 'antd';
 import CommentList from './components/CommentList';
 import './index.css';
 import { GridContent } from '@ant-design/pro-layout';
 import getMKTitles from '@/utils/getMarkDownTOC';
 import MdTocAnchor from './components/MdTocAnchor';
-import { connect } from 'umi';
-import { ConnectState, ConnectProps } from '@/models/connect';
+import { connect, ConnectProps } from 'umi';
+import { ConnectState } from '@/models/connect';
 
 const DEFAULT_MD_THEME = 'normal|macAtomOneDark';
 
@@ -42,12 +42,14 @@ class ArticleDetailPage extends Component<Props & ConnectProps, State> {
   componentDidMount() {
     const { location, dispatch } = this.props;
     const articleId = Number(getUrlParam('aid', location));
-    dispatch({
-      type: 'article/fetchArticleDetail',
-      payload: {
-        params: { articleId },
-      },
-    });
+    if (dispatch) {
+      dispatch({
+        type: 'article/fetchArticleDetail',
+        payload: {
+          params: { articleId },
+        },
+      });
+    }
   }
 
   render() {
@@ -60,11 +62,9 @@ class ArticleDetailPage extends Component<Props & ConnectProps, State> {
     if (aHtml === null) {
       return <Empty description="没有找到文章哟～～" />;
     }
-    const cover = _.get(
-      articleDetail,
-      'cover',
-      `https://i.picsum.photos/id/${articleId || '521'}/1200/300.jpg`,
-    );
+    const cover = _.get(articleDetail, 'cover');
+    const defaultCover =
+      cover === null ? `https://i.picsum.photos/id/${articleId || '521'}/1200/300.jpg` : cover;
     const title = _.get(articleDetail, 'title', '');
     const authorAvatar = _.get(articleDetail, 'authorAvatar', '');
     const authorNickname = _.get(articleDetail, 'authorNickname', '');
@@ -74,7 +74,10 @@ class ArticleDetailPage extends Component<Props & ConnectProps, State> {
     return (
       <GridContent>
         <div className="article-detail-wapper">
-          <div className="article-detail-header" style={{ backgroundImage: `url(${cover})` }}>
+          <div
+            className="article-detail-header"
+            style={{ backgroundImage: `url(${defaultCover})` }}
+          >
             <div className="article-detail-header-mark">
               <div className="article-detail-title">{title}</div>
               <div className="article-detail-author">

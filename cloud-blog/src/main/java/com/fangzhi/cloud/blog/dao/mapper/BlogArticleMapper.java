@@ -37,4 +37,6 @@ public interface BlogArticleMapper {
     int updateByPrimaryKey(BlogArticle record);
 
     List<BlogArticle> listByQuery(BlogArticleQuery query);
+
+    long countByQuery(BlogArticleQuery query);
 }

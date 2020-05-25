@@ -55,7 +55,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'blog',
+  title: 'Fz\' Blog',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;

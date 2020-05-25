@@ -16,7 +16,7 @@ public interface BlogArticleService {
 
     List<BlogArticleVO> listByQuery(BlogArticleQuery query);
 
-    Integer countByQuery(BlogArticleQuery query);
+    Long countByQuery(BlogArticleQuery query);
 
     Integer delById(Integer id);
 
