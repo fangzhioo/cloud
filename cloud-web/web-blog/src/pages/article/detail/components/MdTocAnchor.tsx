@@ -21,7 +21,9 @@ const MdTocAnchorLink: React.FC<Props> = (props = new Props()) => {
 
   const links = toc.map((item) => (
     <Anchor.Link key={item.index} href={`#${encodeURI(item.title)}`} title={item.title}>
-      {item.children && item.children.map((cell) => <MdTocAnchorLink toc={cell.children} />)}
+      {item.children &&
+        item.children.length > 0 &&
+        item.children.map((cell) => <MdTocAnchorLink key={cell.index} toc={cell.children} />)}
     </Anchor.Link>
   ));
 

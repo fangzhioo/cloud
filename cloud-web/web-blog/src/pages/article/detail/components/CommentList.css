@@ -1,0 +1,15 @@
+.article-comments-wapper {
+  padding: 20px 10px 40px;
+  border-bottom: 1px dotted #cfcfcf;
+}
+
+/* tile uploaded pictures */
+.comment-action {
+  padding-left: 8px;
+  cursor: 'auto';
+}
+
+[class*='-col-rtl'] .comment-action {
+  padding-right: 8px;
+  padding-left: 0;
+}

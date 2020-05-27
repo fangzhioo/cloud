@@ -360,8 +360,8 @@
             "path": "/api/logout",
             "response": {
               "typeArgs": [],
-              "typeName": "",
-              "isDefsType": false,
+              "typeName": "CommonResult",
+              "isDefsType": true,
               "templateIndex": -1,
               "compileTemplateKeyword": "#/definitions/",
               "enum": [],

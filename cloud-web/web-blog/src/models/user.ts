@@ -1,4 +1,5 @@
 import { Effect, Reducer } from 'umi';
+import { message } from 'antd';
 
 const defaultUserId = window.userId === '' ? undefined : window.userId;
 const defaultNickName = window.nickName;
@@ -19,6 +20,8 @@ export interface UserModelType {
   state: UserModelState;
   effects: {
     fetchCurrent: Effect;
+    fetchUserLogin: Effect;
+    fetchUserLogout: Effect;
   };
   reducers: {
     saveCurrentUser: Reducer<UserModelState>;
@@ -40,6 +43,21 @@ const UserModel: UserModelType = {
           type: 'saveCurrentUser',
           payload: response.data,
         });
+      }
+    },
+    *fetchUserLogin(_, { call }) {
+      const params: API.blog.user.login.Params = { redirect_url: `${window.location.origin}` };
+      const res = yield call(API.blog.user.login.request, { params });
+      if (res) {
+        window.location.href = _.get(res, 'data', window.location.origin);
+      } else {
+        message.warning(res.msg);
+      }
+    },
+    *fetchUserLogout(_, { call }) {
+      const res = yield call(API.blog.user.logout.request, {});
+      if (res) {
+        window.location.reload();
       }
     },
   },

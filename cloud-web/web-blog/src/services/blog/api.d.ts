@@ -283,7 +283,7 @@ declare namespace API {
       export namespace logout {
         export class Params {}
 
-        export type Response = any;
+        export type Response = defs.blog.CommonResult;
 
         export const init: Response;
 

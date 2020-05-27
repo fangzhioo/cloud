@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { FzmdPriviewParser } from '@/components/FzMdEditor';
 import { getUrlParam } from '@/utils/utils';
 import * as _ from 'lodash';
-import { Empty, Row, Col, Skeleton, Avatar } from 'antd';
+import { Empty, Row, Col, Skeleton, Avatar, BackTop } from 'antd';
 import CommentList from './components/CommentList';
 import './index.css';
-import { GridContent } from '@ant-design/pro-layout';
 import getMKTitles from '@/utils/getMarkDownTOC';
 import MdTocAnchor from './components/MdTocAnchor';
 import { connect, ConnectProps } from 'umi';
 import { ConnectState } from '@/models/connect';
+import PageNav from './components/PageNav';
 
 const DEFAULT_MD_THEME = 'normal|macAtomOneDark';
 
@@ -64,7 +64,7 @@ class ArticleDetailPage extends Component<Props & ConnectProps, State> {
     }
     const cover = _.get(articleDetail, 'cover');
     const defaultCover =
-      cover === null ? `https://i.picsum.photos/id/${articleId || '521'}/1200/300.jpg` : cover;
+      cover === null ? `https://i.picsum.photos/id/${articleId || '521'}/1900/875.jpg` : cover;
     const title = _.get(articleDetail, 'title', '');
     const authorAvatar = _.get(articleDetail, 'authorAvatar', '');
     const authorNickname = _.get(articleDetail, 'authorNickname', '');
@@ -72,40 +72,38 @@ class ArticleDetailPage extends Component<Props & ConnectProps, State> {
     const toc = getTOC(aHtml);
 
     return (
-      <GridContent>
-        <div className="article-detail-wapper">
-          <div
-            className="article-detail-header"
-            style={{ backgroundImage: `url(${defaultCover})` }}
-          >
-            <div className="article-detail-header-mark">
-              <div className="article-detail-title">{title}</div>
-              <div className="article-detail-author">
-                <Avatar size="small" src={authorAvatar} />
-                <div className="article-detail-author-nickname"> {authorNickname}</div>
-                <div className="article-detail-created">{gmtCreate}</div>
-              </div>
+      <div className="article-detail-wapper">
+        <div className="article-detail-header" style={{ backgroundImage: `url(${defaultCover})` }}>
+          <PageNav />
+          <div className="article-detail-header-mark">
+            <div className="article-detail-title">{title}</div>
+            <div className="article-detail-author">
+              <Avatar size="small" src={authorAvatar} />
+              <div className="article-detail-author-nickname"> {authorNickname}</div>
+              <div className="article-detail-created">{gmtCreate}</div>
             </div>
           </div>
-          <div className="article-detail-content">
-            <Row gutter={24}>
-              <Col lg={17} md={24}>
-                <Skeleton active loading={loading}>
-                  <FzmdPriviewParser content={aHtml} themeId={themeId} codeThemeId={codeThemeId} />
-                </Skeleton>
-              </Col>
-              <Col lg={7} md={24}>
-                <Skeleton active loading={loading}>
-                  <MdTocAnchor toc={toc} />
-                </Skeleton>
-              </Col>
-            </Row>
-          </div>
-          <div className="article-detail-footer">
-            <CommentList />
-          </div>
         </div>
-      </GridContent>
+        <div className="article-detail-content">
+          <Row gutter={24}>
+            <Col lg={18} md={24}>
+              <Skeleton active loading={loading}>
+                <FzmdPriviewParser content={aHtml} themeId={themeId} codeThemeId={codeThemeId} />
+              </Skeleton>
+              <Skeleton active loading={loading}>
+                <CommentList />
+              </Skeleton>
+            </Col>
+            <Col lg={6} md={24}>
+              <Skeleton active loading={loading}>
+                <MdTocAnchor toc={toc} />
+              </Skeleton>
+            </Col>
+          </Row>
+          <BackTop />
+        </div>
+        <div className="article-detail-footer"></div>
+      </div>
     );
   }
 }

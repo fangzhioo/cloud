@@ -27,8 +27,8 @@ public class CloudSSOConf implements DisposableBean {
     private String xxlSsoRedisAddress;
 
     private String[] urlPatterns = {
-            "/api/login",
-            "/api/logout"
+//            "/api/login",
+//            "/api/logout"
     };
 
     @Bean

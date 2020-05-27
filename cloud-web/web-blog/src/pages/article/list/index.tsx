@@ -14,7 +14,7 @@ class Props {
   countQuery?: number = 0;
 }
 
-const ArticleListPage: React.FC<Props & ConnectProps> = (props) => {
+const ArticleListPage: React.FC<Props & Partial<ConnectProps>> = (props) => {
   const { dataSource = [], countQuery = 0, loading, dispatch, listQuery } = props;
   const pageStart = _.get(listQuery, 'current', 1);
   const handleInfinite = (page: number) => {

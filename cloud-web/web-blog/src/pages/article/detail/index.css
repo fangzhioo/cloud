@@ -4,7 +4,7 @@
   width: 100%;
 }
 .article-detail-header {
-  height: 300px;
+  height: 80vh;
   width: 100%;
   margin-bottom: 20px;
   position: relative;
@@ -12,7 +12,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('https://i.picsum.photos/id/20/1200/500.jpg');
+  background-image: url('https://i.picsum.photos/id/20/1900/875.jpg');
   background-color: #fff;
 }
 .article-detail-header-mark {
@@ -45,14 +45,14 @@
 }
 
 .article-detail-content {
-  padding: 0 60px;
-  max-width: 1440px;
-  margin-bottom: 24px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto 24px;
 }
 
 .article-detail-footer {
   padding: 20px 60px 100px;
-  max-width: 1440px;
+  max-width: 1200px;
   border-top: 1px #efefef solid;
   box-shadow: rgba(146, 144, 144, 0.35) 0px 2px 2px;
 }

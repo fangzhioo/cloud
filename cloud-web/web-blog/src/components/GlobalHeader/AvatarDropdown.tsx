@@ -19,10 +19,21 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     const { key } = event;
 
     if (key === 'logout') {
+      const { dispatch } = this.props;
+      if (dispatch) {
+        dispatch({ type: 'user/fetchUserLogout' });
+      }
       return;
     }
 
     history.push(`/account/${key}`);
+  };
+
+  handleLogin = () => {
+    const { dispatch } = this.props;
+    if (dispatch) {
+      dispatch({ type: 'user/fetchUserLogin' });
+    }
   };
 
   render(): React.ReactNode {
@@ -67,7 +78,9 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       </Spin>
     ) : (
       <span className={`${styles.action} ${styles.account}`}>
-        <Button type="link">登陆</Button>
+        <Button onClick={this.handleLogin} type="link">
+          登陆
+        </Button>
       </span>
     );
   }

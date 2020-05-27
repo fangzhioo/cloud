@@ -5,14 +5,13 @@ import com.fangzhi.cloud.common.pojo.bo.CommonResult;
 import com.fangzhi.cloud.sso.core.constant.SSOConstant;
 import com.fangzhi.cloud.sso.pojo.CommonUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class UserController {
 
@@ -20,8 +19,11 @@ public class UserController {
     BlogUserService blogUserService;
     @Autowired
     HttpServletRequest request;
+    @Value("${cloud-sso.server}")
+    private String xxlSsoServer;
 
     @GetMapping("/currentUser")
+    @ResponseBody
     public CommonResult currentUser(){
         CommonUserInfo currentUser = blogUserService.getCurrentUser();
         if(currentUser != null){
@@ -34,11 +36,11 @@ public class UserController {
     @GetMapping("/login")
     public CommonResult login(@RequestParam(value = SSOConstant.REDIRECT_URL,required = false) String redirectUrl){
         // success redirect
-        return this.currentUser();
+        return CommonResult.success(xxlSsoServer+SSOConstant.SSO_LOGIN+"?"+SSOConstant.REDIRECT_URL+ "=" + redirectUrl);
     }
 
     @GetMapping("/logout")
-    public void logout(){
-        return;
+    public CommonResult logout(){
+         return CommonResult.success("logout success!");
     }
 }

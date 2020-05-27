@@ -18,6 +18,11 @@ const routers = [
     ],
   },
   {
+    path: '/article/detail',
+    exact: true,
+    component: './article/detail',
+  },
+  {
     path: '/test',
     component: '@/layouts/TestLayout',
     routes: [
@@ -47,11 +52,6 @@ const routers = [
         exact: true,
         icon: 'book',
         component: './article/list',
-      },
-      {
-        path: '/article/detail',
-        exact: true,
-        component: './article/detail',
       },
       {
         path: '/publish',
