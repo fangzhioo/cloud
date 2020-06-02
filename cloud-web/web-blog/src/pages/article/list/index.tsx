@@ -17,7 +17,7 @@ class Props {
 const ArticleListPage: React.FC<Props & Partial<ConnectProps>> = (props) => {
   const { dataSource = [], countQuery = 0, loading, dispatch, listQuery } = props;
   const pageStart = _.get(listQuery, 'current', 1);
-  const handleInfinite = (page: number) => {
+  const handleInfinite = _.debounce((page: number) => {
     // handleInfinite
     console.log('handleInfinite', page);
     // setLoading(true);
@@ -56,7 +56,7 @@ const ArticleListPage: React.FC<Props & Partial<ConnectProps>> = (props) => {
         },
       });
     }
-  };
+  }, 1000);
 
   useEffect(() => {
     handleInfinite(1);

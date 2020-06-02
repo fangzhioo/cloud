@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>SSO统一认证中心</title>
+    <link rel="icon" href="/favicon.png" type="image/x-icon" />
 </head>
 <body style="display: flex; justify-content: center;">
 <div style="padding-left: 20px;padding-top: 80px;">
