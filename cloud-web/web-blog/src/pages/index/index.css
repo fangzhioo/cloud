@@ -1,0 +1,24 @@
+.home-page {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+.page-container {
+  position: absolute;
+}
+.one-image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  z-index: -1;
+}
+.image-cell {
+  width: 100%;
+  height: 100vh;
+}

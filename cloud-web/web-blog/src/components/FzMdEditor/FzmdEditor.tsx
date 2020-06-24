@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as _ from 'lodash';
 import CodeMirror, { Editor } from '@uiw/react-codemirror';
 import { LAYOUT_ID, BOX_ID } from './util/constant';
 import { markdownParser, handleThemeRender, handleCodeThemeRender } from './util/helper';
